@@ -3,8 +3,9 @@
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-  <typeAliases>
-    <typeAlias type="com.lookmarket.goods.vo.GoodsVO" alias="goodsVO" />
-    <typeAlias type="com.lookmarket.goods.vo.ImageFileVO" alias="imageFileVO" />    
-  </typeAliases>
+	<typeAliases>
+    	<typeAlias type="com.lookmarket.goods.vo.GoodsVO" alias="goodsVO" />
+    	<typeAlias type="com.lookmarket.goods.vo.ImageFileVO" alias="imageFileVO" />
+    	<typeAlias type="com.lookmarket.member.vo.MemberVO" alias="memberVO" /> 
+  	</typeAliases>
 </configuration>

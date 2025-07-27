@@ -12,9 +12,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller("mainController")
+@RequestMapping(value="/main")
 public class MainController extends BaseController{
 	
-	@RequestMapping(value="/main/main.do", method= {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="/main.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		HttpSession session;
 		ModelAndView mav = new ModelAndView();
