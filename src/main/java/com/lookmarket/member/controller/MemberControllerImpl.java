@@ -1,5 +1,7 @@
 package com.lookmarket.member.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lookmarket.member.service.MemberServiceImpl;
+import com.lookmarket.mail.service.MailService;
+import com.lookmarket.member.service.MemberService;
+import com.lookmarket.member.service.NaverLoginService;
 import com.lookmarket.member.vo.MemberVO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,9 +30,13 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping(value="/member")
 public class MemberControllerImpl implements MemberController {
 	@Autowired
-	private MemberServiceImpl memberService;
+	private MemberService memberService;
 	@Autowired
 	private MemberVO memberVO;
+	@Autowired
+	private MailService mailService;
+	@Autowired
+	private NaverLoginService naverLoginService;
 	
 	@Override
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
@@ -57,6 +66,27 @@ public class MemberControllerImpl implements MemberController {
 	}
 	
 	@Override
+	@RequestMapping(value = "/naverCallback.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String naverCallback(@RequestParam("code") String code, @RequestParam("state") String state, HttpSession session, Model model) throws Exception {
+		System.out.println("Naver Callback 들어옴!");
+
+		MemberVO naverMember = naverLoginService.getNaverUserInfo(code, state);
+		
+        if (naverMember != null) {
+            // 6단계: 로그인 성공 처리 (세션에 회원 정보 저장)
+            session.setAttribute("isLogOn", true);
+            session.setAttribute("memberInfo", naverMember);
+            
+            // 메인 페이지로 리다이렉트
+            return "redirect:/main/main.do";
+        } else {
+            // 실패 시 에러 페이지나 로그인 페이지로 이동
+            model.addAttribute("message", "네이버 로그인에 실패했습니다.");
+            return "forward:/member/loginForm.do";
+        }
+	}
+	
+	@Override
 	@RequestMapping(value="/logout.do", method={RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		//로그아웃
@@ -65,6 +95,7 @@ public class MemberControllerImpl implements MemberController {
 		session.setAttribute("isLogOn", false);
 		session.removeAttribute("memberInfo");
 		mav.setViewName("redirect:/main/main.do");
+		session.invalidate();
 		
 		return mav;
 	}
@@ -77,6 +108,15 @@ public class MemberControllerImpl implements MemberController {
 		//AJAX 사용
 		String result = memberService.overlapped(m_id);
 		return result;
+	}
+	
+	@Override
+	@RequestMapping(value="/mailCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String mailCheck(@RequestParam("email") String email) throws Exception{
+		//이메일 인증
+		String authCode = mailService.joinEmail(email);
+		return authCode;
 	}
 	
 	@Override
@@ -99,10 +139,15 @@ public class MemberControllerImpl implements MemberController {
 			_memberVO.setM_gender(2);
 		}
 		
-		//회원등급 넣기
+		//회원등급
 		_memberVO.setM_role(1);
 		
-		//가입일 넣기
+		//가입일
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
+		String m_joindate = sdf.format(now);
+		
+		_memberVO.setM_joindate(m_joindate);
 		
 		try {
 			memberService.addMember(_memberVO);

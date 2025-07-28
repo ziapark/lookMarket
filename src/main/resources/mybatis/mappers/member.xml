@@ -32,6 +32,13 @@
 		]]>
 	</select>
 	
+	<select id="selectMemberByEmail" parameterType="String" resultType="memberVO">
+		<![CDATA[
+			SELECT * FROM member
+			WHERE m_email = #{email}
+		]]>
+	</select>
+	
 	<select id="selectOverlappedID" parameterType="String" resultType="String">
 		<![CDATA[
 			SELECT IF(COUNT(*) > 0, 'true', 'false')
@@ -39,6 +46,7 @@
 			WHERE m_id = #{m_id} 
 		]]>
 	</select>
+	
 	<insert id="insertNewMember" parameterType="memberVO">
 		<![CDATA[
 			INSERT INTO member(m_id,

@@ -23,6 +23,12 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 	@Override
+	public MemberVO selectMemberByEmail(String email) throws DataAccessException{
+		memberVO = (MemberVO)sqlSession.selectOne("mapper.member.selectMemberByEmail", email);
+		return memberVO;
+	}
+	
+	@Override
 	public String selectOverlappedID(String m_id) throws DataAccessException{
 		String result = sqlSession.selectOne("mapper.member.selectOverlappedID", m_id);
 		return result;

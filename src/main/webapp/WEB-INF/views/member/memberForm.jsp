@@ -7,8 +7,108 @@
 <head>
 	<meta charset="UTF-8">
 	<title>회원가입창</title>
-	<script src="http://dmap.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
+		$(document).ready(function(){
+			let isIdChecked = false;
+			let isEmailVerified = false;
+			let serverAuthCode = "";
+			
+			$("#btnOverlapped").click(function(){
+				const _m_id = $("#_m_id").val();
+				
+				if(_m_id ==''){
+					alert("아이디를 입력하세요.");
+					return ;
+				}
+				
+				$.ajax({
+					type:"post",
+					async:false,
+					url:"${contextPath}/member/overlapped.do",
+					dataType:"text",
+					data:{m_id:_m_id},
+					success:function(data, textStatus){
+						if(data=='false'){
+							alert("사용할 수 있는 아이디입니다.");
+							$('#btnOverlapped').prop("disabled", true);
+							$('#_m_id').prop("disabled", true);
+							$('#m_id').val(_m_id);
+						}else{
+							alert("사용할 수 없는 아이디입니다.");
+						}
+					},
+					error:function(data, textStatus){
+						alert("에러가 발생했습니다.");
+					}
+				});		
+			});
+			
+			$("#sendAuthCodeBtn").click(function(){
+				const email = $("#m_email").val();
+				
+				if(!email){
+					alert("이메일 주소를입력해주세요.");
+					return;
+				}
+				
+				$.ajax({
+					type:"POST",
+					url:"${contextPath}/member/mailCheck.do",
+					data:{"email": email},
+					success:function(data){
+						alert("입력하신 이메일로 인증번호가 발송되었습니다.");
+						$("#authCodeInput").prop("disabled", false);
+						$("#mailCheckResult").text("인증번호가 발송되었습니다.").css("color", "green");
+						serverAuthCode = data;
+						isEmailVerified = false;
+					},
+					error: function(){
+						alert("메일 발송에 실패했습니다. 이메일 주소를 확인해주세요.");
+					}
+				});			
+			});
+			
+			$("#verifyAuthCodeBtn").click(function(){
+				const userInputCode = $("#authCodeInput").val();
+				
+				if(!userInputCode){
+					alert("인증번호를 입력해주세요.");
+					return;
+				}
+				
+				if(userInputCode === serverAuthCode){
+					$("#mailCheckResult").text("이메일 인증이 완료되었습니다.").css("color", "blue");
+					isEmailVerified = true;
+				}else{
+					$("#mailCheckResult").text("인증번호가 일치하지 않습니다.").css("color", "red");
+					isEmailVerified = false;
+				}		
+			});
+			
+			$("#form").submit(function(e){
+				if (!isIdChecked) {
+					alert("아이디 중복 체크를 완료해주세요.");
+					e.preventDefault();
+					return false;
+				}
+				const pw = $("#m_pw").val();
+				const pw_confirm = $("#m_pw_confirm").val();
+				if (pw !== pw_confirm) {
+					alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+					$("#m_pw_confirm").focus();
+					e.preventDefault();
+					return false;
+				}
+				if (!isEmailVerified) {
+					alert("이메일 인증을 완료해주세요.");
+					e.preventDefault();
+					return false;
+				}
+			});
+		});
+		
 		function exeDaumPostCode() {
 			new daum.PostCode({
 				oncomplete:function(data){
@@ -37,36 +137,6 @@
 				}
 			}).open();
 		}
-		
-		function fn_overlapped(){
-			var _m_id = $("#_m_id").val();
-			
-			if(_m_id ==''){
-				alert("아이디를 입력하세요.");
-				return ;
-			}
-			
-			$.ajax({
-				type="post",
-				async:false,
-				url:"${contextPath}/member/overlapped.do",
-				dataType:"text",
-				data:{m_id:_m_id},
-				success:function(data, textStatus){
-					if(data=='false'){
-						alert("사용할 수 있는 아이디입니다.");
-						$('#btnOverlapped').prop("disabled", true);
-						$('#_m_id').prop("disabled", true);
-						$('#m_id').val(_m_id);
-					}else{
-						alert("사용할 수 없는 아이디입니다.");
-					}
-				},
-				error:function(data, textStatus){
-					alert("에러가 발생했습니다.");
-				}
-			});
-		}
 	</script>
 </head>
 <body>
@@ -90,12 +160,16 @@
 							<input type="text" name="_m_id" id="_m_id" size="20" />
 							<input type="hidden" name="m_id" id="m_id" />
 							
-							<input type="button" id="btnOverlapped" value="중복체크" onClick="fn_overlapped()" />
+							<input type="button" id="btnOverlapped" value="중복체크" />
 						</td>
 					</tr>
 					<tr class="dot_line">
 						<td class="fixed_join">비밀번호</td>
 						<td><input type="text" name="m_pw" size="20" /></td>
+					</tr>
+					<tr class="dot_line">
+						<td class="fixed_join">비밀번호 확인</td>
+						<td><input type="password" name="m_pw_confirm" id="m_pw_confirm" size="20" /></td>
 					</tr>
 					<tr class="dot_line">
 						<td class="fixed_join">이름</td>
@@ -125,13 +199,19 @@
 					<tr class="dot_line">
 						<td class="fixed_join">이메일<br>(e-mail)</td>
 						<td>
-							<input type="text" name="m_email1" size="10px" /> @ 
-							<input type="text" name="m_email2" size="10px" />
-							<select name="email2" onChange="" title="직접입력">
-								<option value="non">직접입력</option>
-								<option value="naver.com">naver.com</option>
-								<option value="gmail.com">gmail.com</option>
-							</select>
+							<div class="form-group">
+								<div style="display: flex; align-items: center;">
+									<input type="text" id="m_email" name="m_email" class="form-control" placeholder="이메일을 입력하세요" required>
+									<button type="button" id="sendAuthCodeBtn" class="btn btn-secondary" style="margin-left: 10px; white-space: nowrap;">인증번호 발송</button>
+								</div>
+							</div>
+							<div class="form-group">
+								<div style="display: flex; align-items: center; margin-top: 5px;">
+									<input type="text" id="authCodeInput" class="form-control" placeholder="인증번호를 입력하세요" disabled>
+									<button type="button" id="verifyAuthCodeBtn" class="btn btn-primary" style="margin-left: 10px; white-space: nowrap;">인증번호 확인</button>
+								</div>
+								<p id="mailCheckResult" style="margin-top: 5px;"></p>
+							</div>
 						</td>
 					</tr>
 					<tr class="dot_line">
