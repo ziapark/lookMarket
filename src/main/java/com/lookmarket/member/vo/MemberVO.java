@@ -1,5 +1,8 @@
 package com.lookmarket.member.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component("memberVO")
 public class MemberVO {
 	String m_id;
 	String m_pw;

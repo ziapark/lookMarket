@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lookmarket.member.service.MemberServiceImpl;
+import com.lookmarket.member.service.MemberService;
 import com.lookmarket.member.vo.MemberVO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping(value="/member")
 public class MemberControllerImpl implements MemberController {
 	@Autowired
-	private MemberServiceImpl memberService;
+	private MemberService memberService;
 	@Autowired
 	private MemberVO memberVO;
 	
