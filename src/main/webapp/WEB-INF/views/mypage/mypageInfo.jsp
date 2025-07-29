@@ -1,10 +1,32 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
 <head>
+
+<script>
+function setEmailDomain(value) {
+    const domainInput = document.getElementById("m_email_domain");
+    domainInput.value = value;
+    if (value === "") {
+        domainInput.removeAttribute("readonly");
+        domainInput.focus();
+    } else {
+        domainInput.setAttribute("readonly", true);
+    }
+}
+
+function enableAddressFields() {
+    document.getElementById("m_jibun_address").disabled = false;
+    document.getElementById("m_road_address").disabled = false;
+    document.getElementById("m_namuji_address").disabled = false;
+    document.getElementById("m_jibun_address").focus();
+}
+</script>
+
 	<meta charset="UTF-8">
 	<title>내정보</title>
 </head>
@@ -65,18 +87,9 @@
 					<tr class="dot_line">
 						<td class="fixed_join">휴대폰번호</td>
 						<td>
-					   		<select  name="m_phone" id="m_phone">
-								<option>없음</option>
-								<option value="010">010</option>
-								<option value="011">011</option>
-								<option value="016">016</option>
-								<option value="017">017</option>
-								<option value="018">018</option>
-								<option value="019">019</option>
-							</select> 
-					 		- <input type="text" name="m_phone" size=4 value="${myPageInfo.m_phone }"> 
-					 		- <input type="text"name="m_phone"  size=4 value="${myPageInfo.m_phone }"><br> <br>
-					 		<c:choose> 
+							<input type="text" name="m_phone" id="m_phone" size="20" value="${myPageInfo.m_phone }" placeholder="01012345678" />
+       						 <br><br>
+					   		<c:choose> 
 					   			<c:when test="${myPageInfo.m_phone_yn==1 }">
 					     			<input type="checkbox"  name="m_phone_yn" value="Y" checked /> 전통시장에서 발송하는 SMS 소식을 수신합니다.
 								</c:when>
@@ -89,11 +102,13 @@
 					  		<input type="button" value="수정하기" onClick="fn_modify_member_info('m_phone')" />
 						</td>	
 					</tr>
+					
 					<tr class="dot_line">
 						<td class="fixed_join">이메일<br>(e-mail)</td>
 						<td>
-					   		<input type="text" name="m_email" size=10 value="${myPageInfo.m_email }" /> @ <input type="text" size=10  name="m_email" value="${myPageInfo.m_email }" /> 
-					   		<select name="m_email" onChange="handleEmailDomainChange()"  title="직접입력">
+					   		<input type="text" name="m_email_id" id="m_email_id" size="10" value="${fn:split(myPageInfo.m_email, '@')[0]}" /> @
+        					<input type="text" name="m_email_domain" id="m_email_domain" size="15" value="${fn:split(myPageInfo.m_email, '@')[1]}" />
+        					<select id="emailSelect" onchange="setEmailDomain(this.value)">
 								<option value="non">직접입력</option>
 								<option value="hanmail.net">hanmail.net</option>
 								<option value="naver.com">naver.com</option>
@@ -120,15 +135,17 @@
 					  		<input type="button" value="수정하기" onClick="fn_modify_member_info('m_email')" />
 						</td>
 					</tr>
+					
 					<tr class="dot_line">
 						<td class="fixed_join">주소</td>
 						<td>
-					   		<input type="text" id="m_zipcode" name="m_zipcode" size=5 value="${myPageInfo.m_zipcode }" > <a href="javascript:execDaumPostcode()">우편번호검색</a>
+					   		<input type="text" id="m_zipcode" name="m_zipcode" size="5" value="${myPageInfo.m_zipcode }" readonly />
+        					<a href="javascript:enableAddressFields()">우편번호검색</a>
 					  		<br>
 					  		<p> 
-					   			지번 주소:<br><input type="text" id="m_jibun_address"  name="m_jibun_address" size="50" value="${myPageInfo.m_jibun_address }"><br><br>
-					  			도로명 주소: <input type="text" id="m_road_address" name="m_road_address" size="50" value="${myPageInfo.m_road_address }"><br><br>
-					  			나머지 주소: <input type="text"  name="m_namuji_address" size="50" value="${myPageInfo.m_namuji_address }" />
+					   			지번 주소:<br><input type="text" id="m_jibun_address"  name="m_jibun_address" size="50" value="${myPageInfo.m_jibun_address }" disabled><br><br>
+					  			도로명 주소: <input type="text" id="m_road_address" name="m_road_address" size="50" value="${myPageInfo.m_road_address }" disabled><br><br>
+					  			나머지 주소: <input type="text"  name="m_namuji_address" size="50" value="${myPageInfo.m_namuji_address }" disabled />
 					   		</p>
 						</td>
 						<td>
