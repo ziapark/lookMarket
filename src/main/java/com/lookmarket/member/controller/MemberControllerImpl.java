@@ -53,7 +53,6 @@ public class MemberControllerImpl implements MemberController {
 				session = request.getSession();
 				session.setAttribute("current_id", m_id);
 				session.setAttribute("isLogOn", true);
-				session.setAttribute("memberInfo", memberVO);
 				
 				String action = (String)session.getAttribute("action");
 				if(action != null && action.equals("/order/orderEachGoods.do")) {

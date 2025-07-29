@@ -33,11 +33,11 @@
 <br>
 <nav class="main-nav">
 	<ul class="nav-menu">
-		<li><a href="#">전통시장 찾기</a></li>
-		<li><a href="#">주변상권 정보</a></li>
-		<li><a href="#">이벤트★</a></li>
-		<li><a href="#">클린업체</a></li>
-		<li><a href="#">커뮤니티</a></li>
+		<li><a href="${contextPath}/sijangbajo/sijangSearch/search.do">전통시장 찾기</a></li>
+		<li><a href="${contextPath}/sijangbajo/area/commercialArea.do">주변상권 정보</a></li>
+		<li><a href="${contextPath}/sijangbajo/sijangEvent/promotion.do">이벤트★</a></li>
+		<li><a href="${contextPath}/sijangbajo/clean/clean.do">클린업체</a></li>
+		<li><a href="${contextPath}/sijangbajo/sijangCommunity/communityList.do">커뮤니티</a></li>
 	</ul>
 	<div class="search-box">
 		<input type="text" placeholder="검색어를 입력하세요" />

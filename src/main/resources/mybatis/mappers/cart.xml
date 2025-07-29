@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.cart">
+	<resultMap id="cartResult" type="CartVO">
+		<result property="cart_id" column="cart_id" />
+		<result property="goods_id" column="goods_id" />
+		<result property="member_id" column="member_id" />
+		<result property="cart_goods_qty" column="cart_goods_qty" />
+		<result property="creDate" column="creDate" />
+	</resultMap>
+	
+	<select id="myCartList" parameterType="String" resultMap="cartResult">
+		<![CDATA[
+			SELECT * from cart where m_id=#{current_id}
+		]]>
+	</select>
+	
+</mapper>
