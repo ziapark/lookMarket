@@ -51,6 +51,7 @@ public class MemberControllerImpl implements MemberController {
 			if(check_login.equals("true")) {
 				HttpSession session = request.getSession();
 				session = request.getSession();
+				session.setAttribute("current_id", m_id);
 				session.setAttribute("isLogOn", true);
 				session.setAttribute("memberInfo", memberVO);
 				

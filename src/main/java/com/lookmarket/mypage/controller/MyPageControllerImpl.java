@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lookmarket.common.base.BaseController;
+import com.lookmarket.member.vo.MemberVO;
 import com.lookmarket.mypage.service.MyPageService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ import jakarta.servlet.http.HttpSession;
 public class MyPageControllerImpl extends BaseController implements MyPageController{
 	@Autowired
 	private MyPageService myPageService;
+	@Autowired
+	private MemberVO memberVO;
 	
 	//사용자	
 	@Override
@@ -32,6 +35,11 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		mav.addObject("viewName", viewName);
 		
 		session = request.getSession();
+		String current_id = (String)session.getAttribute("current_id");
+		
+		memberVO = myPageService.getMyPageInfo(current_id);
+		
+		mav.addObject("myPageInfo", memberVO);
 		session.setAttribute("sideMenu", "reveal");
 		
 		return mav;

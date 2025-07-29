@@ -1,5 +1,9 @@
 package com.lookmarket.mypage.dao;
 
-public interface MyPageDAO {
+import org.springframework.dao.DataAccessException;
 
+import com.lookmarket.member.vo.MemberVO;
+
+public interface MyPageDAO {
+	public MemberVO getMyPageInfo(String current_id) throws DataAccessException;
 }

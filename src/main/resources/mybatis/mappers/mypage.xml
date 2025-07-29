@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.mypage">
+	<resultMap id="memberResult" type="MemberVO">
+		<result property="m_id" column="m_id" />
+		<result property="m_pw" column="m_pw" />
+		<result property="m_name" column="m_name" />
+		<result property="m_gender" column="m_gender" />
+		<result property="m_birth" column="m_birth" />
+		<result property="m_phone_telecom" column="m_phone_telecom" />
+		<result property="m_phone" column="m_phone" />
+		<result property="m_phone_yn" column="m_phone_yn" />
+		<result property="m_email" column="m_email" />
+		<result property="m_email_yn" column="m_email_yn" />
+		<result property="m_zipcode" column="m_zipcode" />
+		<result property="m_road_address" column="m_road_address" />
+		<result property="m_jibun_address" column="m_jibun_address" />
+		<result property="m_namuji_address" column="m_namuji_address" />
+		<result property="m_level" column="m_level" />
+		<result property="m_role" column="m_role" />
+		<result property="m_joindate" column="m_joindate" />
+		<result property="m_outdate" column="m_outdate" />
+	</resultMap>
+		
+	<select id="getMyPageInfo" parameterType="String" resultType="memberVO">
+		<![CDATA[
+			SELECT * FROM member
+			WHERE m_id = #{current_id}
+		]]>
+	</select>
+
+</mapper>
