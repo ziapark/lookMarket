@@ -25,9 +25,16 @@
 		<result property="m_outdate" column="m_outdate" />
 	</resultMap>
 	
-	<select id="login" parameterType="java.util.Map" resultType="memberVO">
+	<select id="checkId" parameterType="String" resultType="String">
 		<![CDATA[
-			SELECT * FROM member
+			SELECT IF(COUNT(*) > 0, 'true', 'false') FROM member
+			WHERE m_id = #{m_id}
+		]]>
+	</select>
+	
+	<select id="login" parameterType="memberVO" resultType="String">
+		<![CDATA[
+			SELECT IF(COUNT(*) > 0, 'true', 'false') FROM member
 			WHERE m_id = #{m_id} and m_pw = #{m_pw}
 		]]>
 	</select>

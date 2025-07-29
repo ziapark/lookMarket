@@ -92,6 +92,11 @@
     </style>
 </head>
 <body>
+	<c:if test="${not empty message}">
+	    <script>
+	        alert("${message}");
+	    </script>
+	</c:if>
 	<div class="login-container">
  		<h3>로그인</h3>
  		<form action="${contextPath}/member/login.do" method="post">

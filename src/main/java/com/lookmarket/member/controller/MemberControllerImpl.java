@@ -2,7 +2,6 @@ package com.lookmarket.member.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lookmarket.mail.service.MailService;
 import com.lookmarket.member.service.MemberService;
@@ -40,28 +40,38 @@ public class MemberControllerImpl implements MemberController {
 	
 	@Override
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
-	public ModelAndView login(@RequestParam Map<String, String> loginMap, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public ModelAndView login(@RequestParam("m_id") String m_id, @RequestParam("m_pw") String m_pw, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception{
 		//로그인
 		ModelAndView mav = new ModelAndView();
-		memberVO = memberService.login(loginMap);
-		if(memberVO != null && memberVO.getM_id() != null) {
-			HttpSession session = request.getSession();
-			session = request.getSession();
-			session.setAttribute("isLogOn", true);
-			session.setAttribute("memberInfo", memberVO);
+		String check_id = memberService.checkId(m_id);
+		
+		if(check_id.equals("true")) {
+			String check_login = memberService.login(m_id, m_pw);
 			
-			String action = (String)session.getAttribute("action");
-			if(action != null && action.equals("/order/orderEachGoods.do")) {
-				//추가 필요
-				mav.setViewName("forward:" + action);
+			if(check_login.equals("true")) {
+				HttpSession session = request.getSession();
+				session = request.getSession();
+				session.setAttribute("isLogOn", true);
+				session.setAttribute("memberInfo", memberVO);
+				
+				String action = (String)session.getAttribute("action");
+				if(action != null && action.equals("/order/orderEachGoods.do")) {
+					//추가 필요
+					mav.setViewName("forward:" + action);
+				}else {
+					mav.setViewName("redirect:/main/main.do");
+				}
+				
 			}else {
-				mav.setViewName("redirect:/main/main.do");
+	            redirectAttributes.addFlashAttribute("message", "비밀번호가 틀렸습니다. 다시 로그인해주세요.");
+				mav.setViewName("redirect:/member/loginForm.do");
 			}
+	
 		}else {
-			String message = "아이디 또는 비밀번호가 틀렸습니다. 다시 로그인해주세요.";
-			mav.addObject("message", message);
-			mav.setViewName("member/loginForm");
+	        redirectAttributes.addFlashAttribute("message", "아이디가 틀렸습니다. 다시 로그인해주세요.");
+			mav.setViewName("redirect:/member/loginForm.do");
 		}
+		
 		return mav;
 	}
 	
