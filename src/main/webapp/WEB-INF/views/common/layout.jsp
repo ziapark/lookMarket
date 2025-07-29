@@ -12,13 +12,18 @@
 	<link href="${contextPath}/resources/css/main.css" rel="stylesheet" type="text/css" media="screen">
 </head>
 <body>
-	<div>
+	<div class="layout-wrapper">
 		<header>
 			<%@ include file="header.jsp" %>
 		</header>
-		<article>
-			<jsp:include page="/WEB-INF/views${viewName}.jsp" />
-		</article>
+		<div class="content-container">
+			<aside>
+				<%@ include file="side.jsp" %>
+			</aside>
+			<article>
+				<jsp:include page="/WEB-INF/views${viewName}.jsp" />
+			</article>
+		</div>
 		<footer>
 			<%@ include file="footer.jsp" %>
 		</footer>

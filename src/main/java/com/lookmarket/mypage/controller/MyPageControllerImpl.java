@@ -41,6 +41,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		
 		mav.addObject("myPageInfo", memberVO);
 		session.setAttribute("sideMenu", "reveal");
+		session.setAttribute("sideMenu_option", "myPage");
 		
 		return mav;
 	}

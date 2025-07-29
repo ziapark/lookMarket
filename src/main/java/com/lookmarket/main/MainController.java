@@ -25,7 +25,7 @@ public class MainController extends BaseController{
 		mav.addObject("viewName", viewName);
 		
 		session = request.getSession();
-		session.setAttribute("side_menu", "hidden");
+		session.setAttribute("sideMenu", "hidden");
 		
 		return mav;
 	}
