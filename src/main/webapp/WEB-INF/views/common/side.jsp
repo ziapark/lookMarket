@@ -21,13 +21,69 @@
 								<h3>마이페이지</h3>
 								<ul>
 									<li><a href="${contextPath}/mypage/mypageInfo.do">내정보</a></li>
-									<li><a href="${contextPath}/mypage/myCartList.do">장바구니</a></li>
+									<li><a href="${contextPath}/cart/myCartList.do">장바구니</a></li>
 									<li><a href="${contextPath}/mypage/listMyOrderHistory.do">주문내역</a></li>
 									<li><a href="#">배송조회</a></li>
 									<li><a href="${contextPath}/mypage/myWishList.do">찜목록</a></li>
 									<li><a href="${contextPath}/mypage/myCommunity.do">커뮤니티</a></li>
 								</ul>
 							</li>
+						</c:when>
+						<c:when test="${sideMenu_option == 'search'}">
+							<li>
+								<h3>전통시장 찾기</h3>
+								<ul>
+									<li><a href="${contextPath}/sijangbajo/sijangSearch/search.do">시장찾기</a></li>
+								</ul>
+						</c:when>
+						<c:when test="${sideMenu_option == 'nearby'}">
+							<li>
+								<h3>주변상권</h3>
+								<ul>
+									<li><a href="${contextPath}/sijangbajo/nearby/nearby.do">주변상권</a></li>
+									<li><a href="${contextPath}/sijangbajo/nearby/nearCourse.do">추천코스</a></li>
+								</ul>
+						</c:when>
+						<c:when test="${sideMenu_option == 'event'}">
+							<li>
+								<h3>이벤트</h3>
+								<ul>
+									<li><a href="${contextPath}/event/promotionList.do">프로모션</a></li>
+									<li><a href="${contextPath}/event/todayPick.do">오늘의추천시장</a></li>
+								</ul>
+						</c:when>
+						<c:when test="${sideMenu_option == 'clean'}">
+							<li>
+								<h3>클린업체</h3>
+								<ul>
+									<li><a href="${contextPath}/sijangbajo/clean/clean.do">클린업체</a></li>
+								</ul>
+						</c:when>
+						<c:when test="${sideMenu_option == 'community'}">
+							<li>
+								<h3>커뮤니티</h3>
+								<ul>
+									<li><a href="${contextPath}/community/promotionList.do">커뮤니티</a></li>
+								</ul>
+						</c:when>
+						<c:when test="${sideMenu_option == 'community_admin'}">
+							<li>
+								<h3>커뮤니티</h3>
+								<ul>
+									<li><a href="${contextPath}/community/communityList.do">커뮤니티</a></li>
+									<li><a href="${contextPath}/community/blackBoardList.do">사장님고충방</a></li>
+								</ul>
+						</c:when>
+						<c:when test="${sideMenu_option == 'category'}">
+							<li>
+								<h3>카테고리</h3>
+								<ul>
+									<li><a href="${contextPath}/jangbogo/goodsList.do?">신선식품</a></li>
+									<li><a href="${contextPath}/jangbogo/goodsList.do?">가공식품</a></li>
+									<li><a href="${contextPath}/jangbogo/goodsList.do?">생활용품</a></li>
+									<li><a href="${contextPath}/jangbogo/goodsList.do?">패션잡화</a></li>
+									<li><a href="${contextPath}/jangbogo/goodsList.do?">지역특산물 </a></li>
+								</ul>
 						</c:when>
 					</c:choose>
 				</c:when>

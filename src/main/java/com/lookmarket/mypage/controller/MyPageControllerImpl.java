@@ -47,23 +47,6 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	}
 	
 	@Override
-	@RequestMapping(value="/myCartList.do", method=RequestMethod.GET)
-	public ModelAndView myCartList(HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		//장바구니
-		HttpSession session;
-		ModelAndView mav = new ModelAndView();
-		String layout = "common/layout";
-		mav.setViewName(layout);
-		String viewName = (String)request.getAttribute("viewName");
-		mav.addObject("viewName", viewName);
-		
-		session = request.getSession();
-		session.setAttribute("sideMenu", "reveal");
-		
-		return mav;
-	}
-	
-	@Override
 	@RequestMapping(value="/listMyOrderHistory.do", method=RequestMethod.GET)
 	public ModelAndView listMyOrderHistory(HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		//주문내역

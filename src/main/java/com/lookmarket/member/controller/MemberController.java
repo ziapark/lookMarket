@@ -20,5 +20,9 @@ public interface MemberController {
 	public String overlapped(@RequestParam("m_id") String m_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public String mailCheck(@RequestParam("email") String email) throws Exception;
 	public ResponseEntity addMember(@ModelAttribute("memberVO") MemberVO _memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView memberList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView memberDetail(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView businessMemberList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView businessMemberDetail(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView memberForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

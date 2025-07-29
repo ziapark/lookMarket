@@ -178,7 +178,54 @@ public class MemberControllerImpl implements MemberController {
 	}
 	
 	@Override
-	@RequestMapping(value={"/memberForm.do", "/loginForm.do"}, method={RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="/memberList.do", method=RequestMethod.POST)
+	public ModelAndView memberList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		String layout = "common/layout";
+		mav.setViewName(layout);
+		String viewName = (String)request.getAttribute("viewName");
+		mav.addObject("viewName", viewName);
+		
+		return mav;		
+	}
+	
+	@Override
+	@RequestMapping(value="/memberDetail.do", method=RequestMethod.POST)
+	public ModelAndView memberDetail(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		String layout = "common/layout";
+		mav.setViewName(layout);
+		String viewName = (String)request.getAttribute("viewName");
+		mav.addObject("viewName", viewName);
+		
+		return mav;		
+	}
+	
+	@Override
+	@RequestMapping(value="/businessMemberList.do", method=RequestMethod.POST)
+	public ModelAndView businessMemberList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		String layout = "common/layout";
+		mav.setViewName(layout);
+		String viewName = (String)request.getAttribute("viewName");
+		mav.addObject("viewName", viewName);
+		
+		return mav;		
+	}
+	
+	@Override
+	@RequestMapping(value="/businessMemberDetail.do", method=RequestMethod.POST)
+	public ModelAndView businessMemberDetail(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		String layout = "common/layout";
+		mav.setViewName(layout);
+		String viewName = (String)request.getAttribute("viewName");
+		mav.addObject("viewName", viewName);
+		
+		return mav;		
+	}
+	@Override
+	@RequestMapping(value={"/memberForm.do", "/loginForm.do", "/findIdForm.do", "findPwForm.do"}, method={RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView memberForm(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		//로그인창, 회원가입창 출력
 		ModelAndView mav = new ModelAndView();
