@@ -26,7 +26,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	@Override
 	@RequestMapping(value="/mypageInfo.do", method=RequestMethod.GET)
 	public ModelAndView myPageInfo(HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		//마이페이지 첫화면(사용자정보)
+		//마이페이지 첫화면(사용자)
 		HttpSession session;
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
@@ -49,7 +49,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	@Override
 	@RequestMapping(value="/listMyOrderHistory.do", method=RequestMethod.GET)
 	public ModelAndView listMyOrderHistory(HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		//주문내역
+		//주문내역(사용자)
 		HttpSession session;
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
@@ -59,6 +59,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
+		session.setAttribute("sideMenu_option", "myPage");
 		
 		return mav;
 	}
@@ -66,7 +67,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	@Override
 	@RequestMapping(value="/myOrderDetail.do", method=RequestMethod.GET)
 	public ModelAndView myOrderDetail(HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		//주문상세내역
+		//주문상세내역(사용자)
 		HttpSession session;
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
@@ -76,6 +77,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
+		session.setAttribute("sideMenu_option", "myPage");
 		
 		return mav;
 	}
@@ -90,7 +92,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	@Override
 	@RequestMapping(value="/myWishList.do", method=RequestMethod.GET)
 	public ModelAndView myWishList(HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		//찜
+		//찜(사용자)
 		HttpSession session;
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
@@ -100,6 +102,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
+		session.setAttribute("sideMenu_option", "myPage");
 		
 		return mav;
 	}
@@ -107,7 +110,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	@Override
 	@RequestMapping(value="/myCommunity.do", method=RequestMethod.GET)
 	public ModelAndView myCommunity(HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		//커뮤니티
+		//커뮤니티(사용자)
 		HttpSession session;
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
@@ -117,6 +120,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
+		session.setAttribute("sideMenu_option", "myPage");
 		
 		return mav;
 	}

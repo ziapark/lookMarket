@@ -26,6 +26,7 @@ public class SijangbajoControllerImpl implements SijangbajoController{
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
+		session.setAttribute("sideMenu_option", "search");
 		
 		return mav;
 	}
@@ -43,6 +44,7 @@ public class SijangbajoControllerImpl implements SijangbajoController{
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
+		session.setAttribute("sideMenu_option", "nearby");
 		
 		return mav;
 	}
@@ -50,7 +52,7 @@ public class SijangbajoControllerImpl implements SijangbajoController{
 	@Override
 	@RequestMapping(value="/nearby/nearCourse.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView nearCourse(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		//숙박정보
+		//추천 코스
 		HttpSession session;
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
@@ -60,6 +62,7 @@ public class SijangbajoControllerImpl implements SijangbajoController{
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
+		session.setAttribute("sideMenu_option", "nearby");
 		
 		return mav;
 	}
@@ -77,6 +80,7 @@ public class SijangbajoControllerImpl implements SijangbajoController{
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
+		session.setAttribute("sideMenu_option", "clean");
 		
 		return mav;
 	}

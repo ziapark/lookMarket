@@ -16,14 +16,14 @@
 		<header>
 			<%@ include file="header.jsp" %>
 		</header>
-		<main>
+		<div style="display:flex">
 			<aside>
 				<%@ include file="side.jsp" %>
 			</aside>
 			<article>
 				<jsp:include page="/WEB-INF/views${viewName}.jsp" />
 			</article>
-		</main>
+		</div>
 		<footer>
 			<%@ include file="footer.jsp" %>
 		</footer>

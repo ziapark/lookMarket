@@ -113,7 +113,13 @@ header #search .btn1 {
   font-size: 16px; /* 버튼도 같은 크기 */
 }
 
+.side ul{
+	padding:0px !important; 
+}
 
+.side ul li{
+	padding:0px 0 0 15px;
+}
 
 
 aside {
@@ -126,7 +132,7 @@ nav ul {
 	list-style: none;
 }
 nav ul li {
-	padding: 5px 10px; text-transform: uppercase;
+	padding: 5px 0px; text-transform: uppercase;
 }
 nav ul li a {
 	display: block;
@@ -138,7 +144,7 @@ nav ul li ul {
 	margin: 10px 0px 0px;
 }
 nav ul li ul li {
-	padding: 0px 0px 0px 20px; line-height: 2em;
+	padding: 0px 0px 0px 0px; line-height: 2em;
 }
 aside #banner {
 	margin: 10px 15px;

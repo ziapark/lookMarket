@@ -9,7 +9,7 @@
 	<title>side</title>
 </head>
 <body>
-	<nav>
+	<nav class="side">
 		<ul>
 			<c:choose>
 				<c:when test="${sideMenu == 'hidden'}">
@@ -26,6 +26,33 @@
 									<li><a href="#">배송조회</a></li>
 									<li><a href="${contextPath}/mypage/myWishList.do">찜목록</a></li>
 									<li><a href="${contextPath}/mypage/myCommunity.do">커뮤니티</a></li>
+								</ul>
+							</li>
+						</c:when>
+						<c:when test="${sideMenu_option == 'myPage_business'}">
+							<li>
+								<h3>마이페이지</h3>
+								<ul>
+									<li><a href="${contextPath}/business/mypage/mypageBusinessInfo.do">내정보</a></li>
+									<li><a href="${contextPath}/business/jangbogo/businessGoodsList.do">상품관리</a></li>
+									<li><a href="${contextPath}/business/order/businessOrderList.do">주문관리</a></li>
+									<li><a href="${contextPath}/business/member/myMemberList.do">회원관리</a></li>
+									<li><a href="${contextPath}/business/mypage/myCommunityList.do">커뮤니티</a></li>
+									<li><a href="${contextPath}/business/mypage/myBlackBoardList.do">사장님고충방</a></li>
+								</ul>
+							</li>
+						</c:when>
+						<c:when test="${sideMenu_option == 'myPage_admin'}">
+							<li>
+								<h3>마이페이지</h3>
+								<ul>
+									<li><a href="${contextPath}/admin/mypage/mypageAdminInfo.do">내정보</a></li>
+									<li><a href="${contextPath}/admin/jangbogo/allGoodsList.do">상품관리</a></li>
+									<li><a href="${contextPath}/admin/order/allOrderList.do">주문관리</a></li>
+									<li><a href="${contextPath}/admin/member/allMemberList.do">회원관리</a></li>
+									<li><a href="${contextPath}/admin/mypage/allCommunityList.do">커뮤니티</a></li>
+									<li><a href="${contextPath}/admin/mypage/allBlackBoardList.do">사장님고충방</a></li>
+									<li><a href="${contextPath}/admin/accountList.do">회계관리</a></li>
 								</ul>
 							</li>
 						</c:when>
