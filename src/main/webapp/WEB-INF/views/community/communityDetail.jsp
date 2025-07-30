@@ -1,44 +1,98 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>글 상세보기</title>
+    <meta charset="UTF-8">
+    <title>리뷰 상세보기</title>
+    <style>
+        .detail-container {
+            width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fefefe;
+        }
+
+        .detail-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .meta-info {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .star-display {
+            color: gold;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .review-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .review-content {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .back-btn {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .back-btn a {
+            padding: 8px 16px;
+            background-color: #3366cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-btn a:hover {
+            background-color: #254a9a;
+        }
+    </style>
 </head>
 <body>
-<%--     <h2>${post.title}</h2> --%>
-<%--     <p>작성자: ${post.writer} | 작성일: ${post.date} | 조회수: ${post.views}</p> --%>
-<%--     <p>카테고리: ${post.category}</p> --%>
-<!--     <p>별점:  -->
-<%--         <c:forEach var="i" begin="1" end="${post.rating}"> --%>
-<!--             ★ -->
-<%--         </c:forEach> --%>
-<%--         <c:forEach var="i" begin="1" end="${5 - post.rating}"> --%>
-<!--             ☆ -->
-<%--         </c:forEach> --%>
-<!--     </p> -->
-<%--     <p>${post.content}</p> --%>
+<div class="detail-container">
+    <div class="detail-title">${review.r_title}</div>
 
-<%--     <c:if test="${not empty post.imagePath}"> --%>
-<%--         <img src="${post.imagePath}" width="300"/> --%>
-<%--     </c:if> --%>
+    <div class="meta-info">
+        작성자: ${review.m_id} | 작성일: ${review.r_date} | 조회수: ${review.r_hit}
+    </div>
 
-<!--     <hr/> -->
+    <!-- 별점 표시 -->
+    <div class="star-display">
+        <c:forEach var="i" begin="1" end="5">
+            <c:choose>
+                <c:when test="${i <= review.r_star}">★</c:when>
+                <c:otherwise>☆</c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </div>
 
-<!--     <h4>댓글</h4> -->
-<%--     <c:forEach var="comment" items="${commentList}"> --%>
-<!--         <div> -->
-<%--             <strong>${comment.writer}</strong>: ${comment.content} --%>
-<!--         </div> -->
-<%--     </c:forEach> --%>
+    <!-- 이미지 출력 (있을 경우만) -->
+    <c:if test="${not empty review.r_filename}">
+        <img class="review-image" src="/upload/${review.r_filename}" alt="리뷰 이미지" />
+    </c:if>
 
-<!--     <form action="commentWrite.do" method="post"> -->
-<%--         <input type="hidden" name="postId" value="${post.id}"> --%>
-<!--         <textarea name="commentContent" rows="3" cols="50" placeholder="댓글을 입력하세요"></textarea><br/> -->
-<!--         <input type="submit" value="댓글 등록"> -->
-<!--     </form> -->
+    <!-- 내용 -->
+    <div class="review-content">
+        ${review.r_content}
+    </div>
 
-<!--     <br/> -->
-<!--     <a href="communityList.jsp">목록</a> -->
+    <div class="back-btn">
+        <a href="reviewList.jsp">← 목록으로</a>
+    </div>
+</div>
 </body>
 </html>
