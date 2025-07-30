@@ -2,16 +2,11 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 
-<c:if test="${empty sessionScope.loginForm}">
-    <c:redirect url="loginForm.jsp?error=3" />
-</c:if>
-
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>고충방 리스트</title>
-	<link rel="stylesheet" href="${contextPath}/resources/css/bootstrap.min.css"/>
 </head>
 <body>
 <div class="container py-4">
