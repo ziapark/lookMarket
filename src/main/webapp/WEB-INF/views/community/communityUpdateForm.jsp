@@ -79,7 +79,7 @@
 <div class="edit-container">
     <div class="edit-title">리뷰 수정하기</div>
 
-    <form action="reviewUpdate.do" method="post" enctype="multipart/form-data">
+    <form action="communityUpdateForm.do" method="post" enctype="multipart/form-data">
         <!-- 리뷰 고유 번호 숨김필드로 보내기 -->
         <input type="hidden" name="r_id" value="${review.r_id}" />
 
@@ -110,7 +110,7 @@
 
         <div class="btn-group">
             <button type="submit">수정 완료</button>
-            <a href="reviewDetail.jsp?r_id=${review.r_id}">취소</a>
+            <a href="communityDetail.jsp?r_id=${review.r_id}">취소</a>
         </div>
     </form>
 </div>
