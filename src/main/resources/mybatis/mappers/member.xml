@@ -32,9 +32,9 @@
 		]]>
 	</select>
 	
-	<select id="login" parameterType="memberVO" resultType="String">
+	<select id="login" parameterType="memberVO" resultType="memberVO">
 		<![CDATA[
-			SELECT IF(COUNT(*) > 0, 'true', 'false') FROM member
+			SELECT * FROM member
 			WHERE m_id = #{m_id} and m_pw = #{m_pw}
 		]]>
 	</select>

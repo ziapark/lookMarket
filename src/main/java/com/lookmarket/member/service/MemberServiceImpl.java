@@ -1,12 +1,9 @@
 package com.lookmarket.member.service;
 
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lookmarket.member.dao.MemberDAO;
 import com.lookmarket.member.vo.MemberVO;
@@ -22,7 +19,7 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.checkId(m_id);
 	}
 	@Override
-	public String login(String m_id, String m_pw) throws Exception{
+	public MemberVO login(String m_id, String m_pw) throws Exception{
 		return memberDAO.login(m_id, m_pw);
 	}
 	@Override

@@ -16,7 +16,7 @@
 	
 	<select id="blackBoardList" resultMap="blackBoardResult">
 		<![CDATA[
-			SELECT IF * FROM blackboard
+			SELECT * FROM blackboard
 		]]>
 	</select>
 

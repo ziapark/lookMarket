@@ -46,20 +46,21 @@ public class MemberControllerImpl implements MemberController {
 		String check_id = memberService.checkId(m_id);
 		
 		if(check_id.equals("true")) {
-			String check_login = memberService.login(m_id, m_pw);
+			memberVO = memberService.login(m_id, m_pw);
 			
-			if(check_login.equals("true")) {
+			if(memberVO.getM_id() != null) {
 				HttpSession session = request.getSession();
 				session = request.getSession();
 				session.setAttribute("current_id", m_id);
 				session.setAttribute("isLogOn", true);
+				session.setAttribute("memberInfo",memberVO);
 				
 				String action = (String)session.getAttribute("action");
 				if(action != null && action.equals("/order/orderEachGoods.do")) {
 					//추가 필요
 					mav.setViewName("forward:" + action);
 				}else {
-					mav.setViewName("redirect:/main/main.do");
+					mav.setViewName("redirect:/main/sijangbajoMain.do");
 				}
 				
 			}else {
@@ -88,7 +89,7 @@ public class MemberControllerImpl implements MemberController {
             session.setAttribute("memberInfo", naverMember);
             
             // 메인 페이지로 리다이렉트
-            return "redirect:/main/main.do";
+            return "redirect:/main/sijangbajoMain.do";
         } else {
             // 실패 시 에러 페이지나 로그인 페이지로 이동
             model.addAttribute("message", "네이버 로그인에 실패했습니다.");
@@ -104,7 +105,7 @@ public class MemberControllerImpl implements MemberController {
 		HttpSession session = request.getSession();
 		session.setAttribute("isLogOn", false);
 		session.removeAttribute("memberInfo");
-		mav.setViewName("redirect:/main/main.do");
+		mav.setViewName("redirect:/main/sijangbajoMain.do");
 		session.invalidate();
 		
 		return mav;
@@ -186,7 +187,7 @@ public class MemberControllerImpl implements MemberController {
 		String viewName = (String)request.getAttribute("viewName");
 		mav.addObject("viewName", viewName);
 		
-		return mav;		
+		return mav;
 	}
 	
 	@Override
