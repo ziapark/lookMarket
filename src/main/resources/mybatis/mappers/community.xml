@@ -13,6 +13,19 @@
 		<result property="b_secret" column="b_secret" />
 		<result property="b_hit" column="b_hit" />
 	</resultMap>
+	<resultMap id="reviewResult" type="ReviewVO">
+		<result property="r_id" column="r_id" />
+		<result property="m_id" column="m_id" />
+		<result property="r_title" column="r_title" />
+		<result property="g_id" column="g_id" />
+		<result property="r_star" column="r_star" />
+		<result property="r_content" column="r_content" />
+		<result property="r_filename" column="r_filename" />
+		<result property="r_filetype" column="r_filetype" />
+		<result property="r_secret" column="r_secret" />
+		<result property="r_date" column="r_date" />
+		<result property="r_hit" column="r_hit" />
+	</resultMap>
 	
 	<select id="blackBoardList" resultMap="blackBoardResult">
 		<![CDATA[
@@ -20,4 +33,10 @@
 		]]>
 	</select>
 
+	<select id="communityList" resultMap="reviewResult">
+		<![CDATA[
+			SELECT * FROM review
+		]]>
+	</select>
+	
 </mapper>

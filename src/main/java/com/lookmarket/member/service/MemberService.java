@@ -9,4 +9,6 @@ public interface MemberService {
 	public MemberVO login(String m_id, String m_pw) throws Exception;
 	public String overlapped(String m_id) throws Exception;
 	public void addMember(MemberVO memnberVO) throws Exception;
+	public String findId(String m_name, String m_email) throws Exception;
+	public String findPw(String m_id, String m_name) throws Exception;
 }

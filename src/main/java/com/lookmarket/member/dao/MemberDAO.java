@@ -12,4 +12,6 @@ public interface MemberDAO {
 	public MemberVO selectMemberByEmail(String email) throws DataAccessException;
 	public String selectOverlappedID(String m_id) throws DataAccessException;
 	public void insertNewMember(MemberVO memberVO) throws DataAccessException;
+	public String findId(String m_name, String m_email) throws DataAccessException;
+	public String findPw(String m_id, String m_name) throws DataAccessException;
 }
