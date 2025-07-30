@@ -89,7 +89,7 @@ public class CommunityControllerImpl implements CommunityController{
 		mav.addObject("viewName", viewName);
 		
 		List<BlackBoardVO> blackBoardList = communityService.blackBoardList();
-		
+		mav.addObject("blackBoardList", blackBoardList);
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");

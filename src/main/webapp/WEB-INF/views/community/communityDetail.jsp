@@ -91,7 +91,7 @@
     </div>
 
     <div class="back-btn">
-        <a href="reviewList.jsp">← 목록으로</a>
+        <a href="communityList.jsp">← 목록으로</a>
     </div>
 </div>
 </body>

@@ -64,7 +64,7 @@
 <div class="container">
     <h2>커뮤니티 리뷰 목록</h2>
     <div class="review-grid">
-        <c:forEach var="review" items="${reviewList}">
+        <c:forEach var="review" items="${communityList}">
             <div class="review-box">
                 <div class="review-img">
                     이미지 사진

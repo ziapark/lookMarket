@@ -1,7 +1,5 @@
 package com.lookmarket.member.dao;
 
-import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -22,7 +20,7 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 	@Override
-	public String login(String m_id, String m_pw) throws DataAccessException{
+	public MemberVO login(String m_id, String m_pw) throws DataAccessException{
 		memberVO.setM_id(m_id);
 		memberVO.setM_pw(m_pw);
 		
