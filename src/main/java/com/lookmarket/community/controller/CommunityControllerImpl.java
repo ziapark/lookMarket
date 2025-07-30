@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.lookmarket.community.Service.CommunityService;
 import com.lookmarket.community.vo.BlackBoardVO;
+import com.lookmarket.community.vo.ReviewVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,6 +34,9 @@ public class CommunityControllerImpl implements CommunityController{
 		mav.setViewName(layout);
 		String viewName = (String)request.getAttribute("viewName");
 		mav.addObject("viewName", viewName);
+		
+		List<ReviewVO> reviewList = communityService.communityList();
+		mav.addObject("communityList", reviewList);
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
