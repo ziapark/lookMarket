@@ -12,6 +12,6 @@ public interface CommunityController {
 	public ModelAndView blackBoardList(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView blackBoardDetail(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView blackBoardUpdateForm(HttpServletRequest request, HttpServletResponse response)  throws Exception;
-	public ModelAndView communityForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView blackBoardForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView communityAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView blackBoardAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }
