@@ -22,7 +22,7 @@
 			   		<li><a href="${contextPath}/member/memberForm.do">회원가입</a></li> 
 			 	</c:otherwise>
 			</c:choose>
-			<li><a href="#">고객센터</a></li>
+			<li><a href="${contextPath}/chatbot/chatbot.do">고객센터</a></li>
 			<c:if test="${isLogOn==true and memberInfo.m_role == 3 }">  
 	   	   		<li class="no_line"><a href="${contextPath}/admin/goods/adminGoodsMain.do">관리자</a></li>
 	    	</c:if>

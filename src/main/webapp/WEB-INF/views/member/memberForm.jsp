@@ -58,11 +58,17 @@
 					url:"${contextPath}/member/mailCheck.do",
 					data:{"email": email},
 					success:function(data){
-						alert("입력하신 이메일로 인증번호가 발송되었습니다.");
-						$("#authCodeInput").prop("disabled", false);
-						$("#mailCheckResult").text("인증번호가 발송되었습니다.").css("color", "green");
-						serverAuthCode = data;
-						isEmailVerified = false;
+						if(!data){
+							alert("입력하신 이메일로 인증번호가 발송되었습니다.");
+							$("#authCodeInput").prop("disabled", false);
+							$("#mailCheckResult").text("인증번호가 발송되었습니다.").css("color", "green");
+							serverAuthCode = data;
+							isEmailVerified = false;
+						}else{
+							alert("이미 가입된 이메일입니다. 로그인 페이지로 이동합니다.");
+							window.location.href = "${contextPath}/member/loginForm.do";
+							return ;
+						}
 					},
 					error: function(){
 						alert("메일 발송에 실패했습니다. 이메일 주소를 확인해주세요.");

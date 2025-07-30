@@ -112,8 +112,8 @@
 		</a>
 
 		<div class="links">
-			<a href="#">아이디 찾기</a>
-			<a href="#">비밀번호 찾기</a>
+			<a href="${contextPath}/member/findIdForm.do">아이디 찾기</a>
+			<a href="${contextPath}/member/findPwForm.do">비밀번호 찾기</a>
 			<a href="${contextPath}/member/memberForm.do">회원가입</a>
 			<a href="#">고객센터</a>
  		</div>
