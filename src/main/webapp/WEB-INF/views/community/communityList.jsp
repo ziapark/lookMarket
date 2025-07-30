@@ -3,35 +3,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>커뮤니티 리뷰 목록</title>
     <style>
-        .container {
-            width: 90%;
-            margin: 0 auto;
-            padding: 30px 0;
+        body {
+            font-family: '맑은 고딕', sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
         }
-
-        .review-grid {
+        .news-list {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
+            gap: 20px;
         }
-
-        .review-box {
-            width: 30%;
-            background-color: #f9f9f9;
-            margin-bottom: 30px;
-            text-align: center;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+        .news-item {
+            background-color: #fff;
+            width: 260px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #ccc;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
         }
-
-        .review-img {
+        .news-image {
             width: 100%;
-            height: 200px;
+            height: 150px;
+            object-fit: cover;
             background-color: #3366cc;
             color: white;
             display: flex;
@@ -39,45 +37,78 @@
             justify-content: center;
             font-size: 16px;
         }
-
-        .review-info {
+        .news-content {
             padding: 15px;
-            line-height: 1.6;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-
-        .review-info .rating {
-            color: red;
+        .news-title {
+            font-size: 16px;
             font-weight: bold;
+            margin-bottom: 10px;
+            height: 48px; /* 약 3줄 */
+            overflow: hidden;
+            line-height: 1.4em;
         }
-
-        .review-info .title {
-            font-weight: bold;
+        .news-date {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
         }
-
-        .review-info .date {
-            color: #777;
-            font-size: 0.9em;
+        .btn-view {
+            background-color: #0077cc;
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+        .btn-view:hover {
+            background-color: #005fa3;
+        }
+        /* 별점 금색 */
+        .star-rating {
+            color: gold;
+            font-size: 18px;
+            margin-bottom: 8px;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h2>커뮤니티 리뷰 목록</h2>
-    <div class="review-grid">
-        <c:forEach var="review" items="${communityList}">
-            <div class="review-box">
-                <div class="review-img">
-                    이미지 사진
-                    <%-- <img src="${review.r_filename}" alt="리뷰 이미지" style="width:100%; height:100%; object-fit:cover;" /> --%>
+
+<h2>커뮤니티 리뷰 목록</h2>
+
+<div class="news-list">
+    <c:forEach var="review" items="${communityList}">
+        <div class="news-item">
+            <a href="reviewDetail.jsp?r_id=${review.r_id}" style="text-decoration:none; color: inherit;">
+                <c:choose>
+                    <c:when test="${not empty review.r_filename}">
+                        <img src="/upload/${review.r_filename}" alt="리뷰 이미지" class="news-image" />
+                    </c:when>
+                    <c:otherwise>
+                        <div class="news-image">이미지 없음</div>
+                    </c:otherwise>
+                </c:choose>
+                <div class="news-content">
+                    <div class="star-rating">
+                        <c:forEach var="i" begin="1" end="${review.r_star}">
+                            ★
+                        </c:forEach>
+                    </div>
+                    <div class="news-title">${review.r_title}</div>
+                    <div class="news-date">${review.r_date}</div>
+                    <div class="btn-view">상세보기</div>
                 </div>
-                <div class="review-info">
-                    <div class="r_star">${review.r_star}점</div>
-                    <div class="r_title">${review.r_title}</div>
-                    <div class="r_date">${review.r_date}</div>
-                </div>
-            </div>
-        </c:forEach>
-    </div>
+            </a>
+        </div>
+    </c:forEach>
 </div>
+
 </body>
 </html>

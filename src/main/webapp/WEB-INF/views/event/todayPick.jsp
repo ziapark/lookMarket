@@ -1,82 +1,47 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
-    <title>오늘의 시장 추천</title>
-    <style>
-        body {
-            font-family: '맑은 고딕', sans-serif;
-            margin: 30px;
-            background-color: #f0f8ff;
-        }
-        .recommend-form {
-            max-width: 400px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px #ccc;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
-        button {
-            background-color: #0077cc;
-            color: white;
-            border: none;
-            padding: 10px;
-            width: 100%;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #005fa3;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>오늘의 추천시장</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-<h2>오늘의 시장 추천</h2>
+<div class="container py-5">
+    <h2 class="fw-bold mb-4">오늘의 추천시장</h2>
 
-<form id="recommendForm" action="recommendMarket.do" method="get">
-    <div class="recommend-form">
-        <label for="region">지역 선택</label>
-        <select id="region" name="region" required>
-            <option value="" disabled selected>지역을 선택하세요</option>
-            <option value="seoul">서울</option>
-            <option value="busan">부산</option>
-            <option value="daegu">대구</option>
-            <option value="incheon">인천</option>
-            <option value="gwangju">광주</option>
-            <option value="daejeon">대전</option>
-            <option value="ulsan">울산</option>
-            <option value="sejong">세종</option>
-            <option value="gyeonggi">경기</option>
-            <option value="gangwon">강원</option>
-            <option value="chungbuk">충북</option>
-            <option value="chungnam">충남</option>
-            <option value="jeonbuk">전북</option>
-            <option value="jeonnam">전남</option>
-            <option value="gyeongbuk">경북</option>
-            <option value="gyeongnam">경남</option>
-            <option value="jeju">제주</option>
-        </select>
+    <!-- 👇 3개씩 카드 정렬 -->
+    <div class="row">
+        <c:forEach var="region" items="${regionList}">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">${region.name}</h5>
+                            <div class="text-end">
+                                <img src="${region.weatherIcon}" alt="날씨" width="32" height="32">
+                                <div class="small text-muted">${region.weather}</div>
+                            </div>
+                        </div>
 
-        <button type="submit">추천 받기</button>
+                        <ul class="list-group list-group-flush">
+                            <c:forEach var="market" items="${region.recommendedMarkets}" varStatus="status">
+                                <c:if test="${status.index < 3}"> <!-- 여기 조건이 3개까지만 보여주도록 제한 한거임 -->
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        ${market.name}
+                                        <a href="marketDetail.jsp?id=${market.id}" class="btn btn-sm btn-outline-primary">보기</a>
+                                    </li>
+                                </c:if>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
     </div>
-</form>
+</div>
 
 </body>
 </html>
