@@ -20,6 +20,22 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 	@Override
+	public String findId(String m_name, String m_email) throws DataAccessException{
+		memberVO.setM_name(m_name);
+		memberVO.setM_email(m_email);
+		
+		return sqlSession.selectOne("mapper.member.findId", memberVO);
+	}
+	
+	@Override
+	public String findPw(String m_id, String m_name) throws DataAccessException{
+		memberVO.setM_id(m_id);
+		memberVO.setM_name(m_name);
+		
+		return sqlSession.selectOne("mapper.member.findPw", memberVO);
+	}
+	
+	@Override
 	public MemberVO login(String m_id, String m_pw) throws DataAccessException{
 		memberVO.setM_id(m_id);
 		memberVO.setM_pw(m_pw);

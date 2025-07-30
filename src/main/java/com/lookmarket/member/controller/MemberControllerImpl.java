@@ -5,7 +5,6 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -112,6 +111,26 @@ public class MemberControllerImpl implements MemberController {
 	}
 	
 	@Override
+	@RequestMapping(value="/findId.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String findId(@RequestParam("m_name") String m_name, @RequestParam("m_email") String m_email, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		//아이디 찾기
+		//AJAX 사용
+		String result = memberService.findId(m_name, m_email);
+		return result;
+	}
+	
+	@Override
+	@RequestMapping(value="/findPw.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String findPw(@RequestParam("m_id") String m_id, @RequestParam("m_name") String m_name, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		//비밀번호 찾기
+		//AJAX 사용
+		String result = memberService.findPw(m_id, m_name);
+		return result;
+	}
+	
+	@Override
 	@RequestMapping(value="/overlapped.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String overlapped(@RequestParam("m_id") String m_id, HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -132,7 +151,7 @@ public class MemberControllerImpl implements MemberController {
 	
 	@Override
 	@RequestMapping(value="/addMember.do", method=RequestMethod.POST)
-	public ResponseEntity addMember(@ModelAttribute("memberVO") MemberVO _memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String addMember(@ModelAttribute("memberVO") MemberVO _memberVO, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		//회원가입
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
@@ -162,20 +181,14 @@ public class MemberControllerImpl implements MemberController {
 		
 		try {
 			memberService.addMember(_memberVO);
-			message = "<script>";
-			message += " alert('회원 정보를 로드중입니다. 로그인창으로 이동합니다.');";
-			message += " location.href='" + request.getContextPath() + "/member/loginForm.do';";
-			message = " <script>";
+			
+			redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다. 로그인해주세요.");
+			return "redirect:/member/loginForm.do";
 		}catch(Exception e) {
-			message = "<script>";
-			message += " alert('작업 중 오류가 발생했습니다. 다시 시도해주세요.');";
-			message += " location.href='" + request.getContextPath() + "/member/memberForm.do';";
-			message = " <script>";
-			e.printStackTrace();
+			
+			redirectAttributes.addFlashAttribute("message", "작업 중 오류가 발생했습니다. 다시 시도해주세요.");
+			return "redirect:/member/memberForm.do";
 		}
-		
-		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
-		return resEntity;
 	}
 	
 	@Override
@@ -225,15 +238,19 @@ public class MemberControllerImpl implements MemberController {
 		
 		return mav;		
 	}
+	
 	@Override
 	@RequestMapping(value={"/memberForm.do", "/loginForm.do", "/findIdForm.do", "findPwForm.do"}, method={RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView memberForm(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		//로그인창, 회원가입창 출력
+		HttpSession session;
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
 		mav.setViewName(layout);
 		String viewName = (String)request.getAttribute("viewName");
 		mav.addObject("viewName", viewName);
+		session = request.getSession();
+		session.setAttribute("sideMenu", "hidden");
 		
 		return mav;
 		

@@ -1,6 +1,5 @@
 package com.lookmarket.member.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,10 +18,12 @@ public interface MemberController {
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public String overlapped(@RequestParam("m_id") String m_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public String mailCheck(@RequestParam("email") String email) throws Exception;
-	public ResponseEntity addMember(@ModelAttribute("memberVO") MemberVO _memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public String addMember(@ModelAttribute("memberVO") MemberVO _memberVO, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView memberList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView memberDetail(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView businessMemberList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView businessMemberDetail(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView memberForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public String findId(@RequestParam("m_name") String m_name, @RequestParam("m_email") String m_email, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public String findPw(@RequestParam("m_id") String m_id, @RequestParam("m_name") String m_name, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

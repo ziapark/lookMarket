@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<title>회원가입창</title>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 		$(document).ready(function(){
 			let isIdChecked = false;
@@ -110,32 +110,34 @@
 		});
 		
 		function exeDaumPostCode() {
-			new daum.PostCode({
-				oncomplete:function(data){
-					var fullRoadAddr = data.roadAddress;
-					var extraRoadAddr ='';
-					
-					if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-						extraRoadAddr += data.bname;
-					}
-					
-					if(data.buildingName !== '' && data.apartment === 'Y'){
-						extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);			
-					}
-					
-					if(extraRoadAddr !== ''){
-						extraRoadAddr = ' (' + extraRoadAddr + ')';
-					}
-					
-					if(fullRoadAddr !== ''){
-						fullRoadAddr += extraRoadAddr;
-					}
-					
-				    document.getElementById('m_zipcode').value = data.zonecode; //5자리 새우편번호 사용
-				    document.getElementById('m_road_address').value = fullRoadAddr;
-				    document.getElementById('m_jibun_address').value = data.jibunAddress;
-				}
-			}).open();
+		    daum.postcode.load(function() {
+		        new daum.Postcode({
+		            oncomplete: function(data) {
+		                var fullRoadAddr = data.roadAddress;
+		                var extraRoadAddr = '';
+
+		                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		                    extraRoadAddr += data.bname;
+		                }
+
+		                if(data.buildingName !== '' && data.apartment === 'Y'){
+		                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		                }
+
+		                if(extraRoadAddr !== ''){
+		                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+		                }
+
+		                if(fullRoadAddr !== ''){
+		                    fullRoadAddr += extraRoadAddr;
+		                }
+
+		                document.getElementById('m_zipcode').value = data.zonecode;
+		                document.getElementById('m_road_address').value = fullRoadAddr;
+		                document.getElementById('m_jibun_address').value = data.jibunAddress;
+		            }
+		        }).open();
+		    });
 		}
 	</script>
 </head>
@@ -217,7 +219,7 @@
 					<tr class="dot_line">
 						<td class="fixed_join">주소</td>
 						<td>
-							<input type="text" name="m_zipcode" id="m_zipcode" size="10"> <a href="javascript:execDaumPostCode()">우편번호검색</a>
+							<input type="text" name="m_zipcode" id="m_zipcode" size="10"> <a href="javascript:exeDaumPostCode()">우편번호검색</a>
 							<br>
 							<p>
 								도로명 주소:<br><input type="text" id="m_road_address" name="m_road_address" size="50"><br><br>
