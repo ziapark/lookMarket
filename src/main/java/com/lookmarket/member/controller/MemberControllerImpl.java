@@ -117,6 +117,10 @@ public class MemberControllerImpl implements MemberController {
 		//아이디 찾기
 		//AJAX 사용
 		String result = memberService.findId(m_name, m_email);
+	    if (result == null || result.trim().isEmpty() || result.equals("null")) {
+	        return "NOT_FOUND";
+	    }
+	    
 		return result;
 	}
 	
@@ -127,6 +131,10 @@ public class MemberControllerImpl implements MemberController {
 		//비밀번호 찾기
 		//AJAX 사용
 		String result = memberService.findPw(m_id, m_name);
+	    if (result == null || result.trim().isEmpty()) {
+	        return "NOT_FOUND";
+	    }
+	    
 		return result;
 	}
 	

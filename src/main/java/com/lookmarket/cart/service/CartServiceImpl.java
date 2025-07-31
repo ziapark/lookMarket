@@ -17,4 +17,13 @@ public class CartServiceImpl implements CartService{
 		return cartDAO.myCartList(current_id);
 	}
 	
+	@Override
+	public void updateQty(int c_id, int c_qty) throws Exception{
+		cartDAO.updateQty(c_id, c_qty);
+	}
+	
+	@Override
+	public void deleteCartItem(int c_id) throws Exception{
+		cartDAO.deleteCartItem(c_id);
+	}
 }

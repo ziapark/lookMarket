@@ -94,7 +94,7 @@ public class NaverLoginServiceImpl implements NaverLoginService{
         // 5-1. 우리 DB에 이미 가입된 회원인지 확인
         MemberVO existingMember = memberDAO.selectMemberByEmail(email);
         
-        if (existingMember != null) {
+        if (existingMember!= null) {
             // 5-2. 이미 가입된 회원이면, 해당 회원 정보 반환 (로그인 처리)
             System.out.println("기존 회원입니다. 로그인합니다: " + email);
             return existingMember;

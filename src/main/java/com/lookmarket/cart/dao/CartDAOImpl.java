@@ -20,4 +20,17 @@ public class CartDAOImpl implements CartDAO{
 	public List myCartList(String current_id) throws DataAccessException{
 		return sqlSession.selectList("mapper.cart.myCartList", current_id);
 	}
+	
+	@Override
+	public void updateQty(int c_id, int c_qty) throws DataAccessException{
+		cartVO.setC_id(c_id);
+		cartVO.setC_qty(c_qty);
+		
+		sqlSession.update("mapper.cart.updateQty", cartVO);
+	}
+	
+	@Override
+	public void deleteCartItem(int c_id) throws DataAccessException{
+		sqlSession.delete("mapper.cart.deleteCartItem", c_id);
+	}
 }

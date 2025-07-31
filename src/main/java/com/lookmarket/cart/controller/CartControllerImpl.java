@@ -3,9 +3,13 @@ package com.lookmarket.cart.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lookmarket.cart.service.CartService;
@@ -45,5 +49,28 @@ public class CartControllerImpl extends BaseController implements CartController
 		session.setAttribute("sideMenu_option", "myPage");
 		
 		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/updateCartQty.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> updateCartQty(@RequestParam("c_id") int c_id, @RequestParam("c_qty") int c_qty, HttpServletRequest request, HttpServletResponse response)  throws Exception {
+	    try {
+	        cartService.updateQty(c_id, c_qty); // cart 테이블 수량 변경
+	        return ResponseEntity.ok("success");
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("fail");
+	    }
+	}
+	
+	@RequestMapping(value="/deleteCartItem.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> deleteCartItem(@RequestParam("c_id") int c_id) {
+	    try {
+	        cartService.deleteCartItem(c_id);
+	        return ResponseEntity.ok("success");
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("fail");
+	    }
 	}
 }
