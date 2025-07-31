@@ -1,57 +1,82 @@
-<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<c:set var="contextPath"  value="${pageContext.request.contextPath}" />
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>고충방 리스트</title>
+    <meta charset="UTF-8" />
+    <title>사장님 고충방</title>
+    <style>
+        body {
+            font-family: '맑은 고딕', sans-serif;
+            margin: 30px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        th, td {
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #0077cc;
+            color: white;
+        }
+        td.title-cell {
+            text-align: left;
+        }
+        .lock-icon {
+            color: #888;
+            margin-right: 5px;
+        }
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<div class="container py-4">
-	<h2 class="mb-4">고충방 리스트</h2>    
-    <!-- 게시글 목록 -->
-    <table class="table table-bordered text-center">
-        <thead class="table-light">
+
+<h2>사장님 고충방</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>조회수</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="board" items="${blackboardList}">
             <tr>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성일</th>
-                <th>조회수</th>
-                <th>공개여부</th>
+                <td>${board.b_id}</td>
+                <td class="title-cell">
+                    <a href="blackboardDetail.jsp?b_id=${board.b_id}">
+                        <c:if test="${board.b_secret == 2}">
+                            <span class="lock-icon">🔒</span>
+                        </c:if>
+                        ${board.b_title}
+                    </a>
+                </td>
+                <td>${board.m_id}</td>
+                <td>${board.b_date}</td>
+                <td>${board.b_hit}</td>
             </tr>
-        </thead>
-        <tbody>
-        <c:choose>
-            <c:when test="${not empty blackBoardList}">
-                <c:forEach var="board" items="${blackBoardList}">
-                    <tr>
-                        <td class="text-start">
-                            <a href="#">${board.b_title}</a>
-                        </td>
-                        <td>${board.m_id}</td>
-                        <td>${board.b_date}</td>
-                        <td>${board.b_hit}</td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${board.b_secret eq 1}">공개</c:when>
-                                <c:when test="${board.b_secret eq 2}">비공개</c:when>
-                                <c:otherwise>알 수 없음</c:otherwise>
-                            </c:choose>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </c:when>
-            <c:otherwise>
-                <tr>
-                    <td colspan="5">등록된 게시글이 없습니다.</td>
-                </tr>
-            </c:otherwise>
-        </c:choose>
-        </tbody>
-    </table>
-</div>
-    
+        </c:forEach>
+    </tbody>
+</table>
+
 </body>
 </html>
