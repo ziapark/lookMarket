@@ -52,18 +52,13 @@ html, body {
 			</div>
 
 			<div class="d-flex justify-content-center gap-3 small">
-				<a href="#" class="text-decoration-none text-muted">아이디 찾기</a> <a
-					href="#" class="text-decoration-none text-muted">비밀번호 찾기</a> <a
-					href="${contextPath}/member/memberForm.do"
-					class="text-decoration-none text-muted">회원가입</a> <a href="#"
-					class="text-decoration-none text-muted">고객센터</a>
+				<a href="${contextPath}/member/findIdForm.do" class="text-decoration-none text-muted">아이디 찾기</a> 
+				<a href="${contextPath}/member/findPwForm.do" class="text-decoration-none text-muted">비밀번호 찾기</a> 
+				<a href="${contextPath}/member/memberForm.do" class="text-decoration-none text-muted">회원가입</a> 
+				<a href="#" class="text-decoration-none text-muted">고객센터</a>
 			</div>
 		</div>
 	</div>
-	<div class="links">
-		<a href="${contextPath}/member/findIdForm.do">아이디 찾기</a> <a
-			href="${contextPath}/member/findPwForm.do">비밀번호 찾기</a> <a
-			href="${contextPath}/member/memberForm.do">회원가입</a> <a href="#">고객센터</a>
-	</div>
+
 </body>
 </html>
