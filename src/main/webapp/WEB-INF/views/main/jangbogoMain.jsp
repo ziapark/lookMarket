@@ -11,8 +11,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <style>
     .quick-menu img {
-      width: 60px;
-      height: 60px;
+      width: 200px;
+      height: 200px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 8px;
@@ -37,6 +37,12 @@
     .tab-button {
       margin-right: 10px;
     }
+    .carousel-item img {
+  	  height: 400px; /* 원하는 높이로 조절 */
+      object-fit: cover; /* 이미지가 잘리지 않고 꽉 차도록 */
+      width: 100%; /* 가로는 꽉 채움 */
+    }
+    
   </style>
 </head>
 <body>
@@ -46,10 +52,10 @@
   <div id="mainCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="${contextPath}/resources/image/main1.jpg" class="d-block w-100" alt="..." />
+        <img src="${contextPath}/resources/image/테스트이미지.PNG" class="d-block w-100" alt="..." />
       </div>
       <div class="carousel-item">
-        <img src="${contextPath}/resources/image/main2.jpg" class="d-block w-100" alt="..." />
+        <img src="${contextPath}/resources/image/테스트이미지2.PNG" class="d-block w-100" alt="..." />
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
@@ -62,11 +68,11 @@
 
   <!-- 2. 원형 퀵메뉴 -->
   <div class="row quick-menu mb-5">
-    <div class="col"><img src="${contextPath}/resources/image/quick1.png" /><div>신선식품</div></div>
-    <div class="col"><img src="${contextPath}/resources/image/quick2.png" /><div>가공식품</div></div>
-    <div class="col"><img src="${contextPath}/resources/image/quick3.png" /><div>생활용품</div></div>
-    <div class="col"><img src="${contextPath}/resources/image/quick4.png" /><div>패션잡화</div></div>
-    <div class="col"><img src="${contextPath}/resources/image/quick5.png" /><div>지역특산물</div></div>
+    <div class="col"><img src="${contextPath}/resources/image/신선식품.png" /></div>
+    <div class="col"><img src="${contextPath}/resources/image/가공식품.png" /></div>
+    <div class="col"><img src="${contextPath}/resources/image/생활용품.png" /></div>
+    <div class="col"><img src="${contextPath}/resources/image/패션잡화.png" /></div>
+    <div class="col"><img src="${contextPath}/resources/image/지역특산물.png" /></div>
   </div>
 
   <!-- 3. 실시간 인기상품 -->
