@@ -20,7 +20,15 @@
 			<li class="no_line"><a href="#">찾아오시는길</a></li>
 		</ul>
 	</div>
-	<a href="#"><img width="147px"  height="62px" alt="lookmarketlogo" src="${contextPath}/resources/image/lookmarketlogo.png" /></a>
+	<!-- ✅ 로고 이미지 조건 분기 -->
+    <c:choose>
+        <c:when test="${viewName eq '/main/jangbogoMain'}">
+            <a href="#"><img width="147px" height="62px" alt="jangbogologo" src="${contextPath}/resources/image/jangbogologo.png" /></a>
+        </c:when>
+        <c:otherwise>
+            <a href="#"><img width="147px" height="62px" alt="lookmarketlogo" src="${contextPath}/resources/image/lookmarketlogo.png" /></a>
+        </c:otherwise>
+    </c:choose>
 
 	<div style="padding-left:200px">
 	 	㈜시장봐조 <br>

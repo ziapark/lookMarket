@@ -86,7 +86,7 @@
 <div class="news-list">
     <c:forEach var="review" items="${communityList}">
         <div class="news-item">
-            <a href="reviewDetail.jsp?r_id=${review.r_id}" style="text-decoration:none; color: inherit;">
+            <a href="communityDetail.jsp?r_id=${review.r_id}" style="text-decoration:none; color: inherit;">
                 <c:choose>
                     <c:when test="${not empty review.r_filename}">
                         <img src="/upload/${review.r_filename}" alt="리뷰 이미지" class="news-image" />
