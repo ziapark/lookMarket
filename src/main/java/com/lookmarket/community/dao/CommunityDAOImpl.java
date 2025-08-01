@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class CommunityDAOImpl implements CommunityDAO{
 	@Autowired
 	private SqlSession sqlSession;
+	@Autowired ReviewVO reviewVO;
 	
 	@Override
 	public List<BlackBoardVO> blackBoardList() throws DataAccessException{
@@ -30,4 +31,16 @@ public class CommunityDAOImpl implements CommunityDAO{
 		return (ArrayList)sqlSession.selectList("mapper.community.communityList");
 	}
 	
+	@Override
+	public ReviewVO communityDetail(int r_id) throws DataAccessException{
+		return sqlSession.selectOne("mapper.community.communityDetail", r_id);
+	}
+	
+	@Override
+	public void upHit(int r_id, int hit) throws DataAccessException{
+		reviewVO.setR_id(r_id);
+		reviewVO.setR_hit(hit);
+		
+		sqlSession.update("mapper.community.upHit", reviewVO);
+	}
 }

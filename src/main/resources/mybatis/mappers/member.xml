@@ -107,4 +107,10 @@
 							#{m_joindate})
 		]]>
 	</insert>
+	
+	<delete id="reSignUp" parameterType="String">
+		<![CDATA[
+			DELETE r_outdate FROM member WHERE r_id=#{r_id}
+		]]>
+	</delete>
 </mapper>

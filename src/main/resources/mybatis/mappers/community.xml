@@ -39,4 +39,18 @@
 		]]>
 	</select>
 	
+	<select id="communityDetail" parameterType="int" resultType="reviewVO">
+		<![CDATA[
+			SELECT * FROM review WHERE r_id=#{r_id}
+		]]>
+	</select>
+	
+	<update id="upHit" parameterType="reviewVO">
+		<![CDATA[
+			UPDATE review
+			SET
+			r_hit = #{r_hit}
+			WHERE r_id = #{r_id}
+		]]>
+	</update>
 </mapper>

@@ -1,16 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>리뷰 상세보기</title>
-    <c:if test="${empty memberInfo}">
-  		<script>
-    		alert("로그인이 필요한 서비스입니다.");
-    		location.href = '${pageContext.request.contextPath}/member/loginForm.do';
-  		</script>
-	</c:if>
     <style>
         .detail-container {
             width: 800px;
@@ -99,7 +95,7 @@
     </div>
 
     <div class="back-btn">
-        <a href="communityList.jsp">← 목록으로</a>
+        <a href="${contextPath}/community/communityList.do">← 목록으로</a>
     </div>
 </div>
 </body>

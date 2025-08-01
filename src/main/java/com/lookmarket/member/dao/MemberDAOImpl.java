@@ -59,4 +59,9 @@ public class MemberDAOImpl implements MemberDAO{
 	public void insertNewMember(MemberVO memberVO) throws DataAccessException{
 		sqlSession.insert("mapper.member.insertNewMember", memberVO);
 	}
+	
+	@Override
+	public void reSignUp(String r_id) throws DataAccessException{
+		sqlSession.delete("mapper.member.reSignUp", r_id);
+	}
 }

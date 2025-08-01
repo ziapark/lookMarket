@@ -43,4 +43,9 @@ public class MemberServiceImpl implements MemberService{
 	public void addMember(MemberVO memberVO) throws Exception{
 		memberDAO.insertNewMember(memberVO);
 	}
+	
+	@Override
+	public void reSignUp(String m_id) throws Exception{
+		memberDAO.reSignUp(m_id);
+	}
 }

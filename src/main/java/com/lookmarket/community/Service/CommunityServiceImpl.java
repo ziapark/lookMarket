@@ -24,4 +24,13 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityDAO.communityList();
 	}
 	
+	@Override
+	public ReviewVO communityDetail(int r_id) throws Exception{
+		return communityDAO.communityDetail(r_id);
+	}
+	
+	@Override
+	public void upHit(int r_id, int hit) throws Exception{
+		communityDAO.upHit(r_id, hit);
+	}
 }

@@ -13,5 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 public interface CommunityService {
 	public List<BlackBoardVO> blackBoardList() throws Exception;
 	public List<ReviewVO> communityList() throws Exception;
-	
+	public ReviewVO communityDetail(int r_id) throws Exception;
+	public void upHit(int r_id, int hit) throws Exception;
 }
