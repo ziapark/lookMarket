@@ -14,4 +14,5 @@ import jakarta.servlet.http.HttpServletResponse;
 public interface CommunityDAO {
 	public List<BlackBoardVO> blackBoardList() throws DataAccessException;
 	public List<ReviewVO> communityList() throws DataAccessException;
+	public void insertReview(ReviewVO reviewVO) throws Exception;
 }

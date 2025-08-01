@@ -13,5 +13,5 @@ import jakarta.servlet.http.HttpServletResponse;
 public interface CommunityService {
 	public List<BlackBoardVO> blackBoardList() throws Exception;
 	public List<ReviewVO> communityList() throws Exception;
-	
+	public void insertReview(ReviewVO reviewVO) throws Exception;
 }

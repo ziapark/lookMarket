@@ -38,5 +38,29 @@
 			SELECT * FROM review
 		]]>
 	</select>
-	
+	<insert id="insertReview" parameterType="reviewVO">
+		<![CDATA[
+			INSERT INTO review(
+			m_id,
+			r_title, 
+			r_star,
+			r_content,
+			r_filename,
+			r_filetype,
+			r_secret,
+			r_date,
+			r_hit
+			)VALUES(
+			#{m_id},
+			#{r_title},
+			#{r_star},
+			#{r_content},
+			#{r_filename},
+			#{r_filetype},
+			#{r_secret},
+			CURDATE(),
+			0
+			)
+		]]>
+	</insert>
 </mapper>

@@ -5,12 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>리뷰 상세보기</title>
-    <c:if test="${empty memberInfo}">
-  		<script>
-    		alert("로그인이 필요한 서비스입니다.");
-    		location.href = '${pageContext.request.contextPath}/member/loginForm.do';
-  		</script>
-	</c:if>
+
     <style>
         .detail-container {
             width: 800px;

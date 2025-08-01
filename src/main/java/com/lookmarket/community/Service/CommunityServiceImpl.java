@@ -23,5 +23,8 @@ public class CommunityServiceImpl implements CommunityService{
 	public List<ReviewVO> communityList() throws Exception{
 		return communityDAO.communityList();
 	}
-	
+	@Override
+	public void insertReview(ReviewVO reviewVO) throws Exception{
+		communityDAO.insertReview(reviewVO);
+	}
 }
