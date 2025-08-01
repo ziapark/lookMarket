@@ -15,6 +15,7 @@ import com.lookmarket.community.vo.ReviewVO;
 public class CommunityDAOImpl implements CommunityDAO{
 	@Autowired
 	private SqlSession sqlSession;
+	@Autowired ReviewVO reviewVO;
 	
 	@Override
 	public List<BlackBoardVO> blackBoardList() throws DataAccessException{
@@ -25,8 +26,23 @@ public class CommunityDAOImpl implements CommunityDAO{
 	public List<ReviewVO> communityList() throws DataAccessException{
 		return (ArrayList)sqlSession.selectList("mapper.community.communityList");
 	}
+<<<<<<< HEAD
 	@Override
 	public void insertReview(ReviewVO reviewVO) throws DataAccessException{
 		sqlSession.insert("mapper.community.insertReview", reviewVO);
+=======
+	
+	@Override
+	public ReviewVO communityDetail(int r_id) throws DataAccessException{
+		return sqlSession.selectOne("mapper.community.communityDetail", r_id);
+	}
+	
+	@Override
+	public void upHit(int r_id, int hit) throws DataAccessException{
+		reviewVO.setR_id(r_id);
+		reviewVO.setR_hit(hit);
+		
+		sqlSession.update("mapper.community.upHit", reviewVO);
+>>>>>>> 569a9bca5c2f1b7b8f626c735025bb50314ab963
 	}
 }

@@ -21,11 +21,6 @@ html, body {
 </head>
 <body
 	class="bg-light d-flex justify-content-center align-items-center min-vh-100">
-	<c:if test="${not empty message}">
-		<script>
-			alert("${message}");
-		</script>
-	</c:if>
 	<div class="card" style="width: 400px;">
 		<div class="card-body">
 			<h3 class="card-title text-center mb-4">로그인</h3>

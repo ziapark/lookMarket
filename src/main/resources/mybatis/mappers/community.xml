@@ -38,6 +38,7 @@
 			SELECT * FROM review
 		]]>
 	</select>
+<<<<<<< HEAD
 	<insert id="insertReview" parameterType="reviewVO">
 		<![CDATA[
 			INSERT INTO review(
@@ -63,4 +64,21 @@
 			)
 		]]>
 	</insert>
+=======
+	
+	<select id="communityDetail" parameterType="int" resultType="reviewVO">
+		<![CDATA[
+			SELECT * FROM review WHERE r_id=#{r_id}
+		]]>
+	</select>
+	
+	<update id="upHit" parameterType="reviewVO">
+		<![CDATA[
+			UPDATE review
+			SET
+			r_hit = #{r_hit}
+			WHERE r_id = #{r_id}
+		]]>
+	</update>
+>>>>>>> 569a9bca5c2f1b7b8f626c735025bb50314ab963
 </mapper>

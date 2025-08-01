@@ -45,9 +45,18 @@ public class MemberControllerImpl implements MemberController {
 		String check_id = memberService.checkId(m_id);
 		
 		if(check_id.equals("true")) {
-			memberVO = memberService.login(m_id, m_pw);
+			memberVO = memberService.login(m_id, m_pw);		
 			
-			if(memberVO.getM_id() != null) {
+			if(memberVO != null && memberVO.getM_outdate() != null) {
+				//탈퇴회원일 경우
+	            redirectAttributes.addFlashAttribute("message", "계정을 복구합니다.");
+	            
+	            memberService.reSignUp(m_id);
+				mav.setViewName("redirect:/member/loginForm.do");
+				return mav;
+			}			
+			
+			if(memberVO != null && memberVO.getM_id() != null) {
 				HttpSession session = request.getSession();
 				session = request.getSession();
 				session.setAttribute("current_id", m_id);

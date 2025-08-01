@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -159,6 +160,21 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	    	mav.setViewName("redirect:/mypage/mypageInfo.do");
 	    }
 	    return mav;
+	}
+	
+	@RequestMapping(value="/deleteMyInfo.do", method=RequestMethod.POST)
+	public String deleteMember(@RequestParam("m_id") String m_id, HttpSession session, RedirectAttributes rttr) {
+	    try {
+	    	myPageService.deleteMember(m_id);
+	    	
+	    	session.invalidate();
+	        rttr.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다. 일주일 후 계정 정보가 완전히 삭제됩니다.");
+	        return "redirect:/main/sijangbajoMain.do";  // 메인 페이지로 이동
+	    } catch (Exception e) {
+	    	e.printStackTrace(); // 어떤 예외인지 로그에 자세히 출력
+	        rttr.addFlashAttribute("message", "탈퇴 처리 중 오류가 발생했습니다.");
+	        return "redirect:/mypage/mypageInfo.do";
+	    }
 	}
 
 }

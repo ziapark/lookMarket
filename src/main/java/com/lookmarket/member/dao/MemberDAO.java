@@ -14,4 +14,5 @@ public interface MemberDAO {
 	public void insertNewMember(MemberVO memberVO) throws DataAccessException;
 	public String findId(String m_name, String m_email) throws DataAccessException;
 	public String findPw(String m_id, String m_name) throws DataAccessException;
+	public void reSignUp(String r_id) throws DataAccessException;
 }

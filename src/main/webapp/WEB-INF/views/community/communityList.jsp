@@ -1,5 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,7 +88,7 @@
 <div class="news-list">
     <c:forEach var="review" items="${communityList}">
         <div class="news-item">
-            <a href="communityDetail.jsp?r_id=${review.r_id}" style="text-decoration:none; color: inherit;">
+            <a href="${contextPath}/community/communityDetail.do?r_id=${review.r_id}" style="text-decoration:none; color: inherit;">
                 <c:choose>
                     <c:when test="${not empty review.r_filename}">
                         <img src="/upload/${review.r_filename}" alt="리뷰 이미지" class="news-image" />

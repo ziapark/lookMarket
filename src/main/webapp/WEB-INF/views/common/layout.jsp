@@ -13,6 +13,11 @@
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-3gJwYpMe3Qm2LF6XnKsKuQv5JFNfEXiDAYTujMAeBAs=" crossorigin="anonymous"></script>
 </head>
 <body>
+	<c:if test="${not empty message}">
+		<script>
+			alert("${message}");
+		</script>
+	</c:if>
 	<div>
 		<header>
 			<%@ include file="header.jsp" %>

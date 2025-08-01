@@ -7,12 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lookmarket.community.Service.CommunityService;
 import com.lookmarket.community.vo.BlackBoardVO;
 import com.lookmarket.community.vo.ReviewVO;
-import com.lookmarket.member.vo.MemberVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,6 +26,8 @@ public class CommunityControllerImpl implements CommunityController{
 	private CommunityService communityService;
 	@Autowired
 	private BlackBoardVO blackBoardVO;
+	@Autowired
+	private ReviewVO reviewVO;
 	
 	@Override
 	@RequestMapping(value="/communityList.do", method=RequestMethod.GET)
@@ -39,7 +42,6 @@ public class CommunityControllerImpl implements CommunityController{
 
 		List<ReviewVO> reviewList = communityService.communityList();
 		mav.addObject("communityList", reviewList);
-		System.out.println("reviewList size: " + reviewList.size());
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
@@ -81,9 +83,11 @@ public class CommunityControllerImpl implements CommunityController{
 	
 	@Override
 	@RequestMapping(value="/communityDetail.do", method=RequestMethod.GET)
-	public ModelAndView communityDetail(HttpServletRequest request, HttpServletResponse response)  throws Exception{
+	public ModelAndView communityDetail(@RequestParam("r_id") int r_id, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes)  throws Exception{
 		//커뮤니티 상세정보
 		HttpSession session;
+		session = request.getSession();
+		String current_id = (String) session.getAttribute("current_id");
 		
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
@@ -91,7 +95,25 @@ public class CommunityControllerImpl implements CommunityController{
 		String viewName = (String)request.getAttribute("viewName");
 		mav.addObject("viewName", viewName);
 		
-		session = request.getSession();
+		reviewVO = communityService.communityDetail(r_id);
+		int hit = reviewVO.getR_hit();
+		hit += 1;
+		
+		if(reviewVO.getR_secret() == 1) {
+			//공개
+			mav.addObject("review", reviewVO);
+			communityService.upHit(r_id, hit);
+		}else {
+			//비공개
+			if(reviewVO.getM_id().equals(current_id)) {
+				mav.addObject("review", reviewVO);
+				communityService.upHit(r_id, hit);
+			}else {
+		    	redirectAttributes.addFlashAttribute("message", "비공개 리뷰 입니다.");
+		    	mav.setViewName("redirect:/community/communityList.do");		    	
+			}
+		}
+		
 		session.setAttribute("sideMenu", "reveal");
 		session.setAttribute("sideMenu_option", "community");
 		

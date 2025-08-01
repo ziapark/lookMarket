@@ -1,11 +1,16 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>리뷰 상세보기</title>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 569a9bca5c2f1b7b8f626c735025bb50314ab963
     <style>
         .detail-container {
             width: 800px;
@@ -94,7 +99,7 @@
     </div>
 
     <div class="back-btn">
-        <a href="communityList.jsp">← 목록으로</a>
+        <a href="${contextPath}/community/communityList.do">← 목록으로</a>
     </div>
 </div>
 </body>
