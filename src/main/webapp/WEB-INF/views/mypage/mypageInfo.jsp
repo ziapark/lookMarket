@@ -54,7 +54,7 @@
 		
 		//회원 탈퇴
 		function deletemypageInfo() {
-			if (confirm("정말로 회원을 탈퇴하시겠습니까?\n 7일 내에 로그인 또는 회원가입 시도 시 계정이 복구됩니다.\n7일 뒤에 계정이 완전히 삭제됩니다.")) {
+			if (confirm("정말로 회원을 탈퇴하시겠습니까?\n7일 내에 로그인 또는 회원가입 시도 시 계정이 복구됩니다.\n7일 뒤에 계정이 완전히 삭제됩니다.")) {
 				document.getElementById("deleteForm").submit();
 			}
 		}

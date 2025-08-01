@@ -1,9 +1,10 @@
 package com.lookmarket.member.service;
 
-import org.springframework.http.HttpHeaders;
+import java.security.SecureRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -91,35 +92,94 @@ public class NaverLoginServiceImpl implements NaverLoginService{
     private MemberVO processNaverUser(JsonNode profileJson) throws Exception {
         String email = profileJson.get("email").asText();
         
-        // 5-1. 우리 DB에 이미 가입된 회원인지 확인
         MemberVO existingMember = memberDAO.selectMemberByEmail(email);
         
-        if (existingMember!= null) {
-            // 5-2. 이미 가입된 회원이면, 해당 회원 정보 반환 (로그인 처리)
-            System.out.println("기존 회원입니다. 로그인합니다: " + email);
+        if (existingMember!= null) {        	
             return existingMember;
         } else {
-            // 5-3. 신규 회원이면, 자동 회원가입 처리
-            System.out.println("신규 회원입니다. 자동 가입을 진행합니다: " + email);
+            //신규 회원이면, 자동 회원가입 처리
             MemberVO newMember = new MemberVO();
             newMember.setM_email(email);
             newMember.setM_name(profileJson.get("name").asText());
             
-            // 네이버는 아이디를 제공하지 않으므로, 이메일 앞부분을 아이디로 사용하거나 랜덤 아이디 생성
-            String naverId = "naver_" + profileJson.get("id").asText();
+            //이메일 앞부분을 아이디로 사용
+            String emailPrefix = email.substring(0, email.indexOf("@"));
+            String naverId = "naver_" + emailPrefix;
             newMember.setM_id(naverId);
+            newMember.setM_pw(generateSecureRandomPassword(8));
             
-            // 비밀번호는 소셜 로그인 회원이므로, 랜덤 값으로 채워넣습니다.
-            newMember.setM_pw("SOCIAL_LOGIN_USER_PASSWORD");
+            String gender = profileJson.has("gender") ? profileJson.get("gender").asText() : "";
+            int mappedGender = 0; // 기본값
+
+            if ("M".equalsIgnoreCase(gender)) {
+                mappedGender = 1;
+            } else if ("F".equalsIgnoreCase(gender)) {
+                mappedGender = 2;
+            }
+
+            newMember.setM_gender(mappedGender);
+
+            String birthYear = profileJson.has("birthyear") ? profileJson.get("birthyear").asText() : "";
+            String birthday = profileJson.has("birthday") ? profileJson.get("birthday").asText() : "";
+
+            String fullBirth = "";
+            if (!birthYear.isEmpty() && !birthday.isEmpty()) {
+                fullBirth = birthYear + "-" + birthday;
+            }
+
+            newMember.setM_birth(fullBirth);
             
-            // 나머지 필수 정보들을 기본값으로 채워줍니다.
-            newMember.setM_gender(0); // 네이버 응답값(M/F)을 우리 DB(1/2)에 맞게 변환 필요
-            newMember.setM_phone("01000000000"); // 휴대폰 번호는 추가 동의 필요
+            String phone = profileJson.has("mobile") ? profileJson.get("mobile").asText() : "";
+            if (!phone.isEmpty()) {
+                phone = phone.replaceAll("[^0-9]", "");
+            } else {
+                phone = "01000000000";
+            }
+            newMember.setM_phone(phone);
             
-            // ... (그 외 DB의 NOT NULL 컬럼들을 기본값으로 채워줍니다) ...
-            
-            memberDAO.insertNewMember(newMember); // 회원 정보 INSERT
+            memberDAO.insertNewMember(newMember);
             return newMember;
         }
+    }
+    
+    public static String generateSecureRandomPassword(int length) {
+        if (length < 8) {
+            throw new IllegalArgumentException("비밀번호는 최소 8자 이상이어야 합니다.");
+        }
+
+        final String UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        final String LOWER = "abcdefghijklmnopqrstuvwxyz";
+        final String DIGITS = "0123456789";
+        final String SPECIAL = "!@#$%^&*()-_=+[]{}|;:,.<>?";
+        final String ALL = UPPER + LOWER + DIGITS + SPECIAL;
+
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder();
+
+        // 각 문자 유형에서 하나씩 보장
+        password.append(UPPER.charAt(random.nextInt(UPPER.length())));
+        password.append(LOWER.charAt(random.nextInt(LOWER.length())));
+        password.append(DIGITS.charAt(random.nextInt(DIGITS.length())));
+        password.append(SPECIAL.charAt(random.nextInt(SPECIAL.length())));
+
+        // 나머지 자릿수는 랜덤하게 채움
+        for (int i = 4; i < length; i++) {
+            password.append(ALL.charAt(random.nextInt(ALL.length())));
+        }
+
+        return shuffleString(password.toString(), random);
+    }
+
+    // 문자열 셔플 메소드
+    private static String shuffleString(String input, SecureRandom random) {
+        char[] chars = input.toCharArray();
+        for (int i = chars.length - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            // swap
+            char temp = chars[i];
+            chars[i] = chars[j];
+            chars[j] = temp;
+        }
+        return new String(chars);
     }
 }

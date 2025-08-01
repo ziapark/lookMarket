@@ -108,9 +108,11 @@
 		]]>
 	</insert>
 	
-	<delete id="reSignUp" parameterType="String">
-		<![CDATA[
-			DELETE r_outdate FROM member WHERE r_id=#{r_id}
-		]]>
-	</delete>
+	<update id="reSignUp" parameterType="String">
+	    <![CDATA[
+	        UPDATE member
+	        SET m_outdate = NULL
+	        WHERE m_id = #{m_id}
+	    ]]>
+	</update>
 </mapper>

@@ -43,6 +43,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		myPageVO = myPageService.getMyPageInfo(current_id);
 		
 		String m_email = myPageVO.getM_email();
+		
 		if (m_email != null && m_email.contains("@")) {
 		    String[] parts = m_email.split("@", 2);
 		    String m_email_id = parts[0];
@@ -168,7 +169,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	    	myPageService.deleteMember(m_id);
 	    	
 	    	session.invalidate();
-	        rttr.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다. 일주일 후 계정 정보가 완전히 삭제됩니다.");
+	        rttr.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.\n일주일 후 계정 정보가 완전히 삭제됩니다.");
 	        return "redirect:/main/sijangbajoMain.do";  // 메인 페이지로 이동
 	    } catch (Exception e) {
 	    	e.printStackTrace(); // 어떤 예외인지 로그에 자세히 출력

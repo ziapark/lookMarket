@@ -61,7 +61,7 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 	@Override
-	public void reSignUp(String r_id) throws DataAccessException{
-		sqlSession.delete("mapper.member.reSignUp", r_id);
+	public void reSignUp(String m_id) throws DataAccessException{
+		sqlSession.update("mapper.member.reSignUp", m_id);
 	}
 }

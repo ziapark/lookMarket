@@ -87,19 +87,24 @@ public class MemberControllerImpl implements MemberController {
 	@Override
 	@RequestMapping(value = "/naverCallback.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String naverCallback(@RequestParam("code") String code, @RequestParam("state") String state, HttpSession session, Model model) throws Exception {
-		System.out.println("Naver Callback 들어옴!");
-
 		MemberVO naverMember = naverLoginService.getNaverUserInfo(code, state);
 		
         if (naverMember != null) {
-            // 6단계: 로그인 성공 처리 (세션에 회원 정보 저장)
-            session.setAttribute("isLogOn", true);
-            session.setAttribute("memberInfo", naverMember);
-            
-            // 메인 페이지로 리다이렉트
-            return "redirect:/main/sijangbajoMain.do";
+        	if(naverMember.getM_outdate() != null) {
+        		//재가입
+        		memberService.reSignUp(naverMember.getM_id());
+                model.addAttribute("message", "계정을 복구합니다.");
+                return "forward:/member/loginForm.do";
+
+        	}else {
+        	
+        		session.setAttribute("isLogOn", true);
+        		session.setAttribute("memberInfo", naverMember);
+        		session.setAttribute("current_id", naverMember.getM_id());
+        		
+        		return "redirect:/main/sijangbajoMain.do";
+        	}
         } else {
-            // 실패 시 에러 페이지나 로그인 페이지로 이동
             model.addAttribute("message", "네이버 로그인에 실패했습니다.");
             return "forward:/member/loginForm.do";
         }
