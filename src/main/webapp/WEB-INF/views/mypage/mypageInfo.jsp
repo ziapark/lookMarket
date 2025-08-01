@@ -78,8 +78,8 @@
   			<tr>
    		 		<td>성별</td>
     			<td>
-					<input type="radio" name="m_gender" value="101" <c:if test="${myPageInfo.m_gender == 101}">checked</c:if> /> 남성
-					<input type="radio" name="m_gender" value="102" <c:if test="${myPageInfo.m_gender == 102}">checked</c:if> /> 여성
+					<input type="radio" name="m_gender" value="1" <c:if test="${myPageInfo.m_gender == 1}">checked</c:if> /> 남성
+					<input type="radio" name="m_gender" value="2" <c:if test="${myPageInfo.m_gender == 2}">checked</c:if> /> 여성
     			</td>
  			</tr>
   			<tr>
