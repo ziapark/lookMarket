@@ -1,7 +1,8 @@
 package com.lookmarket.mypage.service;
 
-import com.lookmarket.member.vo.MemberVO;
+import com.lookmarket.mypage.vo.MyPageVO;
 
 public interface MyPageService {
-	public MemberVO getMyPageInfo(String current_id) throws Exception;
+	public MyPageVO getMyPageInfo(String current_id) throws Exception;
+	public int updateMyInfo(MyPageVO myPageVO) throws Exception;
 }
