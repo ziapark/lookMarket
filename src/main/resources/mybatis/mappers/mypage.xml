@@ -51,4 +51,12 @@
 			WHERE m_id = #{m_id}
 		]]>
 	</update>
+	
+	<update id="deleteMyInfo" parameterType="String">
+		<![CDATA[
+			UPDATE member
+			SET m_outdate = CURDATE() WHERE m_id = #{m_id}
+		]]>
+	</update>
+	
 </mapper>

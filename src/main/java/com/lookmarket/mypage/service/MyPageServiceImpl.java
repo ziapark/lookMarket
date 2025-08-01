@@ -25,5 +25,8 @@ public class MyPageServiceImpl implements MyPageService{
 		return myPageDAO.updateMyInfo(myPageVO);
 	}
 	
-	
+	@Override
+	public void deleteMember(String m_id) throws Exception {
+	    myPageDAO.deleteMember(m_id);
+	}
 }

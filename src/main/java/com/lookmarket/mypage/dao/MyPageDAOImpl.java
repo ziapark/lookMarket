@@ -25,4 +25,9 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int updateMyInfo(MyPageVO myPageVO) throws DataAccessException{
 		return sqlSession.update("mapper.mypage.updateMyInfo", myPageVO);
 	}
+	
+	@Override
+	public int deleteMember(String m_id) throws DataAccessException {
+		return sqlSession.update("mapper.mypage.deleteMyInfo", m_id);
+	}
 }
