@@ -132,7 +132,7 @@ $(document).ready(function() {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">이벤트★</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="${contextPath}/event/promotionList.do">프로모션 목록</a></li>
+                                <li><a class="dropdown-item" href="${contextPath}/event/promotionList.do?pageType=sijangbajo">프로모션 목록</a></li>
                                 <li><a class="dropdown-item" href="${contextPath}/event/todayRecommend.do">오늘의 추천시장</a></li>
                             </ul>
                         </li>

@@ -23,4 +23,5 @@ public class CommunityServiceImpl implements CommunityService{
 	public List<ReviewVO> communityList() throws Exception{
 		return communityDAO.communityList();
 	}
+	
 }

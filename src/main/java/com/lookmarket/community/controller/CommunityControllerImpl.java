@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.lookmarket.community.Service.CommunityService;
 import com.lookmarket.community.vo.BlackBoardVO;
 import com.lookmarket.community.vo.ReviewVO;
+import com.lookmarket.member.vo.MemberVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,11 +33,12 @@ public class CommunityControllerImpl implements CommunityController{
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
 		mav.setViewName(layout);
-		String viewName = (String)request.getAttribute("viewName");
+		String viewName = "/community/communityList";
 		mav.addObject("viewName", viewName);
-		
+
 		List<ReviewVO> reviewList = communityService.communityList();
 		mav.addObject("communityList", reviewList);
+		System.out.println("reviewList size: " + reviewList.size());
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
@@ -45,11 +47,15 @@ public class CommunityControllerImpl implements CommunityController{
 		return mav;
 	}
 	
+	
+
+	
 	@Override
 	@RequestMapping(value="/communityDetail.do", method=RequestMethod.GET)
 	public ModelAndView communityDetail(HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		//커뮤니티 상세정보
 		HttpSession session;
+		
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
 		mav.setViewName(layout);
@@ -68,6 +74,7 @@ public class CommunityControllerImpl implements CommunityController{
 	public ModelAndView communityUpdateForm(HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		//커뮤니티 수정
 		HttpSession session;
+		
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
 		mav.setViewName(layout);

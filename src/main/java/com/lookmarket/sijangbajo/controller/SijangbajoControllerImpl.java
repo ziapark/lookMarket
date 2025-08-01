@@ -24,6 +24,9 @@ public class SijangbajoControllerImpl implements SijangbajoController{
 		String viewName = (String)request.getAttribute("viewName");
 		mav.addObject("viewName", viewName);
 		
+		mav.addObject("pageType", "sijangbajo");
+
+		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
 		session.setAttribute("sideMenu_option", "search");
@@ -42,6 +45,8 @@ public class SijangbajoControllerImpl implements SijangbajoController{
 		String viewName = (String)request.getAttribute("viewName");
 		mav.addObject("viewName", viewName);
 		
+		mav.addObject("pageType", "sijangbajo");
+		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
 		session.setAttribute("sideMenu_option", "nearby");
@@ -59,7 +64,7 @@ public class SijangbajoControllerImpl implements SijangbajoController{
 		mav.setViewName(layout);
 		String viewName = (String)request.getAttribute("viewName");
 		mav.addObject("viewName", viewName);
-		
+
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
 		session.setAttribute("sideMenu_option", "nearby");
@@ -77,7 +82,7 @@ public class SijangbajoControllerImpl implements SijangbajoController{
 		mav.setViewName(layout);
 		String viewName = (String)request.getAttribute("viewName");
 		mav.addObject("viewName", viewName);
-		
+
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");
 		session.setAttribute("sideMenu_option", "clean");
