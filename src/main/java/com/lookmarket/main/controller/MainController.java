@@ -22,8 +22,8 @@ public class MainController extends BaseController{
 		String layout = "common/layout";
 		mav.setViewName(layout);
 		String viewName = (String)request.getAttribute("viewName");
-		mav.addObject("viewName", viewName);
-		
+		mav.addObject("viewName", "/main/sijangbajoMain"); //수정부분
+		mav.addObject("pageType", "sijangbajo"); //추가부분
 		session = request.getSession();
 		session.setAttribute("sideMenu", "hidden");
 		
@@ -37,8 +37,8 @@ public class MainController extends BaseController{
 		String layout = "common/layout";
 		mav.setViewName(layout);
 		String viewName = (String)request.getAttribute("viewName");
-		mav.addObject("viewName", viewName);
-		
+		mav.addObject("viewName", "/main/jangbogoMain"); //수정부분
+		mav.addObject("pageType", "jangbogo"); //추가부분
 		session = request.getSession();
 		session.setAttribute("sideMenu", "hidden");
 		

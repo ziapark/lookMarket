@@ -79,7 +79,7 @@
 <div class="edit-container">
     <div class="edit-title">리뷰 수정하기</div>
 
-    <form action="communityUpdateForm.do" method="post" enctype="multipart/form-data">
+    <form action="communityUpdate.do" method="post" enctype="multipart/form-data">
         <!-- 리뷰 고유 번호 숨김필드로 보내기 -->
         <input type="hidden" name="r_id" value="${review.r_id}" />
 
@@ -88,7 +88,7 @@
 
         <label>별점</label>
         <div class="star-select">
-            <c:forEach var="i" begin="5" end="1" step="-1">
+            <c:forEach var="i" begin="5" end="1" step="1">
                 <input type="radio" id="star${i}" name="r_star" value="${i}" 
                     <c:if test="${review.r_star == i}">checked</c:if> />
                 <label for="star${i}">★</label>
