@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
-
+<c:set var="pageType" value="sijangbajo" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>

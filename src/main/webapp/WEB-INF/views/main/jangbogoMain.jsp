@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
+<c:set var="pageType" value="jangbogo" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
