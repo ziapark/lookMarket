@@ -10,5 +10,6 @@
     	<typeAlias type="com.lookmarket.cart.vo.CartVO" alias="cartVO" />
     	<typeAlias type="com.lookmarket.community.vo.BlackBoardVO" alias="blackBoardVO" />
     	<typeAlias type="com.lookmarket.community.vo.ReviewVO" alias="reviewVO" />
+    	<typeAlias type="com.lookmarket.mypage.vo.MyPageVO" alias="myPageVO" />
   	</typeAliases>
 </configuration>

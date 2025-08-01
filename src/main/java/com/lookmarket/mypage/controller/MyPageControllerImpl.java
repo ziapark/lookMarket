@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lookmarket.common.base.BaseController;
-import com.lookmarket.member.vo.MemberVO;
 import com.lookmarket.mypage.service.MyPageService;
+import com.lookmarket.mypage.vo.MyPageVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,7 +22,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	@Autowired
 	private MyPageService myPageService;
 	@Autowired
-	private MemberVO memberVO;
+	private MyPageVO myPageVO;
 	
 	//사용자	
 	@Override
@@ -38,9 +39,22 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		session = request.getSession();
 		String current_id = (String)session.getAttribute("current_id");
 		
-		memberVO = myPageService.getMyPageInfo(current_id);
+		myPageVO = myPageService.getMyPageInfo(current_id);
 		
-		mav.addObject("myPageInfo", memberVO);
+		String m_email = myPageVO.getM_email();
+		if (m_email != null && m_email.contains("@")) {
+		    String[] parts = m_email.split("@", 2);
+		    String m_email_id = parts[0];
+		    String m_email_domain = parts[1];
+		    myPageVO.setM_email_id(m_email_id);
+		    myPageVO.setM_email_domain(m_email_domain);
+		} else {
+		    // 이메일 형식이 올바르지 않을 경우 처리 (필요하면)
+		    myPageVO.setM_email_id("");
+		    myPageVO.setM_email_domain("");
+		}
+		
+		mav.addObject("myPageInfo", myPageVO);
 		session.setAttribute("sideMenu", "reveal");
 		session.setAttribute("sideMenu_option", "myPage");
 		
@@ -126,28 +140,25 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		return mav;
 	}
 	
+	@Override
 	@RequestMapping(value="/updateMyInfo.do", method=RequestMethod.POST)
-	public void updateMyInfo(@ModelAttribute MemberVO memberVO, HttpSession session, HttpServletResponse response) throws Exception {
-	    //세션에서 아이디 가져오기
-		String current_id = (String) session.getAttribute("current_id");
-		//수정할 memberVO에 세션아이디 세팅(보안)
-	    memberVO.setM_id(current_id);
-	    
-	    System.out.println("성별: " + memberVO.getM_gender());
-	    System.out.println("이메일: " + memberVO.getM_email());
-	    
-	    //수정 처리
-	    boolean status = myPageService.updateMyInfo(memberVO);
+	public ModelAndView updateMyInfo(@ModelAttribute MyPageVO myPageVO, HttpSession session, HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		
+		String m_email_id = myPageVO.getM_email_id();
+		String m_email_domain =myPageVO.getM_email_domain();
+		myPageVO.setM_email(m_email_id + "@" + m_email_domain);
 
-	    String json = "";
-	    if (status) {
-	        json = "{\"result\": \"success\"}";
-	    } else {
-	        json = "{\"result\": \"fail\", \"message\": \"DB 업데이트 실패\"}";
+	    int result = myPageService.updateMyInfo(myPageVO);
+
+	    if(result == 1) {
+	    	redirectAttributes.addFlashAttribute("message", "정보가 수정되었습니다.");
+	    	mav.setViewName("redirect:/mypage/mypageInfo.do");
+	    }else {
+	    	redirectAttributes.addFlashAttribute("message", "정보가 수정에 오류가 발생하였습니다. 다시시도해주세요.");
+	    	mav.setViewName("redirect:/mypage/mypageInfo.do");
 	    }
-
-	    response.setContentType("application/json; charset=UTF-8");
-	    response.getWriter().write(json);
+	    return mav;
 	}
 
 }

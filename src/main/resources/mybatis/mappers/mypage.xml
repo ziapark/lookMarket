@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.mypage">
-	<resultMap id="memberResult" type="MemberVO">
+	<resultMap id="myPageResult" type="MyPageVO">
 		<result property="m_id" column="m_id" />
 		<result property="m_pw" column="m_pw" />
 		<result property="m_name" column="m_name" />
@@ -14,6 +14,8 @@
 		<result property="m_phone" column="m_phone" />
 		<result property="m_phone_yn" column="m_phone_yn" />
 		<result property="m_email" column="m_email" />
+		<result property="m_email_id" column="m_email_id" />
+		<result property="m_email_domain" column="m_email_domain" />
 		<result property="m_email_yn" column="m_email_yn" />
 		<result property="m_zipcode" column="m_zipcode" />
 		<result property="m_road_address" column="m_road_address" />
@@ -24,31 +26,29 @@
 		<result property="m_joindate" column="m_joindate" />
 		<result property="m_outdate" column="m_outdate" />
 	</resultMap>
-		
-	<select id="getMyPageInfo" parameterType="String" resultType="memberVO">
+	
+	<select id="getMyPageInfo" parameterType="String" resultType="myPageVO">
 		<![CDATA[
 			SELECT * FROM member
 			WHERE m_id = #{current_id}
 		]]>
 	</select>
 	
-	<update id="updateMyInfo" parameterType="memberVO">
-	UPDATE member
-	SET
-	m_pw = #{m_pw},
-	m_phone = #{m_phone},
-	m_phone_yn = #{m_phone_yn},
-	m_email = #{m_email},
-	m_email_yn = #{m_email_yn},
-	m_gender = #{m_gender},
-	m_zipcode = #{m_zipcode},
-	m_road_address = #{m_road_address},
-	m_jibun_address = #{m_jibun_address},
-	m_namuji_address = #{m_namuji_address}
-	WHERE m_id = #{m_id}
+	<update id="updateMyInfo" parameterType="myPageVO">
+		<![CDATA[
+			UPDATE member
+			SET
+			m_pw = #{m_pw},
+			m_phone = #{m_phone},
+			m_phone_yn = #{m_phone_yn},
+			m_email = #{m_email},
+			m_email_yn = #{m_email_yn},
+			m_gender = #{m_gender},
+			m_zipcode = #{m_zipcode},
+			m_road_address = #{m_road_address},
+			m_jibun_address = #{m_jibun_address},
+			m_namuji_address = #{m_namuji_address}
+			WHERE m_id = #{m_id}
+		]]>
 	</update>
-	
-	
-
-
 </mapper>

@@ -1,14 +1,8 @@
 package com.lookmarket.mypage.service;
 
-import org.springframework.web.servlet.ModelAndView;
-
-import com.lookmarket.member.vo.MemberVO;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+import com.lookmarket.mypage.vo.MyPageVO;
 
 public interface MyPageService {
-	public MemberVO getMyPageInfo(String current_id) throws Exception;
-	
-	public boolean updateMyInfo(MemberVO memberVO) throws Exception;
+	public MyPageVO getMyPageInfo(String current_id) throws Exception;
+	public int updateMyInfo(MyPageVO myPageVO) throws Exception;
 }

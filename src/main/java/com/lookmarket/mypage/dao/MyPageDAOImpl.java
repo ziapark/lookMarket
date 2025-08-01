@@ -6,23 +6,23 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.lookmarket.member.vo.MemberVO;
+import com.lookmarket.mypage.vo.MyPageVO;
 
 @Repository("myPageDAO")
 public class MyPageDAOImpl implements MyPageDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	@Autowired
-	private MemberVO memberVO;
+	private MyPageVO myPageVO;
 	
 	@Override
-	public MemberVO getMyPageInfo(String current_id) throws DataAccessException{
-		memberVO = (MemberVO)sqlSession.selectOne("mapper.mypage.getMyPageInfo", current_id);
-		return memberVO;
+	public MyPageVO getMyPageInfo(String current_id) throws DataAccessException{
+		myPageVO = (MyPageVO)sqlSession.selectOne("mapper.mypage.getMyPageInfo", current_id);
+		return myPageVO;
 	}
 	
 	@Override
-	public boolean updateMyInfo(MemberVO memberVO) throws DataAccessException{
-		int result = sqlSession.update("mapper.mypage.updateMyInfo", memberVO);
-		return result > 0;
+	public int updateMyInfo(MyPageVO myPageVO) throws DataAccessException{
+		return sqlSession.update("mapper.mypage.updateMyInfo", myPageVO);
 	}
 }
