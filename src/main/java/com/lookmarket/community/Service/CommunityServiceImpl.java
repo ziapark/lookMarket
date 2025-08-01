@@ -23,6 +23,11 @@ public class CommunityServiceImpl implements CommunityService{
 	public List<ReviewVO> communityList() throws Exception{
 		return communityDAO.communityList();
 	}
+<<<<<<< HEAD
+	@Override
+	public void insertReview(ReviewVO reviewVO) throws Exception{
+		communityDAO.insertReview(reviewVO);
+=======
 	
 	@Override
 	public ReviewVO communityDetail(int r_id) throws Exception{
@@ -32,5 +37,6 @@ public class CommunityServiceImpl implements CommunityService{
 	@Override
 	public void upHit(int r_id, int hit) throws Exception{
 		communityDAO.upHit(r_id, hit);
+>>>>>>> 569a9bca5c2f1b7b8f626c735025bb50314ab963
 	}
 }

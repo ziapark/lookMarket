@@ -14,6 +14,10 @@ import jakarta.servlet.http.HttpServletResponse;
 public interface CommunityDAO {
 	public List<BlackBoardVO> blackBoardList() throws DataAccessException;
 	public List<ReviewVO> communityList() throws DataAccessException;
+<<<<<<< HEAD
+	public void insertReview(ReviewVO reviewVO) throws Exception;
+=======
 	public ReviewVO communityDetail(int r_id) throws DataAccessException;
 	public void upHit(int r_id, int hit) throws DataAccessException;
+>>>>>>> 569a9bca5c2f1b7b8f626c735025bb50314ab963
 }

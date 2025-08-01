@@ -38,6 +38,33 @@
 			SELECT * FROM review
 		]]>
 	</select>
+<<<<<<< HEAD
+	<insert id="insertReview" parameterType="reviewVO">
+		<![CDATA[
+			INSERT INTO review(
+			m_id,
+			r_title, 
+			r_star,
+			r_content,
+			r_filename,
+			r_filetype,
+			r_secret,
+			r_date,
+			r_hit
+			)VALUES(
+			#{m_id},
+			#{r_title},
+			#{r_star},
+			#{r_content},
+			#{r_filename},
+			#{r_filetype},
+			#{r_secret},
+			CURDATE(),
+			0
+			)
+		]]>
+	</insert>
+=======
 	
 	<select id="communityDetail" parameterType="int" resultType="reviewVO">
 		<![CDATA[
@@ -53,4 +80,5 @@
 			WHERE r_id = #{r_id}
 		]]>
 	</update>
+>>>>>>> 569a9bca5c2f1b7b8f626c735025bb50314ab963
 </mapper>

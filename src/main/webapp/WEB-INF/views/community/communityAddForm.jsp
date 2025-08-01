@@ -5,6 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <title>리뷰 등록</title>
+        <c:if test="${empty sessionScope.memberInfo}">
+  		<script>
+    		alert("로그인이 필요한 서비스입니다.");
+    		location.href = '${pageContext.request.contextPath}/member/loginForm.do';
+  		</script>
+	</c:if>
     <style>
         .form-container {
             width: 600px;
@@ -91,7 +97,8 @@
         <!-- 작성자 -->
         <div class="form-group">
             <label for="m_id">작성자 ID</label>
-            <input type="text" id="m_id" name="m_id" value="${sessionScope.userId}" readonly />
+            <input type="hidden" id="m_id" name="m_id" value="${sessionScope.userId}" />
+            <p>작성자: ${sessionScope.userId}</p>
         </div>
 
         <!-- 리뷰 제목 -->
@@ -103,7 +110,7 @@
         <!-- 상품 ID -->
         <div class="form-group">
             <label for="g_id">상품 ID</label>
-            <input type="text" id="g_id" name="g_id" required />
+            <input type="hidden" id="g_id" name="g_id" value="1" />
         </div>
 
         <!-- 별점 ★ 클릭 방식 -->
@@ -134,8 +141,8 @@
         <div class="form-group">
             <label for="r_secret">공개 여부</label>
             <select id="r_secret" name="r_secret">
-                <option value="public">공개</option>
-                <option value="private">비공개</option>
+                <option value="1">공개</option>
+                <option value="2">비공개</option>
             </select>
         </div>
 
