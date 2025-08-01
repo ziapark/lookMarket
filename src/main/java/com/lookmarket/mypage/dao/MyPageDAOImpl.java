@@ -19,4 +19,10 @@ public class MyPageDAOImpl implements MyPageDAO{
 		memberVO = (MemberVO)sqlSession.selectOne("mapper.mypage.getMyPageInfo", current_id);
 		return memberVO;
 	}
+	
+	@Override
+	public boolean updateMyInfo(MemberVO memberVO) throws DataAccessException{
+		int result = sqlSession.update("mapper.mypage.updateMyInfo", memberVO);
+		return result > 0;
+	}
 }

@@ -2,6 +2,7 @@ package com.lookmarket.mypage.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -125,4 +126,28 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		return mav;
 	}
 	
+	@RequestMapping(value="/updateMyInfo.do", method=RequestMethod.POST)
+	public void updateMyInfo(@ModelAttribute MemberVO memberVO, HttpSession session, HttpServletResponse response) throws Exception {
+	    //세션에서 아이디 가져오기
+		String current_id = (String) session.getAttribute("current_id");
+		//수정할 memberVO에 세션아이디 세팅(보안)
+	    memberVO.setM_id(current_id);
+	    
+	    System.out.println("성별: " + memberVO.getM_gender());
+	    System.out.println("이메일: " + memberVO.getM_email());
+	    
+	    //수정 처리
+	    boolean status = myPageService.updateMyInfo(memberVO);
+
+	    String json = "";
+	    if (status) {
+	        json = "{\"result\": \"success\"}";
+	    } else {
+	        json = "{\"result\": \"fail\", \"message\": \"DB 업데이트 실패\"}";
+	    }
+
+	    response.setContentType("application/json; charset=UTF-8");
+	    response.getWriter().write(json);
+	}
+
 }
