@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,35 +49,7 @@ public class CommunityControllerImpl implements CommunityController{
 		return mav;
 	}
 	
-	@RequestMapping(value="/insertReview.do", method=RequestMethod.POST)
-	public ModelAndView insertReview(@ModelAttribute ReviewVO reviewVO, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		ModelAndView mav = new ModelAndView();
-		//1. 세션에서 사용자 확인
-		HttpSession session = request.getSession();
-		MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
-		
-		if(memberInfo == null) {
-			//로그인이 안 된 상태면 로그인 페이지로 이동
-			mav.setViewName("redirect:/member/loginForm.do");
-			return mav;
-		}
-		//로그인된 회원의 아이디를 세팅
-		String userId = memberInfo.getM_id();
-		reviewVO.setM_id(userId);
-		
-	    try {
-	        // DB 저장
-	        communityService.insertReview(reviewVO);
-	        mav.setViewName("redirect:/community/communityList.do");
-
-	    } catch (Exception e) {
-	        // DB 오류 발생 시 처리
-	        e.printStackTrace(); // 로그는 남기고
-	        mav.setViewName("redirect:/community/communityAddForm.do?error=db_error");
-	    }
-
-	    return mav;
-	}
+	
 
 	
 	@Override

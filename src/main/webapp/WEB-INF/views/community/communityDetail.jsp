@@ -7,10 +7,6 @@
 <head>
     <meta charset="UTF-8">
     <title>리뷰 상세보기</title>
-<<<<<<< HEAD
-
-=======
->>>>>>> 569a9bca5c2f1b7b8f626c735025bb50314ab963
     <style>
         .detail-container {
             width: 800px;

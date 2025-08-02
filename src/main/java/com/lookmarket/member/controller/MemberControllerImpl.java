@@ -77,7 +77,7 @@ public class MemberControllerImpl implements MemberController {
 			}
 	
 		}else {
-	        redirectAttributes.addFlashAttribute("message", "아이디가 틀렸습니다. 다시 로그인해주세요.");
+	        redirectAttributes.addFlashAttribute("message", "존재하지 않는 아이디 입니다. 다시 로그인해주세요.");
 			mav.setViewName("redirect:/member/loginForm.do");
 		}
 		

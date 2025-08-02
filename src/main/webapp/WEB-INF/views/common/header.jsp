@@ -146,7 +146,6 @@ $(document).ready(function() {
             			<li><a class="dropdown-item" href="${contextPath}/community/communityUpdateForm.do">리뷰 수정</a></li>
           				</ul>
        				 	</li>
-       				 	<li class="nav-item"><a class="nav-link" href="${contextPath}/main/jangbogoMain.do">장보고</a></li>
                         
                         <!-- 추가 메뉴 필요 시 여기에 -->
                     </c:when>
@@ -166,8 +165,7 @@ $(document).ready(function() {
 
                         <li class="nav-item"><a class="nav-link" href="#">이벤트</a></li>
                         
-                        <li class="nav-item"><a class="nav-link" href="#">커뮤니티</a></li>  
-                        <li class="nav-item"><a class="nav-link" href="${contextPath}/main/sijangbajoMain.do">시장봐조</a></li>   
+                        <li class="nav-item"><a class="nav-link" href="#">커뮤니티</a></li>     
                         <!-- 추가 메뉴 필요 시 여기에 -->
                     </c:when>
                 </c:choose>
