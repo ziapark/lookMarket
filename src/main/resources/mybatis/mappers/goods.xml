@@ -33,5 +33,42 @@
     <select id="selectGoodsDetail" parameterType="int" resultMap="goodsResultMap">
         SELECT * FROM goods WHERE g_id = #{g_id}
     </select>
+    
+    <!-- 상품 등록 -->
+    <insert id="insertGoods" parameterType="GoodsVO">
+        INSERT INTO goods (
+            g_category, g_name, g_brand, g_discription, g_qty, g_price,
+            g_sale_price, g_credate, g_manufactured_date, g_expiration_date,
+            g_delivery_price, g_delivery_date, g_status, g_stock
+        ) VALUES (
+            #{g_category}, #{g_name}, #{g_brand}, #{g_discription}, #{g_qty}, #{g_price},
+            #{g_sale_price}, NOW(), #{g_manufactured_date}, #{g_expiration_date},
+            #{g_delivery_price}, #{g_delivery_date}, #{g_status}, #{g_stock}
+        )
+    </insert>
+
+    <!-- 상품 수정 -->
+    <update id="updateGoods" parameterType="GoodsVO">
+        UPDATE goods SET
+            g_category = #{g_category},
+            g_name = #{g_name},
+            g_brand = #{g_brand},
+            g_discription = #{g_discription},
+            g_qty = #{g_qty},
+            g_price = #{g_price},
+            g_sale_price = #{g_sale_price},
+            g_manufactured_date = #{g_manufactured_date},
+            g_expiration_date = #{g_expiration_date},
+            g_delivery_price = #{g_delivery_price},
+            g_delivery_date = #{g_delivery_date},
+            g_status = #{g_status},
+            g_stock = #{g_stock}
+        WHERE g_id = #{g_id}
+    </update>
+
+    <!-- 상품 삭제 -->
+    <delete id="deleteGoods" parameterType="int">
+        DELETE FROM goods WHERE g_id = #{g_id}
+    </delete>
 
 </mapper>
