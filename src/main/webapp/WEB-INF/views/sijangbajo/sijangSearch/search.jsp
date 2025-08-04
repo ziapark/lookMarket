@@ -1,18 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <c:set var="pageType" value="sijangbajo" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="pageType" value="sijangbajo" />
+<c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>전통시장 찾기</title>
+	<meta charset="UTF-8">
+	<title>전통시장 찾기</title>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    label { margin-right: 10px; }
-    select, input[type="text"] { padding: 5px; margin-right: 20px; }
-    button { padding: 7px 15px; }
+    body {font-family: Arial, sans-serif;padding: 20px;}
+    label {margin-right: 10px;}
+    select, input[type="text"] {padding: 5px; margin-right: 20px;}
 </style>
+
 <script>
     function changeSigungu() {
         var sido = document.getElementById("sido").value;
@@ -73,48 +75,102 @@
             sigunguSelect.add(optionElement);
         });
     }
+    
+    $(document).ready(function () {
+        $("#searchBtn").click(function () {
+            const sido = $("#sido").val();
+            const sigungu = $("#sigungu").val();
+            const marketName = $("#marketName").val();
+
+            if (!sido) {
+                alert("시도를 선택하세요.");
+                return;
+            }
+
+            $.ajax({
+                type: "get",
+                async: true,
+                url: "${contextPath}/sijangbajo/sijangSearch/searchAjax.do",
+                dataType: "json",
+                data: {
+                    sido: sido,
+                    sigungu: sigungu,
+                    marketName: marketName,
+                },
+                success: function (data) {
+                    console.log("받은 데이터:", data);
+                    
+                    let html = "";
+
+                    if (!data || data.length === 0) {
+                        html = "<p>검색 결과가 없습니다.</p>";
+                    } else {
+                        data.forEach(function (item) {
+                            const marketName = item["시장명"] ? item["시장명"].trim() : "시장명 없음";
+                            const address = (item["지번주소"] && item["지번주소"].trim() !== "") ? item["지번주소"].trim() : "주소 정보 없음";
+                            console.log(item["지번주소"]);
+                            html += '<div style="padding: 8px 0; border-bottom: 1px solid #e0e0e0;">' +
+                            '<div><strong>' + marketName + '</strong></div>' +
+                            '<div>' + address + '</div>' +
+                        '</div>';
+                        });
+                    }
+                    $("#initialSeoulList").hide();
+                    $("#resultArea").html(html).show();
+                },
+                error: function (xhr, status, error) {
+                    console.error("에러:", error);
+                    alert("검색 중 오류가 발생했습니다.");
+                }
+            });
+        });
+    });
 </script>
 </head>
 <body>
+	<form id="searchForm">
+    	<label for="sido">시도*</label>
+    	<select name="sido" id="sido" onchange="changeSigungu()" required>
+	        <option value="">선택</option>
+	        <option value="서울" selected>서울</option>
+	        <option value="부산">부산</option>
+	        <option value="대구">대구</option>
+	        <option value="인천">인천</option>
+	        <option value="광주">광주</option>
+	        <option value="대전">대전</option>
+	        <option value="울산">울산</option>
+	        <option value="세종">세종</option>
+	        <option value="경기">경기</option>
+	        <option value="강원">강원</option>
+	        <option value="충북">충북</option>
+	        <option value="충남">충남</option>
+	        <option value="전북">전북</option>
+	        <option value="전남">전남</option>
+	        <option value="경북">경북</option>
+	        <option value="경남">경남</option>
+	        <option value="제주">제주</option>
+	    </select>
 
-<h2>전통시장 찾기</h2>
+	    <label for="sigungu">시/군/구</label>
+	    <select name="sigungu" id="sigungu">
+	        <option value="전체">전체</option>
+	    </select>
 
-<form action="searchMarket.do" method="get">
-    <label for="sido">시도*</label>
-    <select name="sido" id="sido" onchange="changeSigungu()" required>
-        <option value="">선택</option>
-        <option value="서울">서울</option>
-        <option value="부산">부산</option>
-        <option value="대구">대구</option>
-        <option value="인천">인천</option>
-        <option value="광주">광주</option>
-        <option value="대전">대전</option>
-        <option value="울산">울산</option>
-        <option value="세종">세종</option>
-        <option value="경기">경기</option>
-        <option value="강원">강원</option>
-        <option value="충북">충북</option>
-        <option value="충남">충남</option>
-        <option value="전북">전북</option>
-        <option value="전남">전남</option>
-        <option value="경북">경북</option>
-        <option value="경남">경남</option>
-        <option value="제주">제주</option>
-    </select>
+	    <label for="marketName">시장명</label>
+	    <input type="text" name="marketName" id="marketName" placeholder="시장명 입력">
+	
+	    <button type="button" id="searchBtn">검색</button>
+	</form>
+<div id="initialSeoulList" style="margin-top: 30px; max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
+    <c:forEach var="item" items="${seoulSijangList}">
+        <div style="padding:8px 0; border-bottom:1px solid #e0e0e0;">
+            <div><strong>${item['시장명']}</strong></div>
+            <div>${item['지번주소']}</div>
+        </div>
+    </c:forEach>
+</div>
+<div id="resultArea" style="margin-top: 30px; max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; display:none;"></div>
 
-    <label for="sigungu">시/군/구</label>
-    <select name="sigungu" id="sigungu">
-        <option value="전체">전체</option>
-    </select>
-
-    <label for="marketName">시장명</label>
-    <input type="text" name="marketName" id="marketName" placeholder="시장명 입력">
-
-    <label for="itemName">품목명</label>
-    <input type="text" name="itemName" id="itemName" placeholder="품목명 입력">
-
-    <button type="submit">검색</button>
-</form>
-
-</body>
+<%-- 		<%@ include file="searchDetail.jsp" %> --%>
+	</body>
 </html>

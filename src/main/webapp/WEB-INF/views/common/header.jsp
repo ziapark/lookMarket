@@ -19,7 +19,7 @@
 		header {position: fixed;top:0;left:0;background-color: #fff;width: 100vw;height: 220px;overflow : hidden;z-index: 1000;}
 		.navbar__menu {display: flex;justify-content: space-evenly;	gap: 40px;}
 		.navbar__submenu{margin-top: 10px;}
-		header:hover{height: 500px;}
+		header:hover{height: 400px;}
 		.contents {width: 100%;height: 500px;margin-top: 50px;}
 		.navbar__div nav.navbar {position: relative;z-index: 1001;}
 		.menu {position: relative;padding: 0px 10px;}

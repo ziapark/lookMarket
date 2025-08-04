@@ -22,11 +22,13 @@
 		<header>
 			<%@ include file="header.jsp" %>
 		</header>
-		<div style="display:flex; padding-top: 220px;">
-			<aside>
-				<%@ include file="side.jsp" %>
-			</aside>
-			<article>
+		<div style="display: flex; padding-top: 220px;">
+			<c:if test="${sideMenu == 'reveal'}">
+				<aside>
+					<%@ include file="side.jsp" %>
+				</aside>
+			</c:if>
+			<article style="flex: 1;">
 				<jsp:include page="/WEB-INF/views${viewName}.jsp" />
 			</article>
 		</div>

@@ -464,7 +464,7 @@ ul.tabs li.active a:hover {
 	margin: 10px 0px; padding: 5px; color: rgb(0, 0, 0); font-size: 1.2em; font-weight: bold; border-bottom-color: rgb(255, 153, 0); border-bottom-width: 1px; border-bottom-style: solid;
 }
 footer {
-	background-position: top; margin: 10px 0px 0px; font-size: 0.75em; background-image: url("../imgs/foo_back.gif"); background-repeat: repeat-x;
+	background-position: top; margin: 10px 0px 0px; font-size: 0.75em; background-color: #fff; background-repeat: repeat-x;
 }
 footer ul {
 	list-style: none; margin: 0px 0px 0px 210px;
