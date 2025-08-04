@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <%
@@ -14,45 +14,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>내 찜 목록</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            transition: box-shadow 0.3s;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            height: 160px;
+            object-fit: cover;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .product-name {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .product-price {
+            color: #d9534f;
+            margin-top: 5px;
+            font-size: 16px;
+        }
+
+        .btn-small {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        .top-right {
+            text-align: right;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h3>내 찜 목록</h3>
+<div class="container mt-4">
+    <h2>내 찜 목록</h2>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>상품번호</th>
-                <th>상품명</th>
-                <th>가격</th>
-                <th>찜 해제</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="wish" items="${wishlist}">
-                <tr>
-                    <td>${wish.g_id}</td>
-                    <td>${wish.g_name}</td>
-                    <td>${wish.price}</td>
-                    <td>
-                        <form action="${contextPath}/wishlist/removeWish.do" method="post" style="display:inline;">
-                            <input type="hidden" name="g_id" value="${wish.g_id}" />
-                            <button type="submit" class="btn btn-danger btn-sm">삭제</button>
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
+    <div class="row">
+        <c:choose>
+            <c:when test="${not empty wishlist}">
+                <c:forEach var="wish" items="${wishlist}">
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="product-card">
+                            <img src="${contextPath}/resources/images/${wish.g_image}" alt="${wish.g_name}" class="product-image" />
 
-            <c:if test="${empty wishlist}">
-                <tr>
-                    <td colspan="4" class="text-center">찜한 상품이 없습니다.</td>
-                </tr>
-            </c:if>
-        </tbody>
-    </table>
+                            <div class="product-name">${wish.g_name}</div>
+                            <div class="product-price">
+                                <fmt:formatNumber value="${wish.price}" type="currency" currencySymbol="₩" />
+                            </div>
+
+                            <div class="mt-2 d-flex justify-content-center gap-2">
+                                <a href="${contextPath}/goodsDetail.do?g_id=${wish.g_id}" class="btn btn-primary btn-small">상세보기</a>
+
+                                <form action="${contextPath}/wishlist/removeWish.do" method="post" style="display:inline;">
+                                    <input type="hidden" name="g_id" value="${wish.g_id}" />
+                                    <button type="submit" class="btn btn-danger btn-small">삭제</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <p class="text-center mt-4">찜한 상품이 없습니다.</p>
+            </c:otherwise>
+        </c:choose>
+    </div>
 </div>
 </body>
 </html>
