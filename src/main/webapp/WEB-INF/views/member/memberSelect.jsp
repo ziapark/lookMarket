@@ -6,7 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <title>회원 유형 선택</title>
-    <!-- 부트스트랩 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -70,7 +69,7 @@
         <h1 class="text-center mb-3">회원가입 유형 선택</h1>
         <h4 class="text-center mb-5 text-secondary">시장봐조 통합회원 가입</h4>
 
-        <form action="memberForm.jsp" method="get">
+        <form action="${contextPath}/member/memberForm.do" method="get">
 
             <!-- 숨겨진 라디오 버튼 -->
             <input type="radio" name="role" value="1" id="personal" class="d-none" required>
@@ -108,10 +107,8 @@
 
     </div>
 
-    <!-- 부트스트랩 JS (선택사항) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- 카드 클릭시 selected 효과 추가 -->
     <script>
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
