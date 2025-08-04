@@ -56,10 +56,14 @@ public class GoodsControllerImpl implements GoodsController{
 	
 	@Override
 	@RequestMapping(value="/goodsDetail.do", method=RequestMethod.GET)
-	public ModelAndView goodsDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    int g_id = Integer.parseInt(request.getParameter("g_id"));
+	public ModelAndView goodsDetail(@RequestParam("g_id") int g_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    GoodsVO goods = goodsService.getGoodsDetail(g_id);
-	    ModelAndView mav = new ModelAndView("goodsDetail");
+	    ModelAndView mav = new ModelAndView();
+	    String layout = "common/layout";
+		mav.setViewName(layout);
+		String viewName = (String)request.getAttribute("viewName");
+		mav.addObject("viewName", viewName);
+	    
 	    mav.addObject("goods", goods);
 	    return mav;
 	}
