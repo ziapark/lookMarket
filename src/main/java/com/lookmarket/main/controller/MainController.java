@@ -22,7 +22,7 @@ public class MainController extends BaseController{
 		String layout = "common/layout";
 		mav.setViewName(layout);
 		String viewName = (String)request.getAttribute("viewName");
-		mav.addObject("viewName", "/main/sijangbajoMain"); //수정부분
+		mav.addObject("viewName", viewName);
 		session = request.getSession();
 		session.setAttribute("sideMenu", "hidden");
 		session.setAttribute("pageType", "sijangbajo");
@@ -36,7 +36,7 @@ public class MainController extends BaseController{
 		String layout = "common/layout";
 		mav.setViewName(layout);
 		String viewName = (String)request.getAttribute("viewName");
-		mav.addObject("viewName", "/main/jangbogoMain"); //수정부분
+		mav.addObject("viewName", viewName);
 		session = request.getSession();
 		session.setAttribute("sideMenu", "hidden");
 		session.setAttribute("pageType", "jangbogo");
