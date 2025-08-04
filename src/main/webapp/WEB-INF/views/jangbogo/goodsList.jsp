@@ -43,6 +43,31 @@
         }
 </style>
 </head>
+<script>
+    $(document).ready(function () {
+        $('.wish-btn').click(function () {
+            const btn = $(this);
+            const g_id = btn.data('gid');
+
+            $.ajax({
+                url: '${contextPath}/wishlist/toggle.do',
+                method: 'POST',
+                data: { g_id },
+                success: function (result) {
+                    const icon = btn.find('.wish-icon');
+                    if (result === 'added') {
+                        icon.text('❤️'); // 찜됨
+                    } else if (result === 'removed') {
+                        icon.text('🤍'); // 찜 해제
+                    }
+                },
+                error: function () {
+                    alert('찜 처리 중 오류 발생');
+                }
+            });
+        });
+    });
+</script>
 
 <body>
 <div id="content" style="padding: 20px;">
