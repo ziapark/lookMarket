@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller("orderController")
+@RequestMapping(value="/order")
 public class OrderControllerImpl implements OrderController{
 	
 	@Override
@@ -32,6 +33,7 @@ public class OrderControllerImpl implements OrderController{
 	@Override
 	@RequestMapping(value="/orderForm.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		//배송정보
 		HttpSession session;
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
