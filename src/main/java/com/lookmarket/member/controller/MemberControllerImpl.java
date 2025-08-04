@@ -262,7 +262,7 @@ public class MemberControllerImpl implements MemberController {
 	}
 	
 	@Override
-	@RequestMapping(value={"/memberForm.do", "/loginForm.do", "/findIdForm.do", "findPwForm.do"}, method={RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value={"/memberForm.do", "/loginForm.do", "/findIdForm.do", "/findPwForm.do", "/memberSelect.do"}, method={RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView memberForm(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		//로그인창, 회원가입창 출력
 		HttpSession session;
