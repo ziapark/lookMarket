@@ -1,5 +1,8 @@
 package com.lookmarket.goods.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component("goodsVO")
 public class GoodsVO {
 	int g_id;
 	int g_category;
