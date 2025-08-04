@@ -1,84 +1,192 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<%
+    String m_id = (String) session.getAttribute("loginUserId");
+%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>상품 상세정보</title>
+    <meta charset="UTF-8" />
+    <title>${goods.g_name} - 상품 상세</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
-        .goods-detail-container {
-            width: 800px;
-            margin: 30px auto;
+        .detail-container {
+            max-width: 1100px;
+            margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ccc;
+        }
+
+        .top-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            background: #fff;
+            padding: 20px;
             border-radius: 12px;
-            background-color: #f9f9f9;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
         }
-        .goods-detail-container h2 {
-            margin-bottom: 20px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
+
+        .top-section img {
+            width: 400px;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
         }
-        .goods-info {
+
+        .product-info {
+            flex: 1;
+            position: relative;
+        }
+
+        .product-info h2 {
+            font-size: 24px;
             margin-bottom: 10px;
-        }
-        .goods-info label {
             display: inline-block;
-            width: 160px;
-            font-weight: bold;
+        }
+
+        #wishBtn {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 28px;
+            color: #d9534f;
+            padding: 0 10px;
+            vertical-align: middle;
+            margin-left: 15px;
+        }
+        #wishBtn.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .price {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .price del {
+            color: gray;
+            margin-right: 10px;
+        }
+
+        .form-control {
+            max-width: 100px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .bottom-section {
+            margin-top: 50px;
+        }
+
+        .bottom-section img {
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
+<div class="detail-container">
 
-<div class="goods-detail-container">
-    <h2>상품 상세정보</h2>
+    <!-- 상단: 상품 이미지 + 정보 -->
+    <div class="top-section">
+        <img src="${contextPath}/resources/image/${goods.g_image}" alt="${goods.g_name}" />
 
-    <div class="goods-info"><label>상품명:</label> ${goods.g_name}</div>
-    <div class="goods-info"><label>브랜드:</label> ${goods.g_brand}</div>
-    <div class="goods-info"><label>카테고리:</label>
-        <c:choose>
-            <c:when test="${goods.g_category == 1}">신선식품</c:when>
-            <c:when test="${goods.g_category == 2}">가공식품</c:when>
-            <c:when test="${goods.g_category == 3}">생활용품</c:when>
-            <c:when test="${goods.g_category == 4}">패션잡화</c:when>
-            <c:when test="${goods.g_category == 5}">지역특산물</c:when>
-            <c:otherwise>기타</c:otherwise>
-        </c:choose>
-    </div>
-    <div class="goods-info"><label>가격:</label> <del>${goods.g_price}</del> → <strong>${goods.g_sale_price}원</strong></div>
-    <div class="goods-info"><label>수량:</label> ${goods.g_qty} 개</div>
-    <div class="goods-info"><label>입고일:</label> ${goods.g_credate}</div>
-    <div class="goods-info"><label>제조일자:</label> ${goods.g_manufactured_date}</div>
-    <div class="goods-info"><label>유통기한:</label> ${goods.g_expiration_date}</div>
-    <div class="goods-info"><label>배송비:</label>
-        <c:if test="${goods.g_delivery_price == 0}">무료배송</c:if>
-        <c:if test="${goods.g_delivery_price > 0}">${goods.g_delivery_price}원</c:if>
-    </div>
-    <div class="goods-info"><label>도착 예정일:</label> ${goods.g_delivery_date}</div>
-    <div class="goods-info"><label>상태:</label>
-        <c:choose>
-            <c:when test="${goods.g_status == 1}">판매중</c:when>
-            <c:when test="${goods.g_status == 2}">품절</c:when>
-            <c:when test="${goods.g_status == 3}">판매종료</c:when>
-            <c:otherwise>미정</c:otherwise>
-        </c:choose>
-    </div>
-    <div class="goods-info"><label>재고:</label> ${goods.g_stock} 개</div>
-    <div class="goods-info"><label>상세설명:</label><br/> <pre style="white-space: pre-wrap;">${goods.g_discription}</pre></div>
+        <div class="product-info">
+            <h2>${goods.g_name}</h2>
 
-    <div style="margin-top: 20px;">
-        <form action="${contextPath}/cart/addCart.do" method="post">
-            <input type="hidden" name="g_id" value="${goods.g_id}" />
-            <label>수량:
-                <input type="number" name="qty" value="1" min="1" max="${goods.g_stock}" />
-            </label>
-            <button type="submit">장바구니 담기</button>
-        </form>
+            <!-- 찜 버튼 -->
+            <button
+                id="wishBtn"
+                data-gid="${goods.g_id}"
+                <c:if test="${empty m_id}">disabled class="disabled" title="로그인 후 이용 가능"</c:if>>
+                <c:choose>
+                    <c:when test="${isWished}">❤️</c:when>
+                    <c:otherwise>🤍</c:otherwise>
+                </c:choose>
+            </button>
+
+            <p><strong>브랜드:</strong> ${goods.g_brand}</p>
+
+            <div class="price">
+                <del><fmt:formatNumber value="${goods.g_price}" type="currency" currencySymbol="₩" /></del>
+                <strong style="color: #d9534f;"><fmt:formatNumber value="${goods.g_sale_price}" type="currency" currencySymbol="₩" /></strong>
+            </div>
+
+            <form action="${contextPath}/cart/addCart.do" method="post">
+                <input type="hidden" name="g_id" value="${goods.g_id}" />
+                <label>수량:
+                    <input type="number" name="qty" class="form-control" value="1" min="1" max="${goods.g_stock}" />
+                </label>
+                <button type="submit" class="btn btn-success">장바구니 담기</button>
+            </form>
+
+            <div class="mt-3">
+                <p><strong>재고:</strong> ${goods.g_stock} 개</p>
+                <p><strong>입고일:</strong> ${goods.g_credate}</p>
+                <p><strong>제조일자:</strong> ${goods.g_manufactured_date}</p>
+                <p><strong>유통기한:</strong> ${goods.g_expiration_date}</p>
+                <p><strong>배송비:</strong>
+                    <c:choose>
+                        <c:when test="${goods.g_delivery_price == 0}">무료배송</c:when>
+                        <c:otherwise><fmt:formatNumber value="${goods.g_delivery_price}" type="currency" currencySymbol="₩" /></c:otherwise>
+                    </c:choose>
+                </p>
+                <p><strong>상태:</strong>
+                    <c:choose>
+                        <c:when test="${goods.g_status == 1}">판매중</c:when>
+                        <c:when test="${goods.g_status == 2}">품절</c:when>
+                        <c:when test="${goods.g_status == 3}">판매종료</c:when>
+                        <c:otherwise>미정</c:otherwise>
+                    </c:choose>
+                </p>
+            </div>
+        </div>
     </div>
+
+    <!-- 하단: 상세 이미지 반복 출력 -->
+    <div class="bottom-section">
+        <h4 class="mt-5 mb-3">상세 설명</h4>
+
+        <c:forEach var="img" items="${goods.detailImages}">
+            <img src="${contextPath}/resources/images/${img}" alt="상세 이미지" />
+        </c:forEach>
+    </div>
+
 </div>
+
+<script>
+    $(function() {
+        $('#wishBtn').click(function() {
+            if ($(this).prop('disabled')) return;
+
+            const btn = $(this);
+            const g_id = btn.data('gid');
+
+            $.ajax({
+                url: '${contextPath}/wishlist/toggle.do',
+                method: 'POST',
+                data: { g_id: g_id },
+                success: function(result) {
+                    if (result === 'added') {
+                        btn.html('❤️');
+                    } else if (result === 'removed') {
+                        btn.html('🤍');
+                    }
+                },
+                error: function() {
+                    alert('찜 처리 중 오류 발생');
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

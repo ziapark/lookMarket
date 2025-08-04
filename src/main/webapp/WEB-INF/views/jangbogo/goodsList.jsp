@@ -15,59 +15,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        .product-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            transition: box-shadow 0.3s;
-            height: 100%;
-        }
-
-        .product-card:hover {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .product-image {
-            height: 160px;
-            object-fit: cover;
-            width: 100%;
-            border-radius: 5px;
-        }
-
-        .product-name {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .product-price {
-            color: #d9534f;
-            margin-top: 5px;
-            font-size: 16px;
-        }
-
-        .btn-small {
-            padding: 4px 8px;
-            font-size: 12px;
-        }
-
-        .wish-btn {
-            border: none;
-            background: none;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .wish-btn.disabled {
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        .top-right {
-            text-align: right;
-            margin-bottom: 15px;
-        }
+        .product-card { border: 1px solid #ddd; border-radius: 8px; padding: 10px; margin-bottom: 20px; text-align: center; height: 100%; }
+        .product-image { height: 160px; object-fit: cover; width: 100%; border-radius: 5px; }
+        .product-name { font-weight: bold; margin-top: 10px; }
+        .product-price { color: #d9534f; margin-top: 5px; font-size: 16px; }
+        .btn-small { padding: 4px 8px; font-size: 12px; }
+        .wish-btn { border: none; background: none; font-size: 20px; cursor: pointer; }
+        .wish-btn.disabled { cursor: not-allowed; opacity: 0.5; }
+        .top-right { text-align: right; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -100,12 +55,8 @@
                     <c:forEach var="goods" items="${goodsList}">
                         <div class="col-md-3 col-sm-6 mb-4">
                             <div class="product-card">
-<<<<<<< HEAD
-                                <img src="${contextPath}/resources/images/${goods.g_image}" alt="${goods.g_name}" class="product-image" />
-=======
-                                <img src="${contextPath}/resources/image/${goods.i_file_name}" alt="${goods.g_name}" class="product-image" />
->>>>>>> e431f9d970a874e2e36cb232034efa1e6ed0e5b0
-                                
+                                <img src="${contextPath}/resources/image/${goods.g_image}" alt="${goods.g_name}" class="product-image" />
+
                                 <div class="product-name">${goods.g_name}</div>
                                 <div class="product-price">
                                     <fmt:formatNumber value="${goods.g_price}" type="currency" currencySymbol="₩"/>
@@ -118,12 +69,7 @@
                                         class="wish-btn"
                                         data-gid="${goods.g_id}"
                                         <c:if test="${empty m_id}">disabled class="disabled" title="로그인 후 이용 가능"</c:if>>
-                                        <span class="wish-icon">
-                                            <c:choose>
-                                                <c:when test="${goods.isWished}">❤️</c:when>
-                                                <c:otherwise>🤍</c:otherwise>
-                                            </c:choose>
-                                        </span>
+                                        <span class="wish-icon">🤍</span>
                                     </button>
                                 </div>
 
@@ -140,76 +86,6 @@
             </c:forEach>
         </c:when>
 
-<<<<<<< HEAD
-        <!-- 카테고리별 상품 목록 (goodsList만 있을 때) -->
-=======
->>>>>>> e431f9d970a874e2e36cb232034efa1e6ed0e5b0
-        <c:when test="${not empty goodsList}">
-            <c:set var="categoryName">
-                <c:choose>
-                    <c:when test="${category == 1}">신선식품</c:when>
-                    <c:when test="${category == 2}">가공식품</c:when>
-                    <c:when test="${category == 3}">생활용품</c:when>
-                    <c:when test="${category == 4}">패션잡화</c:when>
-                    <c:when test="${category == 5}">지역특산물</c:when>
-                    <c:otherwise>기타</c:otherwise>
-                </c:choose>
-            </c:set>
-
-            <h4>${categoryName} 상품 목록</h4>
-            
-            <div class="row">
-                <c:forEach var="goods" items="${goodsList}">
-                    <div class="col-md-3 col-sm-6 mb-4">
-                        <div class="product-card">
-<<<<<<< HEAD
-                            <img src="${contextPath}/resources/image/${goods.g_image}" alt="${goods.g_name}" class="product-image" />
-=======
-                            <img src="${contextPath}/resources/image/${goods.i_file_name}" alt="${goods.g_name}" class="product-image" />
->>>>>>> e431f9d970a874e2e36cb232034efa1e6ed0e5b0
-                            
-                            <div class="product-name">${goods.g_name}</div>
-                            <div class="product-price">
-                                <fmt:formatNumber value="${goods.g_price}" type="currency" currencySymbol="₩"/>
-                            </div>
-
-                            <div class="mt-2 d-flex justify-content-center align-items-center gap-2">
-<<<<<<< HEAD
-                                <a href="${contextPath}/goodsDetail.do?g_id=${goods.g_id}" class="btn btn-primary btn-small">상세보기</a>
-                                
-                                <button
-                                    class="wish-btn"
-                                    data-gid="${goods.g_id}"
-                                    <c:if test="${empty m_id}">disabled class="disabled" title="로그인 후 이용 가능"</c:if>>
-                                    <span class="wish-icon">
-                                        <c:choose>
-                                            <c:when test="${goods.isWished}">❤️</c:when>
-                                            <c:otherwise>🤍</c:otherwise>
-                                        </c:choose>
-                                    </span>
-                                </button>
-=======
-                                <a href="${contextPath}/jangbogo/goodsDetail.do?g_id=${goods.g_id}" class="btn btn-primary btn-small">상세보기</a>
-                               
->>>>>>> e431f9d970a874e2e36cb232034efa1e6ed0e5b0
-                            </div>
-
-                            <c:if test="<%= \"admin\".equals(role) %>">
-                                <div class="mt-2">
-                                    <a href="${contextPath}/goodsUpdateForm.do?g_id=${goods.g_id}" class="btn btn-warning btn-small">수정</a>
-                                    <a href="${contextPath}/goodsDelete.do?g_id=${goods.g_id}" class="btn btn-danger btn-small" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                                </div>
-                            </c:if>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
-        </c:when>
-
-<<<<<<< HEAD
-        <!-- 데이터 없을 때 -->
-=======
->>>>>>> e431f9d970a874e2e36cb232034efa1e6ed0e5b0
         <c:otherwise>
             <p class="text-center mt-4">등록된 상품이 없습니다.</p>
         </c:otherwise>
