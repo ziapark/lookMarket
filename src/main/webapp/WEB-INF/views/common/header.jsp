@@ -7,35 +7,28 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>lookmarket</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-	<link href="${contextPath}/resources/css/main.css" rel="stylesheet" type="text/css" media="screen">
-	<!-- Bootstrap JS (Popper 포함된 번들) -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-JfgaE1kdPVuVOxXjHqvwSl7aYYb0i/xkJr8y5MvHqP7mFaBO9P+j8G4yf62MfT2M" crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-	
+	<title>header</title>
+	<script>
+		$(document).ready(function() {
+	  	$('.dropdown-toggle').click(function(e) {
+	    	e.preventDefault();
+	    	e.stopPropagation();
 
-<script>
-$(document).ready(function() {
-	  $('.dropdown-toggle').click(function(e) {
-	    e.preventDefault();
-	    e.stopPropagation();
+	    	var $menu = $(this).siblings('.dropdown-menu');
+	    	$('.dropdown-menu').not($menu).slideUp(200);
+	    		$menu.slideToggle(200);
+	  		});
 
-	    var $menu = $(this).siblings('.dropdown-menu');
-	    $('.dropdown-menu').not($menu).slideUp(200);
-	    $menu.slideToggle(200);
-	  });
+	  		$('.dropdown-menu').click(function(e) {
+	    		e.stopPropagation();
+	  		});
 
-	  $('.dropdown-menu').click(function(e) {
-	    e.stopPropagation();
-	  });
+	  		$(document).click(function(e) {
+	    		$('.dropdown-menu').slideUp(200);
+	  		});
+		});
 
-	  $(document).click(function(e) {
-	    $('.dropdown-menu').slideUp(200);
-	  });
-	});
-
-</script>
+	</script>
 
 	<style>
 .dropdown-menu {
@@ -97,7 +90,7 @@ $(document).ready(function() {
                 </c:when>
                 <c:otherwise>
                     <li><a href="${contextPath}/member/loginForm.do">로그인</a></li>
-                    <li><a href="${contextPath}/member/memberForm.do">회원가입</a></li>
+                    <li><a href="${contextPath}/member/memberSelect.do">회원가입</a></li>
                 </c:otherwise>
             </c:choose>
             <li><a href="${contextPath}/chatbot/chatbot.do">고객센터</a></li>
