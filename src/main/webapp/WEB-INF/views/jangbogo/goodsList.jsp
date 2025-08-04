@@ -100,7 +100,11 @@
                     <c:forEach var="goods" items="${goodsList}">
                         <div class="col-md-3 col-sm-6 mb-4">
                             <div class="product-card">
+<<<<<<< HEAD
                                 <img src="${contextPath}/resources/images/${goods.g_image}" alt="${goods.g_name}" class="product-image" />
+=======
+                                <img src="${contextPath}/resources/image/${goods.i_file_name}" alt="${goods.g_name}" class="product-image" />
+>>>>>>> e431f9d970a874e2e36cb232034efa1e6ed0e5b0
                                 
                                 <div class="product-name">${goods.g_name}</div>
                                 <div class="product-price">
@@ -136,7 +140,10 @@
             </c:forEach>
         </c:when>
 
+<<<<<<< HEAD
         <!-- 카테고리별 상품 목록 (goodsList만 있을 때) -->
+=======
+>>>>>>> e431f9d970a874e2e36cb232034efa1e6ed0e5b0
         <c:when test="${not empty goodsList}">
             <c:set var="categoryName">
                 <c:choose>
@@ -155,7 +162,11 @@
                 <c:forEach var="goods" items="${goodsList}">
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="product-card">
+<<<<<<< HEAD
                             <img src="${contextPath}/resources/image/${goods.g_image}" alt="${goods.g_name}" class="product-image" />
+=======
+                            <img src="${contextPath}/resources/image/${goods.i_file_name}" alt="${goods.g_name}" class="product-image" />
+>>>>>>> e431f9d970a874e2e36cb232034efa1e6ed0e5b0
                             
                             <div class="product-name">${goods.g_name}</div>
                             <div class="product-price">
@@ -163,6 +174,7 @@
                             </div>
 
                             <div class="mt-2 d-flex justify-content-center align-items-center gap-2">
+<<<<<<< HEAD
                                 <a href="${contextPath}/goodsDetail.do?g_id=${goods.g_id}" class="btn btn-primary btn-small">상세보기</a>
                                 
                                 <button
@@ -176,6 +188,10 @@
                                         </c:choose>
                                     </span>
                                 </button>
+=======
+                                <a href="${contextPath}/jangbogo/goodsDetail.do?g_id=${goods.g_id}" class="btn btn-primary btn-small">상세보기</a>
+                               
+>>>>>>> e431f9d970a874e2e36cb232034efa1e6ed0e5b0
                             </div>
 
                             <c:if test="<%= \"admin\".equals(role) %>">
@@ -190,7 +206,10 @@
             </div>
         </c:when>
 
+<<<<<<< HEAD
         <!-- 데이터 없을 때 -->
+=======
+>>>>>>> e431f9d970a874e2e36cb232034efa1e6ed0e5b0
         <c:otherwise>
             <p class="text-center mt-4">등록된 상품이 없습니다.</p>
         </c:otherwise>

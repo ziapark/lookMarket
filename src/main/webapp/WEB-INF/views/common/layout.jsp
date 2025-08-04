@@ -22,7 +22,7 @@
 		<header>
 			<%@ include file="header.jsp" %>
 		</header>
-		<div style="display:flex">
+		<div style="display:flex; padding-top: 220px;">
 			<aside>
 				<%@ include file="side.jsp" %>
 			</aside>

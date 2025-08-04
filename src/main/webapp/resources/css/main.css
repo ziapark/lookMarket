@@ -26,9 +26,6 @@ a:hover {
 #wrap {
 	margin: 0px auto; padding: 0px; width: 995px; float: left;
 }
-header {
-	margin-top: 20px;
-}
 header #logo {
   float: none;
   margin: 0 auto;
