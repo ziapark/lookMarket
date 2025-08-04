@@ -10,11 +10,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller("jangbogoController")
-@RequestMapping(value="/jangbogo")
+//@RequestMapping(value="/jangbogo")
 public class JangbogoControllerImpl implements JangbogoController {
 	
 	@Override
-	@RequestMapping(value="/goodsList.do", method = { RequestMethod.GET, RequestMethod.POST })
+//	@RequestMapping(value="/goodsList.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		//상품 리스트
 		HttpSession session;
@@ -32,7 +32,7 @@ public class JangbogoControllerImpl implements JangbogoController {
 	}
 	
 	@Override
-	@RequestMapping(value="/goodsDetail.do", method = { RequestMethod.GET, RequestMethod.POST })
+//	@RequestMapping(value="/goodsDetail.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView goodsDetail(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		//상품상세
 		HttpSession session;
@@ -50,7 +50,7 @@ public class JangbogoControllerImpl implements JangbogoController {
 	}
 	
 	@Override
-	@RequestMapping(value="/goodsUpdateForm.do", method = { RequestMethod.GET, RequestMethod.POST })
+//	@RequestMapping(value="/goodsUpdateForm.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView goodsUpdateForm(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		//상품 수정
 		HttpSession session;
@@ -67,7 +67,7 @@ public class JangbogoControllerImpl implements JangbogoController {
 	}
 	
 	@Override
-	@RequestMapping(value="/goodsAddForm.do", method = { RequestMethod.GET, RequestMethod.POST })
+//	@RequestMapping(value="/goodsAddForm.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		HttpSession session;
 		ModelAndView mav = new ModelAndView();

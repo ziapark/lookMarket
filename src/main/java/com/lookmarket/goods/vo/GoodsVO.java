@@ -17,8 +17,39 @@ public class GoodsVO {
 	String g_expiration_date;
 	int g_delivery_price;
 	String g_delivery_date;
+	String g_wish;
 	int g_status;
 	int g_stock;
+	int i_id;
+	String i_file_name;
+	String i_file_type;
+	
+	public int getI_id() {
+		return i_id;
+	}
+	public void setI_id(int i_id) {
+		this.i_id = i_id;
+	}
+	public String getI_file_name() {
+		return i_file_name;
+	}
+	public void setI_file_name(String i_file_name) {
+		this.i_file_name = i_file_name;
+	}
+	public String getI_file_type() {
+		return i_file_type;
+	}
+	public void setI_file_type(String i_file_type) {
+		this.i_file_type = i_file_type;
+	}
+	public String getI_credate() {
+		return i_credate;
+	}
+	public void setI_credate(String i_credate) {
+		this.i_credate = i_credate;
+	}
+	String i_credate;
+	
 	
 	public int getG_id() {
 		return g_id;

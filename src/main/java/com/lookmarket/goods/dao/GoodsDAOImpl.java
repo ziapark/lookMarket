@@ -22,4 +22,8 @@ public class GoodsDAOImpl implements GoodsDAO{
 	public GoodsVO selectGoodsDetail(int g_id) throws Exception{
 		return sqlSession.selectOne("mapper.goods.selectGoodsDetail", g_id);
 	}
+
 }
+
+
+

@@ -19,7 +19,35 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	
 	@Override
+	public List<GoodsVO> getFreshGoods() throws Exception{
+		return goodsDAO.selectAllGoodsList();
+	}
+	
+	@Override
+	public List<GoodsVO> getProcessed() throws Exception{
+		return goodsDAO.selectAllGoodsList();
+	}
+	
+	@Override
+	public List<GoodsVO> getLiving() throws Exception{
+		return goodsDAO.selectAllGoodsList();
+	}
+	
+	@Override
+	public List<GoodsVO> getFashion() throws Exception{
+		return goodsDAO.selectAllGoodsList();
+	}
+	
+	@Override
+	public List<GoodsVO> getLocal() throws Exception{
+		return goodsDAO.selectAllGoodsList();
+	}
+	
+	@Override
 	public GoodsVO getGoodsDetail(int g_id) throws Exception{
 		return goodsDAO.selectGoodsDetail(g_id);
 	}
+
 }
+
+
