@@ -12,7 +12,6 @@
 <head>
     <meta charset="UTF-8" />
     <title>${goods.g_name} - 상품 상세</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
         .detail-container {
@@ -153,8 +152,9 @@
     <!-- 하단: 상세 이미지 반복 출력 -->
     <div class="bottom-section">
         <h4 class="mt-5 mb-3">상세 설명</h4>
+        <p>${goods.g_discription}</p>
 
-        <c:forEach var="img" items="${goods.i_file_name}">
+        <c:forEach var="img" items="${detailImageList}">
             <img src="${contextPath}/resources/image/${img}" alt="상세 이미지" />
         </c:forEach>
     </div>

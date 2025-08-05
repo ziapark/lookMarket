@@ -12,9 +12,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="${contextPath}/resources/js/jquery-3.7.0.min.js"></script>
     <meta charset="UTF-8">
     <title>상품 목록</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .product-card {
             border: 1px solid #ddd;
@@ -86,22 +86,24 @@
                 <c:set var="goodsList" value="${entry.value}" />
 
                 <h4>
-                    <c:choose>
-                        <c:when test="${category == 1}">신선식품</c:when>
-                        <c:when test="${category == 2}">가공식품</c:when>
-                        <c:when test="${category == 3}">생활용품</c:when>
-                        <c:when test="${category == 4}">패션잡화</c:when>
-                        <c:when test="${category == 5}">지역특산물</c:when>
-                        <c:otherwise>기타</c:otherwise>
-                    </c:choose>
+                <c:choose>
+						<c:when test="${category == 'fresh'}">신선식품</c:when>
+						<c:when test="${category == 'processed'}">가공식품</c:when>
+						<c:when test="${category == 'living'}">생활용품</c:when>
+						<c:when test="${category == 'fashion'}">패션잡화</c:when>
+						<c:when test="${category == 'local'}">지역특산물</c:when>
+						<c:otherwise>기타</c:otherwise>
+                </c:choose>
                     <a href="${contextPath}/goodsList.do?category=${category}" class="btn btn-sm btn-outline-secondary float-end">더보기</a>
                 </h4>
 
                 <div class="row">
                     <c:forEach var="goods" items="${goodsList}">
+                        <c:set var="firstImage" value="${fn:split(goods.i_file_name, ',')[0]}" />
+                        
                         <div class="col-md-3 col-sm-6 mb-4">
                             <div class="product-card">
-                                <img src="${contextPath}/resources/image/${goods.i_file_name}" alt="${goods.g_name}" class="product-image" />
+                                <img src="${contextPath}/resources/image/${fn:escapeXml(firstImage)}" alt="${goods.g_name}" class="product-image" />
                                 
                                 <div class="product-name">${goods.g_name}</div>
                                 <div class="product-price">
@@ -110,19 +112,17 @@
 
                                 <div class="mt-2 d-flex justify-content-center align-items-center gap-2">
                                     <a href="${contextPath}/jangbogo/goodsDetail.do?g_id=${goods.g_id}" class="btn btn-primary btn-small">상세보기</a>
-                                    
-                                    <button
-                                        class="wish-btn"
-                                        data-gid="${goods.g_id}"
-                                        <c:if test="${empty m_id}">disabled class="disabled" title="로그인 후 이용 가능"</c:if>>
-											<span class="wish-icon"> <c:choose>
-													<c:when test="${fn:contains(myWishList, goods.g_id)}">❤️</c:when>
-													<c:otherwise>🤍</c:otherwise>
-												</c:choose>
-											</span>
 
+										<button id="wishBtn_${goods.g_id}" data-gid="${goods.g_id}"
+											<c:if test="${empty m_id}">disabled class="disabled" title="로그인 후 이용 가능"</c:if>>
+											<c:choose>
+												<c:when
+													test="${myWishList != null && myWishList.contains(goods.g_id)}">❤️</c:when>
+												<c:otherwise>🤍</c:otherwise>
+											</c:choose>
 										</button>
-                                </div>
+
+									</div>
 
                                 <c:if test="<%= \"admin\".equals(role) %>">
                                     <div class="mt-2">
@@ -140,12 +140,12 @@
         <c:when test="${not empty goodsList}">
             <c:set var="categoryName">
                 <c:choose>
-                    <c:when test="${category == 1}">신선식품</c:when>
-                    <c:when test="${category == 2}">가공식품</c:when>
-                    <c:when test="${category == 3}">생활용품</c:when>
-                    <c:when test="${category == 4}">패션잡화</c:when>
-                    <c:when test="${category == 5}">지역특산물</c:when>
-                    <c:otherwise>기타</c:otherwise>
+						<c:when test="${category == 'fresh'}">신선식품</c:when>
+						<c:when test="${category == 'processed'}">가공식품</c:when>
+						<c:when test="${category == 'living'}">생활용품</c:when>
+						<c:when test="${category == 'fashion'}">패션잡화</c:when>
+						<c:when test="${category == 'local'}">지역특산물</c:when>
+						<c:otherwise>기타</c:otherwise>
                 </c:choose>
             </c:set>
 
@@ -153,9 +153,11 @@
             
             <div class="row">
                 <c:forEach var="goods" items="${goodsList}">
+                <c:set var="firstImage" value="${fn:split(goods.i_file_name, ',')[0]}" />
+                
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="product-card">
-                            <img src="${contextPath}/resources/image/${goods.i_file_name}" alt="${goods.g_name}" class="product-image" />
+                            <img src="${contextPath}/resources/image/${fn:escapeXml(firstImage)}" alt="${goods.g_name}" class="product-image" />
                             
                             <div class="product-name">${goods.g_name}</div>
                             <div class="product-price">
