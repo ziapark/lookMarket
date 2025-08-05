@@ -16,7 +16,7 @@
 		body {background-color: white;}
 		ul {list-style: none;padding: 0;text-align: center;}
 		a{text-decoration: none;color: black;}
-		header {position: fixed; top:0; background-color: #fff; margin:0 auto; width: 1200px; height: 220px; overflow : hidden;z-index: 1000;}
+		header {position: fixed; top:0; background-color: #fff; margin:0 auto; width: 1296px; height: 220px; overflow : hidden;z-index: 1000;}
 		.navbar__menu {display: flex;justify-content: space-evenly;	gap: 40px;}
 		.navbar__submenu{margin-top: 10px;}
 		header:hover{height: 400px;}
