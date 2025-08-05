@@ -1,5 +1,7 @@
 package com.lookmarket.mypage.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lookmarket.common.base.BaseController;
+import com.lookmarket.community.vo.ReviewVO;
 import com.lookmarket.mypage.service.MyPageService;
 import com.lookmarket.mypage.vo.MyPageVO;
 
@@ -128,12 +131,17 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	@RequestMapping(value="/myCommunity.do", method=RequestMethod.GET)
 	public ModelAndView myCommunity(HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		//커뮤니티(사용자)
-		HttpSession session;
+		HttpSession session = request.getSession();
 		ModelAndView mav = new ModelAndView();
 		String layout = "common/layout";
+		
+		String m_id = (String)session.getAttribute("current_id");
+		List<ReviewVO> communityList = myPageService.selectMyCommunityList(m_id);
+		
 		mav.setViewName(layout);
 		String viewName = (String)request.getAttribute("viewName");
 		mav.addObject("viewName", viewName);
+		mav.addObject("communityList", communityList);
 		
 		session = request.getSession();
 		session.setAttribute("sideMenu", "reveal");

@@ -38,7 +38,7 @@
     .carousel-item img {
   	  height: 400px; /* 원하는 높이로 조절 */
       object-fit: cover; /* 이미지가 잘리지 않고 꽉 차도록 */
-      width: 100%; /* 가로는 꽉 채움 */
+      width: 1200px; /* 가로는 꽉 채움 */
     }
     
   </style>

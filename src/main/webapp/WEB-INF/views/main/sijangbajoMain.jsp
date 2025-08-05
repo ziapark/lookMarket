@@ -18,6 +18,7 @@
   	</style>
 </head>
 <body>
+<div class="container mt-4">
 	<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
   		<div class="carousel-inner">
     		<div class="carousel-item active">
@@ -55,6 +56,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

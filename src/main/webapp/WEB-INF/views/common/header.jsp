@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 <c:if test="${empty pageType}">
-    <c:set var="pageType" value="${sessionScope.pageType}" />
+    <c:set var="pageType" value="${sessionScope.pageType}"/>
 </c:if>
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
 		body {background-color: white;}
 		ul {list-style: none;padding: 0;text-align: center;}
 		a{text-decoration: none;color: black;}
-		header {position: fixed;top:0;left:0;background-color: #fff;width: 100vw;height: 220px;overflow : hidden;z-index: 1000;}
+		header {position: fixed; top:0; background-color: #fff; margin:0 auto; width: 1200px; height: 220px; overflow : hidden;z-index: 1000;}
 		.navbar__menu {display: flex;justify-content: space-evenly;	gap: 40px;}
 		.navbar__submenu{margin-top: 10px;}
 		header:hover{height: 400px;}
@@ -53,7 +53,7 @@
 	        <c:choose>
 	            <c:when test="${pageType eq 'sijangbajo'}">
 	                <a href="${contextPath}/main/sijangbajoMain.do">
-	                    <img width="176" height="80" alt="시장봐조" src="${contextPath}/resources/image/lookmarketlogo.png" />
+	                    <img width="176" height="80" alt="시장봐조" src="${contextPath}/resources/image/sijangbajologo.png" />
 	                </a>
 	            </c:when>
 	            <c:when test="${pageType eq 'jangbogo'}">
@@ -116,11 +116,12 @@
 							</li>
 							<li class="menu">
 								<div>
-									<a href="${contextPath}/sijangbajo/nearby/nearby.do" class="menu__title">주변상권 정보</a>
+									<a href="${contextPath}/sijangbajo/nearby/nearby.do" class="menu__title">주변상권</a>
 								</div>
 								<ul id="tipSybm1" class="navbar__submenu">
-									<li><a href="${contextPath}/sijangbajo/nearby/nearby.do">주변상권 목록</a></li>
-		            				<li><a href="${contextPath}/sijangbajo/nearby/recommendCourse.do">나만의 추천코스</a></li>
+									<li><a href="${contextPath}/sijangbajo/nearby/nearby.do">주변상권</a></li>
+		            				<li><a href="${contextPath}/sijangbajo/nearby/recommendCourse.do">추천코스</a></li>
+		            				<li><a href="#">지역축제</a></li>
 								</ul>
 							</li>
 							<li class="menu">
@@ -129,7 +130,6 @@
 								</div>
 								<ul id="tipSybm1" class="navbar__submenu">
 		                                <li><a href="${contextPath}/event/promotionList.do?pageType=sijangbajo">프로모션 목록</a></li>
-		                                <li><a href="${contextPath}/event/todayRecommend.do">오늘의 추천시장</a></li>
 								</ul>
 							</li>
 							<li class="menu">
@@ -142,9 +142,9 @@
 									<a href="${contextPath}/community/communityList.do" class="menu__title">커뮤니티</a>
 								</div>
 								<ul id="tipSybm1" class="navbar__submenu">
-			            			<li><a href="${contextPath}/community/communityList.do">커뮤니티 리뷰목록</a></li>
-			            			<li><a href="${contextPath}/community/communityAddForm.do">리뷰 작성</a></li>
-			            			<li><a href="${contextPath}/community/communityUpdateForm.do">리뷰 수정</a></li>
+			            			<li><a href="${contextPath}/community/communityList.do">리뷰보기</a></li>
+			            			<li><a href="${contextPath}/community/communityAddForm.do">리뷰쓰기</a></li>
+
 								</ul>
 							</li>
 							<li class="menu">
@@ -174,7 +174,6 @@
 								</div>
 								<ul id="tipSybm1" class="navbar__submenu">
 		                                <li><a href="${contextPath}/event/promotionList.do?pageType=sijangbajo">프로모션 목록</a></li>
-		                                <li><a href="${contextPath}/event/todayRecommend.do">오늘의 추천시장</a></li>
 								</ul>
 							</li>							
 							<li class="menu">
@@ -196,9 +195,7 @@
                 	</c:choose>
 				</ul>
 			</nav>
-		</div>
-	
-	
+		</div>	
 	</div>
 </header>
 </body>

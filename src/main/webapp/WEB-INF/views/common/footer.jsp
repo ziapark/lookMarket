@@ -10,24 +10,13 @@
 </head>
 <body>
 	<footer>
-		<div>
-			<ul>
-				<li><a href="#">시장소개</a></li>
-				<li><a href="#">이용안내</a></li>
-				<li><a href="#">개인정보처리방침</a></li>
-				<li><a href="#">클린업체소개</a></li>
-				<li><a href="#">고객의소리</a></li>
-				<li><a href="#">고객만족센터</a></li>
-				<li class="no_line"><a href="#">찾아오시는길</a></li>
-			</ul>
-		</div>
 		
 	    <c:choose>
-	        <c:when test="${viewName eq '/main/jangbogoMain'}">
-	            <a href="#"><img width="147px" height="62px" alt="jangbogologo" src="${contextPath}/resources/image/jangbogologo.png" /></a>
+	        <c:when test="${sessionScope.pageType eq 'jangbogo'}">
+	            <a href="${contextPath}/resources/image/jangbogoMain.do"><img width="147px" height="62px" alt="jangbogologo" src="${contextPath}/resources/image/jangbogologo.png" /></a>
 	        </c:when>
 	        <c:otherwise>
-	            <a href="#"><img width="147px" height="62px" alt="lookmarketlogo" src="${contextPath}/resources/image/lookmarketlogo.png" /></a>
+	            <a href="${contextPath}/resources/image/lookmarketMain.do"><img width="147px" height="62px" alt="sijangbajologo" src="${contextPath}/resources/image/sijangbajologo.png" /></a>
 	        </c:otherwise>
 	    </c:choose>
 	
