@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%
     String m_id = (String) session.getAttribute("loginUserId");
@@ -11,7 +12,6 @@
 <head>
     <meta charset="UTF-8" />
     <title>${goods.g_name} - 상품 상세</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
@@ -96,7 +96,7 @@
 
     <!-- 상단: 상품 이미지 + 정보 -->
     <div class="top-section">
-        <img src="${contextPath}/resources/image/${goods.g_image}" alt="${goods.g_name}" />
+        <img src="${contextPath}/resources/image/${goods.i_file_name}" alt="${goods.g_name}" />
 
         <div class="product-info">
             <h2>${goods.g_name}</h2>
@@ -106,11 +106,11 @@
                 id="wishBtn"
                 data-gid="${goods.g_id}"
                 <c:if test="${empty m_id}">disabled class="disabled" title="로그인 후 이용 가능"</c:if>>
-                <c:choose>
-                    <c:when test="${isWished}">❤️</c:when>
-                    <c:otherwise>🤍</c:otherwise>
-                </c:choose>
-            </button>
+					<c:choose>
+						<c:when test="${fn:contains(myWishList, goods.g_id)}">❤️</c:when>
+						<c:otherwise>🤍</c:otherwise>
+					</c:choose>
+				</button>
 
             <p><strong>브랜드:</strong> ${goods.g_brand}</p>
 
@@ -154,8 +154,8 @@
     <div class="bottom-section">
         <h4 class="mt-5 mb-3">상세 설명</h4>
 
-        <c:forEach var="img" items="${goods.detailImages}">
-            <img src="${contextPath}/resources/images/${img}" alt="상세 이미지" />
+        <c:forEach var="img" items="${goods.i_file_name}">
+            <img src="${contextPath}/resources/image/${img}" alt="상세 이미지" />
         </c:forEach>
     </div>
 
