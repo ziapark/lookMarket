@@ -72,7 +72,6 @@
 						<h3>이벤트</h3>
 						<ul>
 							<li><a href="${contextPath}/event/promotionList.do">프로모션</a></li>
-							<li><a href="${contextPath}/event/todayPick.do">오늘의추천시장</a></li>
 						</ul>
 				</c:when>
 				<c:when test="${sideMenu_option == 'clean'}">

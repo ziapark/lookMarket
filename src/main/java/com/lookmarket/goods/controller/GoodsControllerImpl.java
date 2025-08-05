@@ -58,6 +58,15 @@ public class GoodsControllerImpl implements GoodsController{
 	@RequestMapping(value="/goodsDetail.do", method=RequestMethod.GET)
 	public ModelAndView goodsDetail(@RequestParam("g_id") int g_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    GoodsVO goods = goodsService.getGoodsDetail(g_id);
+	    //이미지 리스트
+	    List<String> detailImageList = new ArrayList<>();
+		if (goods.getI_file_name() != null && !goods.getI_file_name().isEmpty()) {
+			String[] files = goods.getI_file_name().split(",");
+			for (int i = 1; i < files.length; i++) {
+			    detailImageList.add(files[i].trim()); // 첫 번째는 대표 이미지니까 제외
+			}
+	    }
+
 	    ModelAndView mav = new ModelAndView();
 	    String layout = "common/layout";
 		mav.setViewName(layout);
@@ -65,6 +74,7 @@ public class GoodsControllerImpl implements GoodsController{
 		mav.addObject("viewName", viewName);
 
 	    mav.addObject("goods", goods);
+	    mav.addObject("detailImageList", detailImageList);
 	    return mav;
 	}
 	

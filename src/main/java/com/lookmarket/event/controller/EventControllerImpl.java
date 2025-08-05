@@ -25,6 +25,7 @@ public class EventControllerImpl implements EventController{
 		mav.addObject("viewName", viewName);
 		
 		session = request.getSession();
+
 		session.setAttribute("sideMenu", "reveal");
 		session.setAttribute("sideMenu_option", "event");
 		

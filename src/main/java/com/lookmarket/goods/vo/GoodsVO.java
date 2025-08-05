@@ -17,7 +17,6 @@ public class GoodsVO {
 	String g_expiration_date;
 	int g_delivery_price;
 	String g_delivery_date;
-	String g_wish;
 	int g_status;
 	int g_stock;
 	int i_id;
