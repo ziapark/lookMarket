@@ -126,6 +126,7 @@
 							</li>
 							<li class="menu">
 								<div>
+<<<<<<< HEAD
 									<a href="${contextPath}/event/promotionList.do" class="menu__title">이벤트★</a>
 								</div>
 								<ul id="tipSybm1" class="navbar__submenu">
@@ -137,9 +138,12 @@
 							</li>
 							<li class="menu">
 								<div>
+=======
+>>>>>>> 7450885d9b58ed046abbefad4863207f43ee8c43
 									<a href="${contextPath}/sijangbajo/clean/clean.do" class="menu__title">클린업체</a>
 								</div>
 							</li>
+							
 							<li class="menu">
 								<div>
 									<a href="${contextPath}/community/communityList.do" class="menu__title">커뮤니티</a>
@@ -152,15 +156,27 @@
 							</li>
 							<li class="menu">
 								<div>
+									<a href="${contextPath}/event/promotionList.do" class="menu__title">이벤트★</a>
+									
+								</div>
+								<ul id="tipSybm1" class="navbar__submenu">
+		                                <li><a href="${contextPath}/event/promotionList.do?pageType=sijangbajo">프로모션 목록</a></li>
+								</ul>
+							</li>
+							
+							<li class="menu">
+								<div>
 									<a href="${contextPath}/main/jangbogoMain.do" class="menu__title">장보고</a>
 								</div>
 							</li>
+					
 						</c:when>
 
                     	<c:when test="${pageType eq 'jangbogo'}">
                     		<li class="menu">
 								<div>
 									<a href="${contextPath}/jangbogo/goodsList.do?category=fresh" class="menu__title">상품보기</a>
+									
 								</div>
 								<ul id="tipSybm1" class="navbar__submenu">
 									<li><a href="${contextPath}/jangbogo/goodsList.do?category=all">전체보기</a></li>
@@ -187,6 +203,19 @@
 			            			<li><a href="${contextPath}/community/communityList.do">커뮤니티 리뷰목록</a></li>
 			            			<li><a href="${contextPath}/community/communityAddForm.do">리뷰 작성</a></li>
 			            			<li><a href="${contextPath}/community/communityUpdateForm.do">리뷰 수정</a></li>
+			            			<li><a href="${contextPath}/jangbogo/goodsUpdateForm.do" class="menu__title">상품수정</a></li>
+								</ul>
+							</li>
+							
+							<li class="menu">
+								<div>
+									<a href="${contextPath}/community/communityList.do" class="menu__title">주문</a>
+								</div>
+								<ul id="tipSybm1" class="navbar__submenu">
+									<a href="${contextPath}/order/orderForm.do" class="menu__title">주문정보</a>
+									<a href="${contextPath}/order/orderResult.do" class="menu__title">주문결과</a>
+									<a href="${contextPath}/member/memberList.do" class="menu__title">회원관리</a>
+									<a href="${contextPath}/member/businessMemberList.do" class="menu__title">사업자목록</a>
 								</ul>
 							</li>
 							<li class="menu">

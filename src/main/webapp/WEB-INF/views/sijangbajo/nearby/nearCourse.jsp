@@ -7,7 +7,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>나만의 추천 코스 목록</title>
+  <title>추천 코스 목록</title>
   <style>
     body {
       font-family: '맑은 고딕', sans-serif;
@@ -82,7 +82,7 @@
 </head>
 <body>
 
-<h2>📌 나만의 추천 코스 모아보기</h2>
+<h2>📌추천 코스 모아보기</h2>
 
 <div class="course-container">
   <c:forEach var="course" items="${courseList}">

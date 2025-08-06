@@ -81,16 +81,20 @@ public class GoodsControllerImpl implements GoodsController{
 	@Override
 	@RequestMapping(value="/goodsAddForm.do", method=RequestMethod.GET)
 	public ModelAndView goodsAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    ModelAndView mav = new ModelAndView("goodsAddForm");
+		ModelAndView mav = new ModelAndView();
+		String layout = "common/layout";
+		mav.setViewName(layout);
+		String viewName = (String)request.getAttribute("viewName");
+		mav.addObject("viewName", viewName);
 	    return mav;
 	}
 	
 	@Override
 	@RequestMapping(value="/goodsUpdateForm.do", method=RequestMethod.GET)
 	public ModelAndView goodsUpdateForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    int g_id = Integer.parseInt(request.getParameter("g_id"));
+	    int g_id = 1;
 	    GoodsVO goods = goodsService.getGoodsDetail(g_id);
-	    ModelAndView mav = new ModelAndView("goodsUpdateForm");
+	    ModelAndView mav = new ModelAndView("jangbogo/goodsUpdateForm");
 	    mav.addObject("goods", goods);
 	    return mav;
 	}

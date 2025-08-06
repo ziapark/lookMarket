@@ -49,6 +49,7 @@
 							<li><a href="${contextPath}/admin/mypage/allCommunityList.do">커뮤니티</a></li>
 							<li><a href="${contextPath}/admin/mypage/allBlackBoardList.do">사장님고충방</a></li>
 							<li><a href="${contextPath}/admin/accountList.do">회계관리</a></li>
+							
 						</ul>
 					</li>
 				</c:when>

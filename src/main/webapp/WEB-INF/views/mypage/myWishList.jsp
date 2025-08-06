@@ -72,7 +72,7 @@
                 <c:forEach var="wish" items="${wishlist}">
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="product-card">
-                            <img src="${contextPath}/resources/images/${wish.g_image}" alt="${wish.g_name}" class="product-image" />
+                            <img src="${contextPath}/resources/image/${wish.g_image}" alt="${wish.g_name}" class="product-image" />
 
                             <div class="product-name">${wish.g_name}</div>
                             <div class="product-price">
