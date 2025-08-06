@@ -144,7 +144,6 @@
 								<ul id="tipSybm1" class="navbar__submenu">
 			            			<li><a href="${contextPath}/community/communityList.do">리뷰보기</a></li>
 			            			<li><a href="${contextPath}/community/communityAddForm.do">리뷰쓰기</a></li>
-
 								</ul>
 							</li>
 							<li class="menu">
