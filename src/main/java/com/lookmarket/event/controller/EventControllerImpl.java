@@ -67,4 +67,22 @@ public class EventControllerImpl implements EventController{
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/promotionAddForm.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView promotionAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		//이벤트 리스트 출력
+		HttpSession session;
+		ModelAndView mav = new ModelAndView();
+		String layout = "common/layout";
+		mav.setViewName(layout);
+		String viewName = (String)request.getAttribute("viewName");
+		mav.addObject("viewName", viewName);
+		
+		session = request.getSession();
+
+		session.setAttribute("sideMenu", "reveal");
+		session.setAttribute("sideMenu_option", "event");
+		
+		return mav;
+	}
 }

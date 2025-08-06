@@ -131,6 +131,9 @@
 								<ul id="tipSybm1" class="navbar__submenu">
 		                                <li><a href="${contextPath}/event/promotionList.do?pageType=sijangbajo">프로모션 목록</a></li>
 								</ul>
+								<ul id="tipSybm1" class="navbar__submenu">
+		                                <li><a href="${contextPath}/event/promotionAddForm.do?pageType=sijangbajo">프로모션 등록</a></li>
+								</ul>
 							</li>
 							<li class="menu">
 								<div>
