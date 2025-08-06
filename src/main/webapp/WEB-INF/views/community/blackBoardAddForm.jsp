@@ -77,7 +77,7 @@
 <div class="write-container">
     <h2>사장님 고충방 글쓰기</h2>
 
-    <form action="blackboardWriteAction.jsp" method="post">
+    <form action="blackBoardAddForm.jsp" method="post">
         <div class="form-group">
             <label for="b_title">제목</label>
             <input type="text" id="b_title" name="b_title" required>
@@ -98,7 +98,7 @@
 
         <div class="form-buttons">
             <input type="submit" value="등록">
-            <a href="blackboardList.jsp">목록으로</a>
+            <a href="blackBoardList.jsp">목록으로</a>
         </div>
     </form>
 </div>

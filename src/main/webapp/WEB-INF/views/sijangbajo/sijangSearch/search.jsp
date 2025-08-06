@@ -1,20 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pageType" value="sijangbajo" />
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
+<c:set var="pageType" value="sijangbajo" />
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>전통시장 찾기</title>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<style>
-    body {font-family: Arial, sans-serif;padding: 20px;}
-    label {margin-right: 10px;}
-    select, input[type="text"] {padding: 5px; margin-right: 20px;}
-</style>
-
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c5158108310c9846cda26b7ac500c0a2c5158108310c9846cda26b7ac500c0a2"></script>
+	<style>
+	    body {font-family: Arial, sans-serif;padding: 20px;}
+	    label {margin-right: 10px;}
+	    select, input[type="text"] {padding: 5px; margin-right: 20px;}
+	    body {font-family: Arial, sans-serif; padding: 20px; }
+	    label {margin-right: 10px;}
+	    select, input[type="text"] {padding: 5px; margin-right: 20px;}
+	    .market-item {display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #e0e0e0;}
+	    .market-name {width: 33%; font-weight: bold;}
+	    .market-name a {text-decoration: none; color: black;}
+	    .market-name a:hover {color: #007bff;}
+	    .market-address {width: 34%;}
+	    .market-empty {width: 33%;}
+	</style>
 <script>
     function changeSigungu() {
         var sido = document.getElementById("sido").value;
@@ -125,6 +133,30 @@
             });
         });
     });
+	function viewMarketDetail(marketName) {
+	    // marketName으로 좌표 조회 (예: 서버에서 좌표를 JSON으로 반환)
+	    $.ajax({
+	        url: "${contextPath}/sijangbajo/sijangSearch/getMarketCoords.do",  // 좌표를 반환하는 서버 주소
+	        type: "GET",
+	        data: { marketName: marketName },
+	        dataType: "json",
+	        success: function(data) {
+	            if(data && data.latitude && data.longitude) {
+	                // searchDetail.jsp 내에 정의된 moveMarker 함수 호출
+	                if(typeof moveMarker === 'function') {
+	                    moveMarker(data.latitude, data.longitude);
+	                } else {
+	                    alert("지도 초기화가 아직 되지 않았습니다.");
+	                }
+	            } else {
+	                alert("해당 시장의 위치 정보를 찾을 수 없습니다.");
+	            }
+	        },
+	        error: function() {
+	            alert("시장 위치 정보를 가져오는 중 오류가 발생했습니다.");
+	        }
+	    });
+	}
 </script>
 </head>
 <body>
@@ -161,16 +193,22 @@
 	
 	    <button type="button" id="searchBtn">검색</button>
 	</form>
-<div id="initialSeoulList" style="margin-top: 30px; max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
-    <c:forEach var="item" items="${seoulSijangList}">
-        <div style="padding:8px 0; border-bottom:1px solid #e0e0e0;">
-            <div><strong>${item['시장명']}</strong></div>
-            <div>${item['지번주소']}</div>
-        </div>
-    </c:forEach>
-</div>
-<div id="resultArea" style="margin-top: 30px; max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; display:none;"></div>
-
-<%-- 		<%@ include file="searchDetail.jsp" %> --%>
-	</body>
+	<div id="initialSeoulList" style="margin-top: 30px; max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; width: 900px;">
+		<c:forEach var="item" items="${seoulSijangList}">
+		    <div class="market-item">
+		        <div class="market-name">
+					<a href="javascript:void(0);" onclick="viewMarketDetail('<c:out value="${item['시장명']}" />')">
+					    <c:out value="${item['시장명']}" />
+					</a>
+		        </div>
+		        <div class="market-address">
+		            <c:out value="${item['지번주소']}" />
+		        </div>
+		        <div class="market-empty"></div>
+		    </div>
+		</c:forEach>
+	</div>
+	<div id="resultArea" style="margin-top: 30px; max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; display:none;"></div>
+	<%@ include file="searchDetail.jsp" %>
+</body>
 </html>
