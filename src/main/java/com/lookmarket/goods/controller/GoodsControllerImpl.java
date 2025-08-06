@@ -88,9 +88,9 @@ public class GoodsControllerImpl implements GoodsController{
 	@Override
 	@RequestMapping(value="/goodsUpdateForm.do", method=RequestMethod.GET)
 	public ModelAndView goodsUpdateForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    int g_id = Integer.parseInt(request.getParameter("g_id"));
+	    int g_id = 1;
 	    GoodsVO goods = goodsService.getGoodsDetail(g_id);
-	    ModelAndView mav = new ModelAndView("goodsUpdateForm");
+	    ModelAndView mav = new ModelAndView("jangbogo/goodsUpdateForm");
 	    mav.addObject("goods", goods);
 	    return mav;
 	}

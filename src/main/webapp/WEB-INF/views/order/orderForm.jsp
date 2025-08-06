@@ -6,115 +6,159 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>주문정보 입력</title>
+  <title>결제하기</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
+      background: #f1f1f1;
+      font-family: 'Arial', sans-serif;
       padding: 20px;
     }
-    .order-form {
-      max-width: 600px;
+    .container-box {
+      max-width: 1100px;
       margin: auto;
-      background: #fff;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr;
+      gap: 20px;
+    }
+    .box {
+      background: white;
       border: 1px solid #ddd;
       padding: 20px;
       border-radius: 6px;
     }
-    .order-form h2 {
-      margin-top: 0;
-      font-size: 20px;
-      margin-bottom: 15px;
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      font-weight: bold;
     }
-    .order-form label {
-      display: block;
+    label {
       margin-top: 10px;
       font-weight: bold;
     }
-    .order-form input[type="text"],
-    .order-form input[type="email"],
-    .order-form input[type="number"],
-    .order-form textarea {
+    input, textarea, select {
       width: 100%;
       padding: 8px;
-      margin-top: 4px;
+      margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      box-sizing: border-box;
     }
-    .order-form .zip-row {
-      display: flex;
-      gap: 10px;
-    }
-    .order-form .zip-row input {
-      flex: 1;
-    }
-    .order-form .zip-row button {
-      flex-shrink: 0;
-      background: #00aaff;
-      color: #fff;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .order-form .zip-row button:hover {
-      background: #0077aa;
-    }
-    .order-form button.submit-btn {
-      margin-top: 20px;
+    .submit-btn {
+      width: 100%;
       background: #007bff;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
+      color: white;
+      padding: 12px;
       font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      margin-top: 20px;
     }
-    .order-form button.submit-btn:hover {
+    .submit-btn:hover {
       background: #0056b3;
+    }
+    .radio-group {
+      margin-top: 10px;
+    }
+    .radio-group label {
+      margin-right: 15px;
+      font-weight: normal;
+    }
+    .summary-table {
+      width: 100%;
+      font-size: 15px;
+      margin-bottom: 15px;
+    }
+    .summary-table td {
+      padding: 6px 0;
+    }
+    .summary-table .total {
+      font-weight: bold;
+      font-size: 18px;
+      color: #007bff;
     }
   </style>
 </head>
 <body>
 
-  <form class="order-form" action="/saveOrderInfo" method="post">
-    <h2>주문정보 입력</h2>
+<div class="container-box">
+  
+  <!-- 주문/배송 정보 -->
+  <form class="box" action="/saveOrderInfo" method="post">
+    <h2>주문 정보 입력</h2>
 
-    <!-- 주문자 이름 -->
     <label for="oi_name">주문자 이름</label>
     <input type="text" id="oi_name" name="oi_name" placeholder="주문자 이름">
 
-    <!-- 수령자 이름 -->
     <label for="oi_receiver_name">수령자 이름</label>
     <input type="text" id="oi_receiver_name" name="oi_receiver_name" placeholder="수령자 이름">
 
-    <!-- 수령자 연락처 -->
     <label for="oi_receiver_phone">수령자 연락처</label>
-    <input type="text" id="oi_receiver_phone" name="oi_receiver_phone" placeholder="예: 01012345678">
+    <input type="text" id="oi_receiver_phone" name="oi_receiver_phone" placeholder="01012345678">
     
-     <!-- 수령자 이메일 -->
     <label for="oi_email">수령자 이메일</label>
-    <input type="email" id="oi_email" name="oi_email" placeholder="예: example@email.com">
+    <input type="email" id="oi_email" name="oi_email" placeholder="example@email.com">
 
-    <!-- 우편번호 + 주소찾기 -->
     <label>우편번호</label>
-    <div class="zip-row">
-      <input type="text" id="zipcode" placeholder="우편번호">
-      <button type="button" onclick="alert('주소찾기 기능을 구현하세요.')">주소찾기</button>
+    <div style="display: flex; gap: 10px;">
+      <input type="text" id="zipcode" name="zipcode" placeholder="우편번호">
+      <button type="button" onclick="alert('주소찾기 기능 구현 필요')" style="padding: 6px 12px;">주소찾기</button>
     </div>
 
-    <!-- 배송주소 -->
     <label for="oi_delivery_address">배송주소</label>
-    <input type="text" id="oi_delivery_address" name="oi_delivery_address" placeholder="배송주소 입력">
+    <input type="text" id="oi_delivery_address" name="oi_delivery_address" placeholder="주소 입력">
 
-    <!-- 배송메시지 -->
     <label for="oi_delivery_message">배송메시지</label>
-    <textarea id="oi_delivery_message" name="oi_delivery_message" rows="3" placeholder="예: 안전하게 배송해주세요."></textarea>
-
-    <button type="submit" class="submit-btn">저장하기</button>
+    <textarea id="oi_delivery_message" name="oi_delivery_message" rows="3" placeholder="배송 요청사항을 입력하세요."></textarea>
   </form>
+
+  <!-- 결제 요약 + 결제 수단 -->
+  <div class="box">
+    <h2>결제 정보</h2>
+
+    <table class="summary-table">
+      <tr>
+        <td>상품금액</td>
+        <td align="right">18,000원</td>
+      </tr>
+      <tr>
+        <td>쿠폰 할인</td>
+        <td align="right">-1,000원</td>
+      </tr>
+      <tr>
+        <td>배송비</td>
+        <td align="right">+2,500원</td>
+      </tr>
+      <tr>
+        <td colspan="2"><hr></td>
+      </tr>
+      <tr>
+        <td>총 결제금액</td>
+        <td align="right" class="total">19,500원</td>
+      </tr>
+    </table>
+
+    <label>결제 방법</label>
+    <div class="radio-group">
+      <label><input type="radio" name="payment_method" value="card" checked> 신용카드</label>
+      <label><input type="radio" name="payment_method" value="kakao"> 카카오페이</label>
+      <label><input type="radio" name="payment_method" value="naver"> 네이버페이</label>
+      <label><input type="radio" name="payment_method" value="transfer"> 무통장입금</label>
+    </div>
+
+    <label for="installment">할부 선택</label>
+    <select name="installment" id="installment">
+      <option value="0">일시불</option>
+      <option value="3">3개월</option>
+      <option value="6">6개월</option>
+    </select>
+
+    <div style="margin-top: 10px;">
+      <label><input type="checkbox" required> 전체 동의 및 결제 진행</label>
+    </div>
+
+    <button type="submit" class="submit-btn">결제하기</button>
+  </div>
+</div>
 
 </body>
 </html>
-
