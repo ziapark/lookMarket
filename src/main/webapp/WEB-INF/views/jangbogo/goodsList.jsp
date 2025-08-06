@@ -76,7 +76,7 @@
     <h2>상품 목록</h2>
     
     <div class="top-right">
-        <a href="${contextPath}/goodsAddForm.do" class="btn btn-primary">상품 등록</a>
+        <a href="${contextPath}/jangbogo/goodsAddForm.do" class="btn btn-primary">상품 등록</a>
     </div>
 
     <c:choose>

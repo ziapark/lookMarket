@@ -81,7 +81,11 @@ public class GoodsControllerImpl implements GoodsController{
 	@Override
 	@RequestMapping(value="/goodsAddForm.do", method=RequestMethod.GET)
 	public ModelAndView goodsAddForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    ModelAndView mav = new ModelAndView("goodsAddForm");
+		ModelAndView mav = new ModelAndView();
+		String layout = "common/layout";
+		mav.setViewName(layout);
+		String viewName = (String)request.getAttribute("viewName");
+		mav.addObject("viewName", viewName);
 	    return mav;
 	}
 	
