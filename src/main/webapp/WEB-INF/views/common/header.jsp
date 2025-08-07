@@ -126,7 +126,6 @@
 							</li>
 							<li class="menu">
 								<div>
-<<<<<<< HEAD
 									<a href="${contextPath}/event/promotionList.do" class="menu__title">이벤트★</a>
 								</div>
 								<ul id="tipSybm1" class="navbar__submenu">
@@ -138,8 +137,7 @@
 							</li>
 							<li class="menu">
 								<div>
-=======
->>>>>>> 7450885d9b58ed046abbefad4863207f43ee8c43
+
 									<a href="${contextPath}/sijangbajo/clean/clean.do" class="menu__title">클린업체</a>
 								</div>
 							</li>
